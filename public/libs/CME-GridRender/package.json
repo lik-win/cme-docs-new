@@ -1,0 +1,15 @@
+{
+    "name": "CME-GridRender",
+    "version": "0.2.3",
+    "description": "CME-GridRender色斑图组件",
+    "main": "CME-GridRender.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "CME-GridRender色斑图组件"
+    ],
+    "author": "fy",
+    "private": false,
+    "license": "ISC"
+}

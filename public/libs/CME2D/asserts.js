@@ -1,0 +1,1 @@
+export function assert(_0x5233e4,_0x586233){if(!_0x5233e4)throw new Error(_0x586233);}

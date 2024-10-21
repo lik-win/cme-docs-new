@@ -1,0 +1,1 @@
+export const DEFAULT_MAX_ZOOM=0x2a;export const DEFAULT_TILE_SIZE=0x100;
