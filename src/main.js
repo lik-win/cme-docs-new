@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus';
 // import { Repl, useStore, useVueImportMap } from '../repl/index.ts';
 import router from './router/index';
 import App from './App.vue';
+import { GridRender } from 'CME-GridRender';
 
 const window = globalThis.window;
 window.process = { env: {} }
@@ -77,4 +78,5 @@ window.process = { env: {} }
 const app = createApp(App);
 app.use(ElementPlus);
 app.use(router);
+app.use(GridRender);
 app.mount('#app')

@@ -15,15 +15,12 @@ export function useVueImportMap(
   const productionMode = ref(false)
   const vueVersion = ref<string | null>(defaults.vueVersion || null)
   const importMap = computed<ImportMap>(() => {
-    const vue = `/public/libs/runtime-dom.esm-browser.js`;
-    const serverRenderer = `/public/libs/server-renderer.esm-browser.js`;
+    const vue = `/libs/runtime-dom.esm-browser.js`;
+    const serverRenderer = `/libs/server-renderer.esm-browser.js`;
     return {
       imports: {
         vue,
-        TileLayer: '/public/libs/CME2D/layer/Tile.js',
-        XYZ: '/public/libs/CME2D/source/XYZ.js',
-        View: '/public/libs/CME2D/View.js',
-        Map: '/public/libs/CME2D/Map.js',
+        'CME2D/': '/libs/CME2D/',
         'vue/server-renderer': serverRenderer
       }
     }

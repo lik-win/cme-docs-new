@@ -1,41 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import examples from './examples';
 import Laytout from './../Layout.vue';
-import DemoIndex from './../DemoIndex.vue';
+// import EditIndex from './../EditIndex.vue';
 import Samples from './../views/docs/Samples.vue';
 
+/**
+ * 路径规范：
+ * 1、url路径部分，全部使用小写字母，如果有多个单词，使用“-”连接
+ * 2、query/hash或其他部分，大小写不限制，推荐驼峰写法
+ * 如：/example/scene/init-2d-map?keyword=init2dMap  (问号前面需遵循规范1，其他地方遵循规范2)
+ */
 const routes = [{
   path: '/',
   redirect: '/samples',
 }, {
   path: '/samples',
   name: 'samples',
-  component: Samples,
+  component: Samples
 }, {
-  path: '/cogtif',
+  path: '/example',
+  name: 'example',
   component: Laytout,
-  meta: { menu: 'CogTif' },
-  children: [{
-    path: '/cogtif/radar',
-    name: 'radar',
-    component: DemoIndex,
-    meta: {
-      menu: '雷达',
-      fileName: 'radar.vue',
-      filePath: './../views/cogtif/radar.vue'
-    }
-  }]
+  children: [...examples]
 }];
 
 const routeBase = 'cmedocs';
 const router = createRouter({
-  history: createWebHistory('cmedocs'),
+  history: createWebHistory(routeBase),
   routes
 });
 
 function getMenus(routeList, menus = []) {
   routeList.forEach(item => {
-    if (!(item.meta && item.meta.menu)) return;
-    const { path, meta, children } = item;
+    const { meta, path, children } = item;
+    if (!(meta && meta.title) || meta.hidden) return;
     const menuItem = { path, ...meta };
     if (children && children.length) {
       menuItem.children = [];
@@ -45,8 +43,13 @@ function getMenus(routeList, menus = []) {
   });
   return menus;
 }
+const menus = getMenus(examples);
 
-const menus = getMenus(routes);
+function getExampleRoutes() {
+  return router.getRoutes().filter(r => ('vueName' in r.meta));
+}
 
-export { menus, routeBase };
+const exampleRoutes = getExampleRoutes();
+
+export { menus, routeBase, exampleRoutes };
 export default router;

@@ -1,51 +1,45 @@
 <template>
   <el-aside width="180px">
-    <el-menu :default-active="defaultPath">
+    <el-menu :default-active="defaultPath" router>
       <template v-for="item in menus">
-        <el-sub-menu v-if="item.children && item.children.length" index="1">
+        <el-sub-menu v-if="item.children && item.children.length" :index="item.path">
           <template #title>
-            <span>{{ item.menu }}</span>
+            <span>{{ item.title }}</span>
           </template>
           <template v-for="sub in item.children">
-            <el-menu-item :index="sub.path">
-              <template #title>{{ sub.menu }}</template>
+            <el-menu-item :index="`/example/${item.path}/${sub.path}`">
+              <template #title>{{ sub.title }}</template>
             </el-menu-item>
           </template>
         </el-sub-menu>
-        <el-menu-item v-else :index="item.path">
-          <template #title>{{ item.menu }}</template>
+        <el-menu-item v-else :index="`/example/${item.path}`">
+          <template #title>{{ item.title }}</template>
         </el-menu-item>
       </template>
     </el-menu>
   </el-aside>
   <el-main>
-    <Repl v-bind="replOptions"></Repl>
+    <SplitPane :code="code">
+      <router-view />
+    </SplitPane>
   </el-main>
 </template>
 <script setup>
-import { reactive, ref } from 'vue';
-import { Repl, useStore, File } from './../repl/index.ts';
+import SplitPane from './components/SplitPane.vue';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { menus } from './router/index.js';
-import radarSFC from './views/cogtif/radar.vue?raw';
 
-const store = useStore();
+import codes from './codes.js';
+const route = useRoute();
 
-const defaultPath = ref((menus[0].children ? menus[0].children[0] : menus[0]).path);
+const code = ref(codes[route.meta.vueName]);
+const defaultPath = ref(route.path);
 
-// store.deleteFile('src/App.vue');
-// store.mainFile = 'Radar.vue';
-store.addFile(new File('Radar.vue', radarSFC));
-
-
-const replOptions = reactive({
-  store: store,
-  showTsConfig: true,
-  showCompileOutput: false,
-  showImportMap: true,
-  previewOptions: { headHTML: '' },
-  clearConsole: false
+watch(() => route.meta, meta => {
+  if (!meta) return;
+  code.value = codes[meta.vueName] || '';
 });
-
 </script>
 
 <style lang="scss" scoped>
@@ -89,12 +83,18 @@ const replOptions = reactive({
   color: var(--el-color-primary);
 }
 
-
-.el-container {
-  flex: 1;
-}
-
 .el-main {
   padding: 0;
+
+}
+
+.split-pane {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  .right {
+    flex: 1;
+  }
 }
 </style>

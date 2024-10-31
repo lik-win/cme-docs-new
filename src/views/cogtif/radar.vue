@@ -40,7 +40,7 @@ function initMap() {
 }
 
 // 添加色斑图
-function addSpot() {
+function addSpot(map, url) {
   if (!gridRef.value) {
     throw Error('组件引用为空！');
   }
@@ -88,6 +88,13 @@ function addSpot() {
 onMounted(() => {
   let url = "/tiffs/RADA_CREF_20230728120000_4326.tif";
   // 初始化地图
-  initMap().then(map => addSpot(url));
+  initMap().then(map => addSpot(map, url));
 });
 </script>
+
+<style lang="css">
+#map {
+  width: 100%;
+  height: 100%;
+}
+</style>

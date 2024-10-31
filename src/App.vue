@@ -2,7 +2,7 @@
   <el-config-provider size="small">
     <el-container class="cme-layout">
       <el-header>
-        <router-link to="/">CME服务支持网站</router-link>
+        <router-link to="/">CME框架支持文档</router-link>
       </el-header>
       <el-contianer class="content-view">
         <router-view />
@@ -20,7 +20,6 @@ import { ElConfigProvider } from 'element-plus';
 <style lang="scss" scoped>
 .cme-layout {
   height: 100%;
-  min-width: 1200px;
   overflow: hidden;
 }
 

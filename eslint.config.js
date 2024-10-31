@@ -9,11 +9,11 @@ export default tseslint.config(
   ...pluginVue.configs['flat/recommended'],
   {
     files: ['**/*.vue'],
-    languageOptions: {
-      parserOptions: {
-        parser: '@typescript-eslint/parser',
-      },
-    },
+    // languageOptions: {
+    //   parserOptions: {
+    //     parser: '@typescript-eslint/parser',
+    //   },
+    // },
   },
   {
     rules: {
