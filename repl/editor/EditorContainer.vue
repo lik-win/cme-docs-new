@@ -20,6 +20,14 @@ const onChange = debounce((code: string) => {
   store.value.activeFile.code = code
 }, 250)
 
+function resetCode() {
+  store.value.activeFile.code = store.value.activeFile.rawCode;
+}
+
+function toRun() {
+  console.log(props.editorComponent);
+}
+
 function setItem() {
   localStorage.setItem(SHOW_ERROR_KEY, showMessage.value ? 'true' : 'false')
 }
@@ -35,7 +43,7 @@ watch(showMessage, () => {
 </script>
 
 <template>
-  <FileSelector />
+  <FileSelector @run="toRun" @reset="resetCode" />
   <div class="editor-container">
     <props.editorComponent :value="store.activeFile.code" :filename="store.activeFile.filename" @change="onChange" />
     <Message v-show="showMessage" :err="store.errors[0]" />

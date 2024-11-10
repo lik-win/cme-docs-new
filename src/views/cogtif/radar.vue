@@ -6,10 +6,13 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import TileLayer from 'CME2D/layer/Tile.js';
-import XYZ from "CME2D/source/XYZ.js";
-import View from "CME2D/View.js";
-import Map from "CME2D/Map.js";
+// import TileLayer from 'CME2D/layer/Tile.js';
+// import XYZ from "CME2D/source/XYZ.js";
+// import View from "CME2D/View.js";
+// import Map from "CME2D/Map.js";
+
+
+import { Map, View, source, layer } from 'CME2D';
 
 const mapRef = ref(null);
 const gridRef = ref(null);
@@ -20,9 +23,9 @@ function initMap() {
     const map = new Map({
       target: mapRef.value,//挂载实例
       layers: [
-        new TileLayer({
+        new layer.Tile({
           preload: Infinity, //开启预加载模式
-          source: new XYZ({
+          source: new source.XYZ({
             url: 'https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}'
           })
         })
@@ -92,7 +95,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="css">
+<style>
 #map {
   width: 100%;
   height: 100%;

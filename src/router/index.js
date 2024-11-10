@@ -3,6 +3,8 @@ import examples from './examples';
 import Laytout from './../Layout.vue';
 // import EditIndex from './../EditIndex.vue';
 import Samples from './../views/docs/Samples.vue';
+import { useStore, File } from './../../repl/index.ts';
+import codes from '../codes';
 
 /**
  * 路径规范：
@@ -29,6 +31,19 @@ const router = createRouter({
   history: createWebHistory(routeBase),
   routes
 });
+
+// const editStore = useStore();
+// router.beforeEach((to, from, next) => {
+//   console.log(to);
+//   if (!('vueName' in to.meta)) {
+//     return next();
+//   }
+//   const { vueName } = to.meta;
+//   editStore.mainFile = `${vueName}.vue`;
+//   editStore.addFile(new File(`${vueName}.vue`, codes[vueName]));
+//   next();
+// });
+
 
 function getMenus(routeList, menus = []) {
   routeList.forEach(item => {

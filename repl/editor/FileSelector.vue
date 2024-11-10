@@ -2,7 +2,6 @@
 import { injectKeyProps } from './../types'
 import { importMapFile, stripSrcPrefix, tsconfigFile } from '../store'
 import { type VNode, computed, inject, ref, useTemplateRef } from 'vue'
-
 // const { store, showTsConfig, showImportMap } = inject(injectKeyProps)!
 const { store } = inject(injectKeyProps)!
 const emitter = defineEmits(['run', 'reset']);
@@ -19,14 +18,14 @@ const pending = ref<boolean | string>(false)
  */
 const pendingFilename = ref('Comp.vue')
 
-const files = computed(() =>
-  Object.entries(store.value.files)
+const files = computed(() => {
+  return Object.entries(store.value.files)
     .filter(
       ([name, file]) =>
         name !== importMapFile && name !== tsconfigFile && !file.hidden,
     )
-    .map(([name]) => name),
-)
+    .map(([name]) => name)
+})
 
 // function startAddFile() {
 //   let i = 0
@@ -134,10 +133,10 @@ function horizontalScroll(e: WheelEvent) {
       </div>
     </template>
     <!-- <button class="add" @click="startAddFile">+</button> -->
-    <!-- <div class="import-map-wrapper">
-      <button @click="emitter('run')">运行</button>
+    <div class="import-map-wrapper">
+      <!-- <button @click="emitter('run')">运行</button> -->
       <button @click="emitter('reset')">重置</button>
-    </div> -->
+    </div>
     <!-- <div class="import-map-wrapper">
       <div v-if="showTsConfig && store.files[tsconfigFile]" class="file"
         :class="{ active: store.activeFile.filename === tsconfigFile }" @click="store.setActive(tsconfigFile)">
@@ -264,8 +263,8 @@ function horizontalScroll(e: WheelEvent) {
     width: 44px;
     height: 24px;
     margin: 0 2px;
-    line-height: 20px;
-    color: var(--text-light);
+    line-height: 22px;
+    color: var(--color-branding);
     border: 1px solid var(--text-light);
     border-radius: 2px;
     transition: 0.2s;

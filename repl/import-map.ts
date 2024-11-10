@@ -20,8 +20,12 @@ export function useVueImportMap(
     return {
       imports: {
         vue,
-        'CME2D/': '/libs/CME2D/',
-        'vue/server-renderer': serverRenderer
+        'vue/server-renderer': serverRenderer,
+        CME2D: '/libs/cme2d.mjs',
+        CME3D: '/libs/CME3D/CME3D.js',
+        'CME3D/': '/libs/CME3D/'
+        // 'CME2D/': '/libs/CME2D/',
+        // CME2D: '/libs/cme2d.js'
       }
     }
   })
