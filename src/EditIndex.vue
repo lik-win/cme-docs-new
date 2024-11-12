@@ -19,15 +19,22 @@
     </el-menu>
   </el-aside>
   <el-main>
-    <Repl v-bind="replOptions"></Repl>
+    <Repl ref="repl" v-bind="replOptions"></Repl>
   </el-main>
 </template>
 <script setup>
-import { reactive, ref, watch } from 'vue';
+import { reactive, ref, useTemplateRef, watch } from 'vue';
 import { useRouter } from 'vue-router'
 import { Repl, useStore, File } from '../repl/index.ts';
 import { menus } from './router/index.js';
 import codes from './codes.js';
+
+const replRef = useTemplateRef('repl');
+
+const url = 'http://10.40.88.119:18000/Init2dMapStatic.txt';
+function getCode() {
+  return fetch(url, { method: 'GET' }).then(res => res.text());
+}
 
 const router = useRouter();
 const editStore = useStore();
@@ -37,7 +44,11 @@ watch(router.currentRoute, route => {
   if (!vueName) return router.replace('/');
   editStore.deleteAllFiles();
   editStore.mainFile = `${vueName}.html`;
-  editStore.addFile(new File(`${vueName}.html`, codes[vueName]));
+  editStore.addFile(new File(`${vueName}.html`, ''));
+  getCode().then(code => {
+    editStore.activeFile.setRaw(code);
+    replRef.value.onCodeChange(code);
+  });
 }, { immediate: true });
 
 const paths = router.currentRoute.value.path.split('/');

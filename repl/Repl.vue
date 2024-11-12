@@ -104,6 +104,7 @@ function onCodeChange(code: string) {
 const sandboxAllows = 'allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation';
 
 // defineExpose({ reload })
+defineExpose({ onCodeChange });
 </script>
 
 <template>

@@ -10,6 +10,16 @@ export function debounce(fn: Function, n = 100) {
   }
 }
 
+export function throttle(fn: Function, n = 200) {
+  let last: number = 0;
+  return (...args: any[]) => {
+    const now = Date.now();
+    if (now - last < n) return;
+    last = now;
+    fn(...args);
+  }
+}
+
 export function utoa(data: string): string {
   const buffer = strToU8(data)
   const zipped = zlibSync(buffer, { level: 9 })

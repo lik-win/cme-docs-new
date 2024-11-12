@@ -509,6 +509,10 @@ export class File {
     }
     return 'javascript'
   }
+  setRaw(code: string) {
+    this.code = code;
+    this._rawCode = code;
+  }
 }
 
 function addSrcPrefix(file: string) {
