@@ -1,19 +1,19 @@
 <template>
   <el-aside width="180px">
-    <el-menu :default-active="defaultPath">
+    <el-menu :default-active="defaultPath" router>
       <template v-for="item in menus">
-        <el-sub-menu v-if="item.children && item.children.length" index="1">
+        <el-sub-menu v-if="item.children && item.children.length" :index="item.path">
           <template #title>
-            <span>{{ item.menu }}</span>
+            <span>{{ item.title }}</span>
           </template>
           <template v-for="sub in item.children">
-            <el-menu-item :index="sub.path">
-              <template #title>{{ sub.menu }}</template>
+            <el-menu-item :index="`/example/${item.path}/${sub.path}`">
+              <template #title>{{ sub.title }}</template>
             </el-menu-item>
           </template>
         </el-sub-menu>
-        <el-menu-item v-else :index="item.path">
-          <template #title>{{ item.menu }}</template>
+        <el-menu-item v-else :index="`/example/${item.path}`">
+          <template #title>{{ item.title }}</template>
         </el-menu-item>
       </template>
     </el-menu>
@@ -23,21 +23,28 @@
   </el-main>
 </template>
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
+import { useRouter } from 'vue-router'
 import { Repl, useStore, File } from '../repl/index.ts';
 import { menus } from './router/index.js';
 import codes from './codes.js';
 
-const store = useStore();
-const defaultPath = ref((menus[0].children ? menus[0].children[0] : menus[0]).path);
+const router = useRouter();
+const editStore = useStore();
+editStore.deleteAllFiles();
+watch(router.currentRoute, route => {
+  const { vueName } = route.meta;
+  if (!vueName) return router.replace('/');
+  editStore.deleteAllFiles();
+  editStore.mainFile = `${vueName}.html`;
+  editStore.addFile(new File(`${vueName}.html`, codes[vueName]));
+}, { immediate: true });
 
-store.deleteFile('src/App.vue');
-store.mainFile = 'Radar.vue';
-store.addFile(new File('Radar.vue', codes.radarSFC));
-
+const paths = router.currentRoute.value.path.split('/');
+const defaultPath = ref(paths.pop());
 
 const replOptions = reactive({
-  store: store,
+  store: editStore,
   showTsConfig: true,
   showCompileOutput: false,
   showImportMap: true,

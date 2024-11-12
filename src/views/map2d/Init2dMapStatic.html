@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    html,
+    body,
+    #map {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script type="text/javascript" src="/libs/cme2d.js"></script>
+  <script type="text/javascript">
+    const { Map, View, source, layer } = window.CME2D;
+    function initMap(mapEl) {
+      const map = new Map({
+        target: mapEl,//挂载实例
+        layers: [
+          new layer.Tile({
+            preload: Infinity, //开启预加载模式
+            source: new source.XYZ({
+              url: 'https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}'
+            })
+          })
+        ],
+        view: new View({ //地图视图
+          center: [106, 35],
+          projection: "EPSG:4326",
+          zoom: 5,
+          wrapX: true,
+        }),//地图设置
+        controls: [],//取消地图操作
+      });
+    }
+    window.onload = function () {
+      const mapEl = document.querySelector('#map');
+      initMap(mapEl);
+    }
+  </script>
+</body>
+
+</html>

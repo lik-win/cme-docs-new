@@ -182,6 +182,16 @@ export function useStore(
     }
     delete files.value[filename]
   }
+
+  const originList = ['import-map.json', 'tsconfig.json'];
+  const deleteAllFiles: Store['deleteAllFiles'] = () => {
+    activeFilename.value = null;
+    Object.keys(files.value).forEach(name => {
+      if (originList.includes(name)) return;
+      Reflect.deleteProperty(files.value, name);
+    });
+  }
+
   const renameFile: Store['renameFile'] = (oldFilename, newFilename) => {
     const file = files.value[oldFilename]
 
@@ -362,6 +372,7 @@ export function useStore(
     setActive,
     addFile,
     deleteFile,
+    deleteAllFiles,
     renameFile,
     getImportMap,
     getTsConfig,
@@ -430,6 +441,7 @@ export interface ReplStore extends UnwrapRef<StoreState> {
   setActive(filename: string): void
   addFile(filename: string | File): void
   deleteFile(filename: string): void
+  deleteAllFiles(): void
   renameFile(oldFilename: string, newFilename: string): void
   getImportMap(): ImportMap
   getTsConfig(): Record<string, any>
@@ -458,6 +470,7 @@ export type Store = Pick<
   | 'setActive'
   | 'addFile'
   | 'deleteFile'
+  | 'deleteAllFiles'
   | 'renameFile'
   | 'getImportMap'
   | 'getTsConfig'
@@ -475,8 +488,12 @@ export class File {
     public filename: string,
     public code = '',
     public hidden = false,
-  ) { }
-
+  ) {
+    this._rawCode = code;
+  }
+  get rawCode() {
+    return this._rawCode;
+  }
   get language() {
     if (this.filename.endsWith('.vue')) {
       return 'vue'

@@ -1,1 +1,0 @@
-export function clear(_0x314b4c){for(const _0xff6daa in _0x314b4c){delete _0x314b4c[_0xff6daa];}}export function isEmpty(_0x1a0424){let _0x3d84e2;for(_0x3d84e2 in _0x1a0424){return![];}return!_0x3d84e2;}

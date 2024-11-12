@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import SplitPane from './SplitPane.vue'
-import Output from './output/Output.vue'
+// import Output from './output/Output.vue'
 import { type Store, useStore } from './store'
-import { computed, provide, toRefs, useTemplateRef } from 'vue'
+import { computed, provide, toRefs, useTemplateRef, onMounted } from 'vue'
 import {
   type EditorComponentType,
-  injectKeyPreviewRef,
+  // injectKeyPreviewRef,
   injectKeyProps,
 } from './types'
 import EditorContainer from './editor/EditorContainer.vue'
@@ -70,7 +70,8 @@ if (!props.editor) {
   throw new Error('The "editor" prop is now required.')
 }
 
-const outputRef = useTemplateRef('output')
+// const outputRef = useTemplateRef('output');
+const sandboxRef = useTemplateRef('sandbox');
 
 props.store.init()
 
@@ -78,30 +79,45 @@ const editorSlotName = computed(() => (props.layoutReverse ? 'right' : 'left'))
 const outputSlotName = computed(() => (props.layoutReverse ? 'left' : 'right'))
 
 provide(injectKeyProps, { ...toRefs(props), autoSave })
-provide(
-  injectKeyPreviewRef,
-  computed(() => outputRef.value?.previewRef?.container ?? null),
-)
+// provide(
+//   injectKeyPreviewRef,
+//   computed(() => outputRef.value?.previewRef?.container ?? null),
+// )
+
+onMounted(() => {
+  if (!sandboxRef.value) return;
+  sandboxRef.value.srcdoc = props.store.activeFile.code;
+});
+
+function onCodeChange(code: string) {
+  if (!sandboxRef.value) return;
+  sandboxRef.value.srcdoc = code;
+}
 
 /**
  * Reload the preview iframe
  */
-function reload() {
-  outputRef.value?.reload()
-}
+// function reload() {
+//   outputRef.value?.reload()
+// }
 
-defineExpose({ reload })
+const sandboxAllows = 'allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation';
+
+// defineExpose({ reload })
 </script>
 
 <template>
   <div class="cme-repl">
     <SplitPane :layout="layout">
       <template #[editorSlotName]>
-        <EditorContainer :editor-component="editor" />
+        <EditorContainer :editor-component="editor" @change="onCodeChange" />
       </template>
-      <template #[outputSlotName]>
+      <!-- <template #[outputSlotName]>
         <Output ref="output" :editor-component="editor" :show-compile-output="props.showCompileOutput"
           :ssr="!!props.ssr" />
+      </template> -->
+      <template #[outputSlotName]>
+        <iframe ref="sandbox" :sandbox="sandboxAllows" frameborder="0"></iframe>
       </template>
     </SplitPane>
   </div>
@@ -142,5 +158,10 @@ defineExpose({ reload })
   cursor: pointer;
   margin: 0;
   background-color: transparent;
+}
+
+iframe {
+  height: 100%;
+  width: 100%;
 }
 </style>
