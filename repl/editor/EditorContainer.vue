@@ -15,9 +15,11 @@ const props = defineProps<{
 // const { store, autoSave, editorOptions } = inject(injectKeyProps)!
 const { store } = inject(injectKeyProps)!
 const showMessage = ref(getItem())
+const emitter = defineEmits(['change']);
 
 const onChange = debounce((code: string) => {
-  store.value.activeFile.code = code
+  store.value.activeFile.code = code;
+  emitter('change', code);
 }, 250)
 
 function resetCode() {
@@ -37,9 +39,7 @@ function getItem() {
   return !(item === 'false')
 }
 
-watch(showMessage, () => {
-  setItem()
-})
+watch(showMessage, () => setItem())
 </script>
 
 <template>

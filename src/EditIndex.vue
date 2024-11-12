@@ -36,8 +36,8 @@ watch(router.currentRoute, route => {
   const { vueName } = route.meta;
   if (!vueName) return router.replace('/');
   editStore.deleteAllFiles();
-  editStore.mainFile = `${vueName}.vue`;
-  editStore.addFile(new File(`${vueName}.vue`, codes[vueName]));
+  editStore.mainFile = `${vueName}.html`;
+  editStore.addFile(new File(`${vueName}.html`, codes[vueName]));
 }, { immediate: true });
 
 const paths = router.currentRoute.value.path.split('/');
