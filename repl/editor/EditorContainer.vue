@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FileSelector from './FileSelector.vue'
 import Message from '../Message.vue'
-import { debounce } from '../utils'
+import { debounce, throttle } from '../utils'
 import { inject, ref, watch } from 'vue'
 // import ToggleButton from './ToggleButton.vue'
 import { type EditorComponentType, injectKeyProps } from '../types'
@@ -20,11 +20,12 @@ const emitter = defineEmits(['change']);
 const onChange = debounce((code: string) => {
   store.value.activeFile.code = code;
   emitter('change', code);
-}, 250)
+}, 250);
 
-function resetCode() {
+const resetCode = throttle(() => {
   store.value.activeFile.code = store.value.activeFile.rawCode;
-}
+  emitter('change', store.value.activeFile.rawCode);
+}, 1000);
 
 function toRun() {
   console.log(props.editorComponent);
