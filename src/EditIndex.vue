@@ -1,31 +1,52 @@
 <template>
-  <el-aside width="180px">
-    <el-menu :default-active="defaultPath" router>
-      <template v-for="item in menus">
-        <el-sub-menu v-if="item.children && item.children.length" :index="item.path">
-          <template #title>
-            <span>{{ item.title }}</span>
-          </template>
-          <template v-for="sub in item.children">
-            <el-menu-item :index="`/example/${item.path}/${sub.path}`">
-              <template #title>{{ sub.title }}</template>
-            </el-menu-item>
-          </template>
-        </el-sub-menu>
-        <el-menu-item v-else :index="`/example/${item.path}`">
-          <template #title>{{ item.title }}</template>
-        </el-menu-item>
-      </template>
-    </el-menu>
+  <el-aside>
+    <TreeMenu :enableAnchor="false"></TreeMenu>
   </el-aside>
-  <el-main>
-    <Repl ref="repl" v-bind="replOptions"></Repl>
+  <el-main class="page-view">
+    <div class="head-info">
+      <h3 class="title">功能模块名称1</h3>
+      <p class="src-path">src/ui/map.js</p>
+    </div>
+    <div class="center-box">
+      <p class="desc">Mapbox GL JS是一个客户端 JavaScript 库，用于使用 Mapbox 的现代地图技术构建 Web 地图和 Web 应用程序。您可以使用 Mapbox GL JS 在 Web
+        浏览器或客户端中显示 Mapbox 地图、添加用户交互性以及自定义应用程序中的地图体验。</p>
+      <Repl ref="repl" v-bind="replOptions"></Repl>
+      <div class="info-block">
+        <h4 class="title">使用</h4>
+        <p class="line">用例包括：</p>
+        <ul class="list">
+          <li class="item">地理数据可视化和动画</li>
+          <li class="item">查询和过滤地图上的要素</li>
+          <li class="item">将数据放置在图层之间</li>
+          <li class="item">在地图上动态显示数据并设置样式</li>
+          <li class="item">3D数据可视化和动画</li>
+          <li class="item">已编程方式向地图添加标记和弹出窗口</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4 class="title">特征</h4>
+        <p class="line">主要特征：</p>
+        <ul class="list">
+          <li class="item">支持多种格式的数据加载，可视化形式多样</li>
+          <li class="item">投影格式多样，适配多种地图场景需求</li>
+          <li class="item">支持二三位切换，以及二三位一体化展示</li>
+          <li class="item">基于JavaScript实现，支持跨平台</li>
+          <li class="item">具备完善的用户示例二次开发接口</li>
+        </ul>
+      </div>
+    </div>
+    <div class="right">
+      <p class="p-title">本页内容</p>
+      <a class="a-link">用例</a>
+      <a class="a-link">特征</a>
+    </div>
   </el-main>
 </template>
 <script setup>
 import { reactive, ref, useTemplateRef, watch } from 'vue';
 import { useRouter } from 'vue-router'
 import { Repl, useStore, File } from '../repl/index.ts';
+import TreeMenu from './components/TreeMenu.vue';
 import { menus } from './router/index.js';
 import codes from './codes.js';
 
@@ -66,52 +87,87 @@ const replOptions = reactive({
 </script>
 
 <style lang="scss" scoped>
-.dark-theme {
-  background-color: #333333;
-  color: #ffffff;
-}
+@import "./assets/mixins.scss";
 
-.el-aside,
-.el-menu,
-.el-sub-menu,
-.el-menu-item {
-  --el-border-color: #252525;
-  background-color: #252525;
-  color: #ffffffa6;
-}
+$border: 1px solid #FFFFFF19;
 
-.el-menu {
-  border-right: none;
-}
-
-.el-menu-item {
-  height: 40px;
-}
-
-:deep(.el-sub-menu__title) {
-  padding-left: 12px;
-  height: 44px;
-  color: #ffffffa6;
-
-  &:hover {
-    background-color: #333333;
-  }
-}
-
-.el-menu-item:hover {
-  background-color: #333333;
-}
-
-.el-menu-item.is-active {
-  color: var(--el-color-primary);
-}
-
-
-.el-container {
-  flex: 1;
+.el-aside {
+  width: 360px;
+  border-right: $border;
 }
 
 .el-main {
-  padding: 0;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: auto 300px;
+  grid-template-rows: 120px auto;
+  grid-row-gap: 30px;
+  background-color: var(--background-color4);
+
+  .head-info {
+    grid-column-start: span 2;
+    border-bottom: $border;
+  }
+
+  .title {
+    margin-bottom: 24px;
+    @include setFont(36px, 50px);
+  }
+
+  .src-path {
+    grid-column-start: span 2;
+    @include setFont(16px, 22px);
+    color: #B8C2C2;
+  }
+
+  .center-box {
+    flex: 1;
+    padding-right: 60px;
+
+    .desc {
+      color: var(--text-color4);
+      margin-bottom: 20px;
+    }
+
+    .info-block {
+      margin-top: 30px;
+      margin-bottom: 40px;
+      border-top: $border;
+
+      .title {
+        @include setFont(30px, 42px);
+        margin: 20px 0;
+      }
+
+      .line {
+        @include setFont(16px, 24px);
+        color: var(--text-color4);
+      }
+
+      ul {
+        padding-left: 20px;
+        margin-top: 8px;
+        list-style-type: disc;
+        color: var(--text-color5);
+      }
+
+      li {
+        line-height: 24px
+      }
+    }
+  }
+
+  .right {
+    padding-left: 16px;
+    width: 300px;
+    border-left: $border;
+
+    .p-title,
+    .a-link {
+      display: block;
+      color: var(--text-color5);
+      line-height: 24px;
+    }
+  }
 }
 </style>

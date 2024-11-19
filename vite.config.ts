@@ -40,6 +40,9 @@ const patchCssFiles: Plugin = {
 }
 
 export default mergeConfig(base, {
+  server: {
+    port: 8080
+  },
   plugins: [
     dts({
       rollupTypes: true,

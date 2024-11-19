@@ -1,0 +1,110 @@
+@charset "utf8";
+@import "sass-embedded-legacy-load-done:247";
+@import "sass-embedded-legacy-load-done:3";
+@import "sass-embedded-legacy-load-done:11";
+@import "sass-embedded-legacy-load-done:19";
+
+
+@function toRem($val) {
+  @if type-of($val) !='number' {
+    @return $val;
+  }
+
+  @if unit($val) !=px {
+    @return $val;
+  }
+
+  @return ($val / 192px)+rem;
+}
+
+@mixin flex($justify: flex-start, $align: flex-start, $direction: unset) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+
+  @if($direction !=unset) {
+    flex-direction: $direction;
+  }
+}
+
+@mixin setTheme($key, $val) {
+  @each $name in (dark, light) {
+    @at-root html[data-theme="#{$name}"] & {
+      #{$key}: map-get($val, $name);
+
+      @if ($key =='background') {
+        background-size: 100% 100%;
+      }
+    }
+  }
+}
+
+@mixin setBgImg($url, $repeat: no-repeat, $pos: center, $size: unset) {
+  background: $url $repeat center;
+
+  @if ($size !=unset) {
+    background-size: $size;
+  }
+}
+
+@mixin setBox($width: unset, $height: unset, $padding: unset, $margin: unset) {
+  @if ($width !=unset) {
+    width: $width;
+  }
+
+  @if ($height !=unset) {
+    height: $height;
+  }
+
+  @if($padding !=unset) {
+    padding: $padding;
+  }
+
+  @if($margin !=unset) {
+    margin: $margin;
+  }
+}
+
+@mixin setFont($size: 14px, $lineHeight: unset, $weight: unset, $family: none) {
+  font-size: $size;
+
+  @if($lineHeight !=unset) {
+    line-height: $lineHeight;
+  }
+
+  @if($weight !=unset) {
+    font-weight: $weight;
+  }
+
+  @if($family !=none) {
+    font-family: $family;
+  }
+}
+
+@mixin setBorder($color: unset, $width: 1px, $type: solid) {
+  @if ($color !=unset) {
+    border: $width $type $color;
+  }
+}
+
+@mixin position($pos: static, $left: auto, $top: auto, $right: auto, $bottom: auto) {
+  @if($pos !=static) {
+    position: $pos;
+
+    @if ($left !=auto) {
+      left: $left;
+    }
+
+    @if ($top !=auto) {
+      top: $top;
+    }
+
+    @if ($right !=auto) {
+      right: $right;
+    }
+
+    @if ($bottom !=auto) {
+      bottom: $bottom;
+    }
+  }
+}

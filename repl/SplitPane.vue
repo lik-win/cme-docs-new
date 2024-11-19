@@ -21,7 +21,7 @@ const state = reactive({
 })
 
 const boundSplit = computed(() => {
-  return state.showOutput ? 0 : Math.min(70, Math.max(state.split, 30));
+  return state.showOutput ? 56 : Math.min(70, Math.max(state.split, 30));
 })
 
 let startPosition = 0
@@ -75,9 +75,9 @@ function changeViewSize() {
       <div v-show="state.dragging" class="view-size">
         {{ `${state.viewWidth}px x ${state.viewHeight}px` }}
       </div>
-      <button class="toggler" @click="state.showOutput = !state.showOutput">
-        {{ state.showOutput ? '>>' : '<<' }} </button>
-          <slot name="right" />
+      <!-- <button class="toggler" @click="state.showOutput = !state.showOutput">
+        {{ state.showOutput ? '>>' : '<<' }} </button> -->
+      <slot name="right" />
     </div>
   </div>
 </template>
@@ -87,6 +87,8 @@ function changeViewSize() {
   display: flex;
   height: 100%;
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .split-pane.dragging {
@@ -161,7 +163,7 @@ function changeViewSize() {
 /* vertical */
 @media (min-width: 721px) {
   .split-pane.vertical {
-    display: block;
+    flex-direction: column-reverse;
   }
 
   .split-pane.vertical.dragging {
@@ -185,7 +187,7 @@ function changeViewSize() {
 
   .vertical .left {
     border-right: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid transparent;
   }
 }
 

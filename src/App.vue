@@ -1,50 +1,73 @@
 <template>
   <el-config-provider size="small">
-    <el-container class="cme-layout">
+    <div class="cme-layout">
       <el-header>
-        <router-link to="/">CME框架支持文档</router-link>
+        <NavHead></NavHead>
       </el-header>
-      <el-contianer class="content-view">
+      <div class="content-view">
         <router-view />
-      </el-contianer>
-    </el-container>
+      </div>
+      <el-footer>
+        <a class="logo"></a>
+        <p class="team">© 国家气象中心天气业务一体化平台团队</p>
+      </el-footer>
+    </div>
   </el-config-provider>
 </template>
 
 <script setup>
 import { ElConfigProvider } from 'element-plus';
-// import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-
+import NavHead from './components/NavHead.vue';
 </script>
 
 <style lang="scss" scoped>
+@import './assets/mixins.scss';
+
 .cme-layout {
-  height: 100%;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  scroll-behavior: smooth;
 }
 
 .dark-theme {
-  background-color: #333333;
+  background-color: #1C1D1F;
   color: #ffffff;
 }
 
 .el-header {
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  height: 48px;
-  font-size: 20px;
+  position: sticky;
+  top: 0;
+  @include flex(center, center);
   @extend .dark-theme;
+  padding: 0;
+  z-index: 100;
 }
 
 .content-view {
   display: flex;
   flex: 1;
-  overflow-y: hidden;
-  overflow-x: auto;
 
   :deep(.el-main) {
     overflow-x: hidden;
+  }
+}
+
+.el-footer {
+  @include flex(center, center);
+  background-color: var(--background-color);
+
+  .logo {
+    @include setBox(106px, 24px);
+    background: url("./assets/images/logo.webp") no-repeat center;
+    background-size: 100% 100%;
+  }
+
+  .team {
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: var(--cme-border);
   }
 }
 </style>
