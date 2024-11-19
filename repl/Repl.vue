@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
   clearConsole: true,
   layoutReverse: false,
   ssr: false,
-  layout: 'horizontal',
+  layout: 'vertical',
   previewOptions: () => ({}),
   editorOptions: () => ({}),
   splitPaneOptions: () => ({}),
@@ -135,13 +135,16 @@ defineExpose({ onCodeChange });
   --color-branding-dark: #416f9c;
   --header-height: 38px;
 
-  height: 100%;
+  /* height: 100%; */
+  height: 840px;
   margin: 0;
   overflow: hidden;
   font-size: 13px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--bg-soft);
+  background-color: var(--background-color);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .dark .cme-repl {

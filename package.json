@@ -33,6 +33,7 @@
     "hash-sum": "^2.0.0",
     "lint-staged": "^15.2.10",
     "monaco-editor-core": "^0.52.0",
+    "postcss-pxtorem": "^6.1.0",
     "prettier": "^3.3.3",
     "sass-embedded": "^1.80.3",
     "shiki": "^1.22.0",

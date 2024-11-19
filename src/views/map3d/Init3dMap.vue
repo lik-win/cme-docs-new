@@ -3,7 +3,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import * as CME3D from 'CME3D';
 import { onMounted, ref } from 'vue';
 
@@ -17,6 +17,7 @@ const options = ref({
 
 const initMap = async () => {
   // 配置Cesium资源路径
+  // @ts-ignore
   window.CESIUM_BASE_URL = '/libs/CME3D';
   let baseLayer = await CME3D.ImageryLayerFactory.createImageryLayer(
     CME3D.ImageryType.AMAP,
