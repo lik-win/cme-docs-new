@@ -15,7 +15,7 @@ import type * as monaco from 'monaco-editor-core'
 export interface Props {
   theme?: 'dark' | 'light'
   previewTheme?: boolean
-  editor: EditorComponentType
+  editor?: EditorComponentType
   store?: Store
   autoResize?: boolean
   showCompileOutput?: boolean

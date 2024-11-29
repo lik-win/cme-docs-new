@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import examples from './examples';
-import Laytout from './../Layout.vue';
-// import EditIndex from './../EditIndex.vue';
-import Samples from './../views/docs/Samples.vue';
+import EditIndex from '../views/EditIndex.vue';
+import Samples from '../views/Samples.vue';
 import Home from '../views/Home.vue';
 
 /**
@@ -23,10 +21,9 @@ const routes = [{
   name: 'samples',
   component: Samples
 }, {
-  path: '/example',
+  path: '/example/:id',
   name: 'example',
-  component: Laytout,
-  children: [...examples]
+  component: EditIndex,
 }];
 
 const routeBase = 'cmedocs';
@@ -35,26 +32,11 @@ const router = createRouter({
   routes
 });
 
-function getMenus(routeList, menus = []) {
-  routeList.forEach(item => {
-    const { meta, path, children } = item;
-    if (!(meta && meta.title) || meta.hidden) return;
-    const menuItem = { path, ...meta };
-    if (children && children.length) {
-      menuItem.children = [];
-      getMenus(children, menuItem.children);
-    }
-    menus.push(menuItem);
-  });
-  return menus;
-}
-const menus = getMenus(examples);
+router.beforeEach((to, from, next) => {
+  console.log('to ==>', to);
+  next();
+});
 
-function getExampleRoutes() {
-  return router.getRoutes().filter(r => ('vueName' in r.meta));
-}
 
-const exampleRoutes = getExampleRoutes();
-
-export { menus, routeBase, exampleRoutes };
+export { routeBase };
 export default router;

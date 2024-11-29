@@ -1,16 +1,13 @@
 
-import DemoIndex from './../DemoIndex.vue';
 import Layout from '../Layout.vue';
-import EditIndex from './../EditIndex.vue';
+import EditIndex from '../views/EditIndex.vue';
 
 export default [{
   path: 'scene',
-  // component: DemoIndex,
   component: Layout,
   meta: { title: '场景创建', listId: 'initScene' },
   children: [{
     path: 'init-2d-map',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '2D地图初始化',
@@ -19,7 +16,6 @@ export default [{
     }
   }, {
     path: 'init-3d-map',
-    // component: () => import('../views/map3d/Init3dMap.vue'),
     component: EditIndex,
     meta: {
       title: '3D地图初始化',
@@ -28,7 +24,6 @@ export default [{
     }
   }, {
     path: 'init-23d-map',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '二三维交互',
@@ -38,7 +33,6 @@ export default [{
   }]
 }, {
   path: 'base-map',
-  // component: DemoIndex,
   component: Layout,
   meta: {
     title: '底图',
@@ -46,7 +40,6 @@ export default [{
   },
   children: [{
     path: 'tianditu',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '天地图',
@@ -55,7 +48,6 @@ export default [{
     }
   }, {
     path: 'wms',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: 'WMS',
@@ -64,7 +56,6 @@ export default [{
     }
   }, {
     path: 'wmts',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: 'WMTS',
@@ -73,7 +64,6 @@ export default [{
     }
   }, {
     path: 'kml',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: 'Kml地图',
@@ -82,7 +72,6 @@ export default [{
     }
   }, {
     path: 'geojson',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: 'GeoJSON',
@@ -91,7 +80,6 @@ export default [{
     }
   }, {
     path: 'pbf',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: 'PBF底图',
@@ -101,7 +89,6 @@ export default [{
   }]
 }, {
   path: 'actions',
-  // component: DemoIndex,
   component: Layout,
   meta: {
     title: '地图交互',
@@ -109,7 +96,6 @@ export default [{
   },
   children: [{
     path: 'locate',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '地图定位',
@@ -118,7 +104,6 @@ export default [{
     }
   }, {
     path: 'layers',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '图层控制',
@@ -127,7 +112,6 @@ export default [{
     }
   }, {
     path: 'cluster',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '点聚合',
@@ -136,7 +120,6 @@ export default [{
     }
   }, {
     path: 'cascade',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '地图联动',
@@ -145,7 +128,6 @@ export default [{
     }
   }, {
     path: 'split-screen',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '地图分屏',
@@ -155,7 +137,6 @@ export default [{
   }]
 }, {
   path: 'meteo',
-  // component: DemoIndex,
   component: Layout,
   meta: {
     title: '气象图层',
@@ -163,7 +144,6 @@ export default [{
   },
   children: [{
     path: 'spot',
-    // component: () => import('./../views/cogtif/Radar.vue'),
     component: EditIndex,
     meta: {
       title: '色斑图',
@@ -172,7 +152,6 @@ export default [{
     }
   }, {
     path: 'windy',
-    // component: () => import('./../views/map2d/Init2dMap.vue'),
     component: EditIndex,
     meta: {
       title: '风羽图',

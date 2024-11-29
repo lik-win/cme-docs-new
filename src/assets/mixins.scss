@@ -14,7 +14,7 @@
     @return $val;
   }
 
-  @return ($val / 192px)+rem;
+  @return ($val / 192px) * 1rem;
 }
 
 @mixin flex($justify: flex-start, $align: flex-start, $direction: unset) {

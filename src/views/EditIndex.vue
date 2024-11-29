@@ -1,17 +1,20 @@
 <template>
   <el-aside>
-    <TreeMenu :enableAnchor="false"></TreeMenu>
+    <TreeMenu :menus="store.menus3" :anchor="false" @nodeClick="nodeClick" />
   </el-aside>
   <el-main class="page-view">
     <div class="head-info">
-      <h3 class="title">功能模块名称1</h3>
-      <p class="src-path">src/ui/map.js</p>
+      <h3 class="title">{{ docInfo.title }}</h3>
+      <p class="src-path">
+        <img src="./../assets/images/icons/icon-srcpath.webp">
+        {{ docInfo.sourcePath || '--' }}
+      </p>
     </div>
     <div class="center-box">
-      <p class="desc">Mapbox GL JS是一个客户端 JavaScript 库，用于使用 Mapbox 的现代地图技术构建 Web 地图和 Web 应用程序。您可以使用 Mapbox GL JS 在 Web
-        浏览器或客户端中显示 Mapbox 地图、添加用户交互性以及自定义应用程序中的地图体验。</p>
+      <p class="desc">{{ docInfo.describe || '暂无描述' }}</p>
       <Repl ref="repl" v-bind="replOptions"></Repl>
-      <div class="info-block">
+      <div class="info-block" v-html="docInfo.useIntroduce"></div>
+      <!-- <div class="info-block">
         <h4 class="title">使用</h4>
         <p class="line">用例包括：</p>
         <ul class="list">
@@ -33,47 +36,102 @@
           <li class="item">基于JavaScript实现，支持跨平台</li>
           <li class="item">具备完善的用户示例二次开发接口</li>
         </ul>
-      </div>
+      </div> -->
     </div>
     <div class="right">
-      <p class="p-title">本页内容</p>
+      <p class="p-title">版本列表</p>
+      <select class="v-list" @change="changeVersion">
+        <template v-for="v in versionList">
+          <option :value="v">{{ v }}</option>
+        </template>
+      </select>
+      <!-- <p class="p-title">本页内容</p>
       <a class="a-link">用例</a>
-      <a class="a-link">特征</a>
+      <a class="a-link">特征</a> -->
     </div>
   </el-main>
 </template>
 <script setup>
 import { reactive, ref, useTemplateRef, watch } from 'vue';
 import { useRouter } from 'vue-router'
-import { Repl, useStore, File } from '../repl/index.ts';
-import TreeMenu from './components/TreeMenu.vue';
-import { menus } from './router/index.js';
-import codes from './codes.js';
+import { Repl, useStore, File } from './../../repl/index.ts';
+import TreeMenu from './../components/TreeMenu.vue';
+import { getSampleInfo } from './../apis/index.js';
+import { useGlobal } from './../store/index.js';
 
+const store = useGlobal();
 const replRef = useTemplateRef('repl');
-
-const url = 'http://10.40.88.119:18000/Init2dMapStatic.txt';
-function getCode() {
-  return fetch(url, { method: 'GET' }).then(res => res.text());
-}
-
 const router = useRouter();
 const editStore = useStore();
 editStore.deleteAllFiles();
-watch(router.currentRoute, route => {
-  const { vueName } = route.meta;
-  if (!vueName) return router.replace('/');
+editStore.mainFile = 'demo.html';
+editStore.addFile(new File('demo.html', ''));
+
+const loading = ref(false);
+const docInfo = ref({
+  title: null,
+  describe: null,
+  sourcePath: '',
+  latestVersion: ''
+});
+
+const versionList = ref([]);
+const latestDoc = ref(null);
+const historyList = ref([]);
+
+function showCode(fileList) {
+  if (!fileList.length) return;
+  const { fileName, url } = fileList[0];
   editStore.deleteAllFiles();
-  editStore.mainFile = `${vueName}.html`;
-  editStore.addFile(new File(`${vueName}.html`, ''));
-  getCode().then(code => {
+  editStore.mainFile = fileName;
+  editStore.addFile(new File(fileName, ''));
+  fetch(url).then(res => res.text()).then(code => {
     editStore.activeFile.setRaw(code);
     replRef.value.onCodeChange(code);
   });
+}
+
+function changeVersion(event) {
+  const version = event.target.value;
+  if (!version || version === docInfo.value.version) return;
+  const doc = historyList.value.find(d => d.version === version);
+  docInfo.value = doc || latestDoc.value;
+  showCode(docInfo.value.fileList);
+}
+
+function parseDocInfo(data) {
+  const { title, describe, sourcePath, version, latestVersion, useIntroduce, fileList } = data;
+  return {
+    title: title || docInfo.value.title,
+    describe: describe || docInfo.value.describe,
+    sourcePath,
+    version: version || latestVersion,
+    useIntroduce,
+    fileList
+  };
+}
+
+
+watch(router.currentRoute, route => {
+  const { id } = route.params;
+  if (!id) router.go(-1);
+  getSampleInfo(id).then(data => {
+    console.log('detail =>', data);
+    docInfo.value = parseDocInfo(data);
+    latestDoc.value = docInfo.value;
+    versionList.value.splice(0);
+    versionList.value.push(docInfo.value.version);
+    showCode(data.fileList);
+    historyList.value = data.exampleHistoryList.map(item => parseDocInfo(item));
+    versionList.value.push(...historyList.value.map(d => d.version));
+  });
 }, { immediate: true });
 
-const paths = router.currentRoute.value.path.split('/');
-const defaultPath = ref(paths.pop());
+
+function nodeClick(data) {
+  if (data.level !== 3) return;
+  router.push(`/example/${data.id}`);
+}
 
 const replOptions = reactive({
   store: editStore,
@@ -87,21 +145,24 @@ const replOptions = reactive({
 </script>
 
 <style lang="scss" scoped>
-@import "./assets/mixins.scss";
+@import "./../assets/mixins.scss";
 
 $border: 1px solid #FFFFFF19;
 
 .el-aside {
+  @include position(fixed, $top: 60px);
   width: 360px;
-  border-right: $border;
+  height: calc(100% - 120px);
 }
 
 .el-main {
   padding: 40px;
+  margin-left: 360px;
   display: grid;
   grid-template-columns: auto 300px;
   grid-template-rows: 120px auto;
   grid-row-gap: 30px;
+  border-left: $border;
   background-color: var(--background-color4);
 
   .head-info {
@@ -118,6 +179,13 @@ $border: 1px solid #FFFFFF19;
     grid-column-start: span 2;
     @include setFont(16px, 22px);
     color: #B8C2C2;
+    text-decoration: underline;
+
+    img {
+      @include setBox(16px, 16px);
+      margin-right: 8px;
+      vertical-align: middle;
+    }
   }
 
   .center-box {
@@ -132,6 +200,7 @@ $border: 1px solid #FFFFFF19;
     .info-block {
       margin-top: 30px;
       margin-bottom: 40px;
+      padding-top: 20px;
       border-top: $border;
 
       .title {
@@ -165,8 +234,16 @@ $border: 1px solid #FFFFFF19;
     .p-title,
     .a-link {
       display: block;
+      margin-bottom: 8px;
       color: var(--text-color5);
       line-height: 24px;
+    }
+
+    select {
+      display: block;
+      @include setBox(120px, 28px);
+      border-radius: 3px;
+      outline: none;
     }
   }
 }

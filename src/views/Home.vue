@@ -148,6 +148,12 @@
   </div>
 </template>
 
+<script setup>
+import { useGlobal } from '../store';
+const store = useGlobal();
+
+</script>
+
 <style lang="scss" scoped>
 @import "./../assets/mixins.scss";
 
