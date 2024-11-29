@@ -41,7 +41,7 @@ const patchCssFiles: Plugin = {
 
 export default mergeConfig(base, {
   server: {
-    port: 8080
+    port: 8090
   },
   plugins: [
     dts({
@@ -50,6 +50,11 @@ export default mergeConfig(base, {
     genStub,
     patchCssFiles,
   ],
+  resolve: {
+    alias: {
+      '@': 'src'
+    },
+  },
   optimizeDeps: {
     // avoid late discovered deps
     include: [

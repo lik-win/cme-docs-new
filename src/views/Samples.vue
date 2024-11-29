@@ -1,51 +1,47 @@
 <template>
   <el-aside>
-    <TreeMenu></TreeMenu>
+    <TreeMenu :menus="store.menus"></TreeMenu>
   </el-aside>
   <el-main class="content">
-    <template v-for="item in menus">
-      <div :id="item.listId" class="list-box">
-        <p class="box-title">{{ item.title }}</p>
-        <el-tabs v-model="activeName" class="demo-tabs">
-          <el-tab-pane label="小类1" name="first" />
-          <el-tab-pane label="小类2" name="second" />
-          <el-tab-pane label="小类3" name="third" />
-          <el-tab-pane label="小类4" name="fourth" />
-        </el-tabs>
-        <div class="list">
-          <template v-for="sub in item.children">
-            <div class="item">
-              <a class="img-box" :href="`/${routeBase}/example/${item.path}/${sub.path}`">
-                <img src="./../../assets/images/feat1.webp">
-              </a>
-              <p class="name">{{ sub.title }} <span class="new">v1.0</span></p>
-              <p class="pub-date">发布 2024-10-01</p>
-            </div>
-          </template>
-        </div>
+    <template v-for="item in store.menus">
+      <div :id="item.path" class="list-box">
+        <p class="box-title">{{ item.name }}</p>
+        <p class="menu-desc">这是描述</p>
+        <template v-for="sub in item.children">
+          <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
+          <div class="list">
+            <template v-for="eg in store.samples[sub.id]">
+              <div class="item">
+                <router-link class="img-box" :to="`/example/${eg.id}`">
+                  <img :src="eg.cover">
+                </router-link>
+                <p class="name">
+                  {{ eg.title }}
+                  <span v-if="eg.latestVersion" class="new">{{ eg.latestVersion }}</span>
+                </p>
+                <p class="pub-date">发布 {{ eg.updateTime.split(/\s/)[0] }}</p>
+              </div>
+            </template>
+          </div>
+        </template>
       </div>
     </template>
   </el-main>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { menus } from './../../router/index.js';
-import { routeBase } from './../../router/index.js';
-import TreeMenu from '../../components/TreeMenu.vue';
-const activeName = ref('first');
-
-
-console.log('menus =>', menus);
+import TreeMenu from './../components/TreeMenu.vue';
+import { useGlobal } from './../store/index.js';
+const store = useGlobal();
 </script>
 
 <style lang="scss" scoped>
-@import "./../../assets/mixins.scss";
+@import "./../assets/mixins.scss";
 
 .el-aside {
-  @include position(sticky, $top: 0);
+  @include position(fixed, $top: 60px);
   width: 360px;
-  border-right: 1px solid #FFFFFF19;
+  height: calc(100% - 120px);
 }
 
 .content {
@@ -53,6 +49,8 @@ console.log('menus =>', menus);
   padding-top: 0;
   padding-left: 32px;
   padding-right: 50px;
+  margin-left: 360px;
+  border-left: 1px solid #FFFFFF19;
 }
 
 .anchor {
@@ -76,6 +74,11 @@ console.log('menus =>', menus);
   .box-title {
     margin-bottom: 20px;
     @include setFont(40px, 56px, 500);
+  }
+
+  .sub-title {
+    margin: 16px 0;
+    @include setFont(24px, 32px);
   }
 
   .list {

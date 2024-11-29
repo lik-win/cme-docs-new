@@ -18,6 +18,7 @@
 <script setup>
 import { ElConfigProvider } from 'element-plus';
 import NavHead from './components/NavHead.vue';
+
 </script>
 
 <style lang="scss" scoped>
@@ -26,8 +27,10 @@ import NavHead from './components/NavHead.vue';
 .cme-layout {
   display: flex;
   flex-direction: column;
+  height: 100%;
   background-color: var(--background-color);
   color: var(--text-color);
+  overflow: auto;
   scroll-behavior: smooth;
 }
 
@@ -56,7 +59,7 @@ import NavHead from './components/NavHead.vue';
 
 .el-footer {
   @include flex(center, center);
-  background-color: var(--background-color);
+  background-color: var(--background-color2);
 
   .logo {
     @include setBox(106px, 24px);

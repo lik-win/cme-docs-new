@@ -1,11 +1,11 @@
 <template>
   <div class="cme-nav">
-    <a class="logo" href="/cmedocs"></a>
+    <router-link class="logo" to="/index"></router-link>
     <div class="nav-list">
-      <a class="link active" href="/cmedocs">首页</a>
-      <a class="link" href="/cmedocs/samples">插件资源</a>
-      <a class="link" href="/cmedocs/samples">API服务</a>
-      <a class="link" href="/cmedocs/samples">应用案例</a>
+      <router-link class="link active" to="/index">首页</router-link>
+      <router-link class="link" to="/samples">插件资源</router-link>
+      <router-link class="link" to="/samples">API服务</router-link>
+      <router-link class="link" to="/samples">应用案例</router-link>
       <a class="link">开发者中心</a>
     </div>
     <div class="login-box">

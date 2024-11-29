@@ -70,7 +70,7 @@ onMounted(() => {
       enabled: false,
     },
     inlineSuggest: {
-      enabled: false,
+      enabled: true,
     },
     fixedOverflowWidgets: true,
     ...editorOptions.value.monacoOptions,

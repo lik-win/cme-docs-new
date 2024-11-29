@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+html,
+body,
+#map {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+html,
+body,
+div,
+form,
+input,
+select,
+p,
+a,
+i,
+em,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+table,
+td,
+tr,
+th,
+span,
+header,
+section,
+nav,
+footer,
+article,
+details,
+section {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+body {
+  position: relative;
+}
+
+.panel {
+  z-index: 1;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background: transparent
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 2px;
+}

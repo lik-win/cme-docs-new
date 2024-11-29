@@ -45,8 +45,17 @@
   }
 
   &>.el-tree-node.is-expanded {
-    padding-bottom: 32px;
-    background: url("./images/icons/icon-expand1.png") no-repeat 4px bottom;
+    position: relative;
+    padding-bottom: 28px;
+
+
+    &::after {
+      content: '';
+      display: inline-block;
+      @include position(absolute, $left: 0, $bottom: 0);
+      @include setBox(20px, 24px);
+      background: url("./images/icons/icon-expand1.png") no-repeat 2px bottom;
+    }
 
     .el-tree-node__children {
       position: relative;
@@ -54,7 +63,7 @@
       &::before {
         content: "";
         @include position(absolute);
-        left: 14px;
+        left: 11px;
         height: 100%;
         border-left: 1px solid #424349;
       }
