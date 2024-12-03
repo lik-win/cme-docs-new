@@ -12,7 +12,7 @@
           <div class="list">
             <template v-for="eg in store.samples[sub.id]">
               <div class="item">
-                <router-link class="img-box" :to="`/components/${eg.id}`">
+                <router-link class="img-box" :to="`/data-services/${eg.id}`">
                   <img :src="eg.cover">
                 </router-link>
                 <p class="name">
@@ -33,7 +33,7 @@
 import TreeMenu from './../components/TreeMenu.vue';
 import { useGlobal } from './../store/index.js';
 const store = useGlobal();
-store.updateMenus('components');
+store.updateMenus('dataServices');
 </script>
 
 <style lang="scss" scoped>

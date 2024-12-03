@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EditIndex from '../views/EditIndex.vue';
+import ViewIndex from '../views/ViewIndex.vue';
 import Samples from '../views/Samples.vue';
+import DataServices from '../views/DataServices.vue';
+import Algorithms from '../views/Algorithms.vue';
 import Home from '../views/Home.vue';
+
 
 /**
  * 路径规范：
@@ -15,15 +19,38 @@ const routes = [{
 }, {
   path: '/index',
   name: 'index',
-  component: Home
+  component: Home,
+  meta: { cate: 'index' }
 }, {
-  path: '/samples',
-  name: 'samples',
-  component: Samples
+  path: '/components',
+  name: 'components',
+  component: Samples,
+  meta: { cate: 'components' }
 }, {
-  path: '/example/:id',
+  path: '/components/:id',
   name: 'example',
   component: EditIndex,
+  meta: { cate: 'components' }
+}, {
+  path: '/data-services',
+  name: 'dataServices',
+  component: DataServices,
+  meta: { cate: 'dataServices' }
+}, {
+  path: '/data-services/:id',
+  name: 'dataServicesDemo',
+  component: ViewIndex,
+  meta: { cate: 'dataServices' }
+}, {
+  path: '/algorithms',
+  name: 'algorithms',
+  component: Algorithms,
+  meta: { cate: 'algorithms' }
+}, {
+  path: '/algorithms/:id',
+  name: 'algorithmsDemo',
+  component: ViewIndex,
+  meta: { cate: 'algorithms' }
 }];
 
 const routeBase = 'cmedocs';
@@ -32,10 +59,9 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  console.log('to ==>', to);
-  next();
-});
+// router.beforeEach((to, from, next) => {
+//   next();
+// });
 
 
 export { routeBase };
