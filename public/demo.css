@@ -50,6 +50,17 @@ body {
   position: relative;
 }
 
+input,
+select {
+  outline: none;
+}
+
+ol,
+ul,
+dl {
+  list-style: none;
+}
+
 .panel {
   z-index: 1;
   position: absolute;

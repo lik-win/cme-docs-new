@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>地图定位</title>
+  <title>绘制面</title>
   <link rel="stylesheet" href="/demo.css" />
 </head>
 
@@ -12,29 +12,33 @@
   <div id="map"></div>
   <div class="panel">
     <p class="line">
-      <label>经纬度<input type="text" value="120,30"></label>
-      <button id="btn">定位</button>
+      <button id="startDraw">开始绘制</button>
+      <button id="endDraw">结束绘制</button>
     </p>
   </div>
   <script type="text/javascript" src="/libs/cme2d.js"></script>
   <script type="text/javascript">
-    const { Map, View, source, layer } = window.CME2D;
+    const { Map, View, source, layer, format, interaction } = window.CME2D;
+
+    const sourceV = new source.Vector({ wrapX: false });
+    const layerV = new layer.Vector({ source: sourceV });
+    let mapObj = null;
     function initMap(mapEl) {
       const map = new Map({
         target: mapEl,//挂载实例
         layers: [
           new layer.Tile({
-            preload: Infinity, //开启预加载模式
             source: new source.XYZ({
-              url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png '   // 内网地址
+              url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
               // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
             })
-          })
+          }),
+          layerV
         ],
         view: new View({ //地图视图
-          center: [106, 35],
+          center: [116.6, 40.2],
           projection: "EPSG:4326",
-          zoom: 5,
+          zoom: 8,
           wrapX: true,
         }),//地图设置
         controls: [],//取消地图操作
@@ -42,21 +46,29 @@
       return map;
     }
 
-    let mapObj = null;
+    let draw;
+    document.querySelector('#startDraw').addEventListener('click', e => {
+      if (draw) {
+        mapObj.removeInteraction(draw);
+      }
+      draw = new interaction.Draw({
+        source: sourceV,
+        type: 'Polygon',
+      });
+      mapObj.addInteraction(draw);
+    });
+
+    document.querySelector('#endDraw').addEventListener('click', e => {
+      if (!draw) return;
+      mapObj.removeInteraction(draw);
+      sourceV.clear();
+      draw = null;
+    });
+
     window.onload = function () {
       const mapEl = document.querySelector('#map');
       mapObj = initMap(mapEl);
     }
-    // 点击按钮时设置地图中心点
-    document.querySelector('#btn').addEventListener('click', () => {
-      const value = document.querySelector('input').value;
-      const lonlat = value.split(/\,/).map(v => parseFloat(v));
-      if (lonlat.length !== 2 || lonlat.some(v => isNaN(v))) {
-        alert('输入经纬度不正确');
-        return;
-      }
-      mapObj.getView().setCenter(lonlat);
-    });
   </script>
 </body>
 
