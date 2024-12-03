@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>绘制面</title>
+  <title>底图切换</title>
   <link rel="stylesheet" href="/demo.css" />
 </head>
 
@@ -12,17 +12,17 @@
   <div id="map"></div>
   <div class="panel">
     <p class="line">
-      <button id="startDraw">开始绘制</button>
-      <button id="endDraw">结束绘制</button>
+      切换底图
+      <select id="maplist">
+        <option value="windy">windy风格底图</option>
+        <option value="satellite">瓦片底图</option>
+      </select>
     </p>
   </div>
   <script type="text/javascript" src="/libs/cme2d.js"></script>
   <script type="text/javascript">
-    const { Map, View, source, layer, format, interaction } = window.CME2D;
+    const { Map, View, source, layer } = window.CME2D;
 
-    const sourceV = new source.Vector({ wrapX: false });
-    const layerV = new layer.Vector({ source: sourceV });
-    let mapObj = null;
     function initMap(mapEl) {
       const map = new Map({
         target: mapEl,//挂载实例
@@ -32,13 +32,12 @@
               url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
               // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
             })
-          }),
-          layerV
+          })
         ],
         view: new View({ //地图视图
-          center: [116.6, 40.2],
+          center: [106, 35],
           projection: "EPSG:4326",
-          zoom: 8,
+          zoom: 5,
           wrapX: true,
         }),//地图设置
         controls: [],//取消地图操作
@@ -46,29 +45,31 @@
       return map;
     }
 
-    let draw;
-    document.querySelector('#startDraw').addEventListener('click', e => {
-      if (draw) {
-        mapObj.removeInteraction(draw);
-      }
-      draw = new interaction.Draw({
-        source: sourceV,
-        type: 'Polygon',
-      });
-      mapObj.addInteraction(draw);
-    });
-
-    document.querySelector('#endDraw').addEventListener('click', e => {
-      if (!draw) return;
-      mapObj.removeInteraction(draw);
-      sourceV.clear();
-      draw = null;
-    });
-
+    let mapObj = null;
     window.onload = function () {
       const mapEl = document.querySelector('#map');
       mapObj = initMap(mapEl);
     }
+    // 点击按钮时设置地图中心点
+    document.querySelector('#maplist').addEventListener('change', (e) => {
+      const value = e.target.value;
+      mapObj.getAllLayers().forEach(l => mapObj.removeLayer(l));
+      if (value === 'windy') {
+        const layerWindy = new layer.Tile({
+          source: new source.XYZ({
+            url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
+          })
+        });
+        mapObj.addLayer(layerWindy);
+      } else {
+        const layerVec = new layer.Tile({
+          source: new source.XYZ({
+            url: 'http://10.1.64.154/DataServer?T=vec_w&x={x}&y={y}&l={z}'
+          })
+        });
+        mapObj.addLayer(layerVec);
+      }
+    });
   </script>
 </body>
 
