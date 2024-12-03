@@ -29,7 +29,8 @@ const routes = [{
 }, {
   path: '/components/:id',
   name: 'example',
-  component: EditIndex
+  component: EditIndex,
+  meta: { cate: 'components' }
 }, {
   path: '/data-services',
   name: 'dataServices',
