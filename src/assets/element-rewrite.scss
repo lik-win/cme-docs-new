@@ -53,8 +53,8 @@
       content: '';
       display: inline-block;
       @include position(absolute, $left: 0, $bottom: 0);
-      @include setBox(20px, 24px);
-      background: url("./images/icons/icon-expand1.png") no-repeat 2px bottom;
+      @include setBox(22px, 28px);
+      background: url("./images/icons/icon-expand1.png") no-repeat center;
     }
 
     .el-tree-node__children {

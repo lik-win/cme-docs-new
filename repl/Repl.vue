@@ -101,7 +101,7 @@ function onCodeChange(code: string) {
 //   outputRef.value?.reload()
 // }
 
-const sandboxAllows = 'allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation';
+const sandboxAllows = 'allow-forms allow-modals allow-pointer-lock allow-popups allow-scripts allow-top-navigation-by-user-activation';
 
 // defineExpose({ reload })
 defineExpose({ onCodeChange });

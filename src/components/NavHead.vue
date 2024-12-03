@@ -2,10 +2,10 @@
   <div class="cme-nav">
     <router-link class="logo" to="/index"></router-link>
     <div class="nav-list">
-      <router-link class="link active" to="/index">首页</router-link>
-      <router-link class="link" to="/samples">插件资源</router-link>
-      <router-link class="link" to="/samples">API服务</router-link>
-      <router-link class="link" to="/samples">应用案例</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 0 }" to="/index">首页</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 1 }" to="/components">组件服务</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 2 }" to="/data-services">数据服务</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 3 }" to="/algorithms">算法服务</router-link>
       <a class="link">开发者中心</a>
     </div>
     <div class="login-box">
@@ -14,6 +14,23 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { watch, computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const { meta } = router.currentRoute.value;
+const menu = ref(meta.cate || 'index');
+
+const menus = ['index', 'components', 'dataServices', 'algorithms'];
+const menuIdx = computed(() => menus.indexOf(menu.value));
+
+watch(router.currentRoute, route => {
+  menu.value = route.meta.cate;
+});
+
+</script>
 
 <style lang="scss" scoped>
 @import './../assets/mixins.scss';

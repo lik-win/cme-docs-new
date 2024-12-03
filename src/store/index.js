@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { getMenuTree, getSampleList } from '../apis';
 import { reactive, ref } from 'vue';
-
 const isArray = Array.isArray;
 const copy = obj => JSON.parse(JSON.stringify(obj));
 
@@ -35,8 +34,14 @@ function flatTree(tree, result = []) {
 }
 
 const useGlobal = defineStore('global', () => {
-  let menuList = null;
-  let treeMenus = [];
+  const menuList = {
+    components: [],
+    dataServices: [],
+    algorithms: []
+  };
+  let currentCate = null;
+  let sampleList = [];
+  // let treeMenus = [];
   let menus = ref([]);
   let menus3 = ref([]);
   const samples = reactive({});
@@ -44,13 +49,39 @@ const useGlobal = defineStore('global', () => {
   // 获取菜单树和示例列表
   Promise.all([getMenuTree(), getSampleList()]).then(resArr => {
     const [data1, data2] = resArr;
-    treeMenus = parseTree(data1, 1);
-    menuList = flatTree(treeMenus, []);
-    menus.value = getMenus2();
-    const m2 = copy(menuList.filter(m => m.level === 2));
+    sampleList = data2;
+    data1.forEach(data => {
+      const tree = parseTree(data.children || [], 1);
+      menuList[data.alias] = flatTree(tree, []);
+    });
+    if (!currentCate) return;
+    var cate = currentCate;
+    currentCate = null;
+    updateMenus(cate);
+  });
+
+
+  function getMenus2(mList) {
+    const root = copy(mList.filter(m => m.level === 1));
+    const menus2 = copy(mList.filter(m => m.level === 2));
+    root.forEach(item => {
+      const subs = menus2.filter(m => m.parentId === item.id);
+      if (!subs.length) return;
+      item.children = subs;
+    });
+    return root;
+  }
+
+  function updateMenus(cate) {
+    if (currentCate === cate) return;
+    currentCate = cate;
+    const mList = menuList[cate] || [];
+    menus.value = getMenus2(mList);
+    const m2 = copy(mList.filter(m => m.level === 2));
     const m2Ids = m2.map(m => m.id);
     m2.forEach(m => m.children = []);
-    data2.forEach(item => {
+    Object.keys(samples).forEach(n => samples[n] = []);
+    sampleList.forEach(item => {
       if (!m2Ids.includes(item.appMenuId)) return;
       if (!isArray(samples[item.appMenuId])) {
         samples[item.appMenuId] = [];
@@ -61,20 +92,9 @@ const useGlobal = defineStore('global', () => {
       m2Item.children.push({ id, name: title, level: 3 });
     });
     menus3.value = m2.filter(m => m.children.length);
-  });
-
-  function getMenus2() {
-    const root = copy(menuList.filter(m => m.level === 1));
-    const menus2 = copy(menuList.filter(m => m.level === 2));
-    root.forEach(item => {
-      const subs = menus2.filter(m => m.parentId === item.id);
-      if (!subs.length) return;
-      item.children = subs;
-    });
-    return root;
   }
 
-  return { menus, menus3, samples };
+  return { menus, menus3, samples, updateMenus };
 });
 
 export { useGlobal };
