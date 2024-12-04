@@ -3,9 +3,11 @@
     <router-link class="logo" to="/index"></router-link>
     <div class="nav-list">
       <router-link class="link" :class="{ active: menuIdx === 0 }" to="/index">首页</router-link>
-      <router-link class="link" :class="{ active: menuIdx === 1 }" to="/components">组件服务</router-link>
-      <router-link class="link" :class="{ active: menuIdx === 2 }" to="/data-services">数据服务</router-link>
-      <router-link class="link" :class="{ active: menuIdx === 3 }" to="/algorithms">算法服务</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 1 }" to="/data-services">数据服务</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 2 }" to="/algorithms">算法服务</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 3 }" to="/components">组件服务</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 4 }" to="/scenes">场景开发</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 5 }" to="/scenes">经典案例</router-link>
       <a class="link">开发者中心</a>
     </div>
     <div class="login-box">
@@ -23,7 +25,7 @@ const router = useRouter();
 const { meta } = router.currentRoute.value;
 const menu = ref(meta.cate || 'index');
 
-const menus = ['index', 'components', 'dataServices', 'algorithms'];
+const menus = ['index', 'dataServices', 'algorithms', 'components', 'scenes', 'cases'];
 const menuIdx = computed(() => menus.indexOf(menu.value));
 
 watch(router.currentRoute, route => {
