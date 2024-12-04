@@ -59,10 +59,6 @@ const router = createRouter({
   routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   next();
-// });
-
 
 export { routeBase };
 export default router;
