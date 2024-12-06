@@ -1,0 +1,103 @@
+.slider {
+  width: 550px;
+  height: 20px;
+}
+
+.slider .noUi-tooltip {
+  margin-top: 24px !important;
+}
+
+.slider .noUi-active .noUi-tooltip {
+  display: none !important;
+}
+
+.slider .noUi-handle {
+  cursor: e-resize;
+  position: absolute !important;
+  border-radius: 0 !important;
+  background: #161515 !important;
+  height: 24px !important;
+  width: 4px !important;
+  top: -2px !important;
+  right: 0 !important;
+}
+
+.slider .noUi-handle::before {
+  display: none;
+}
+
+.slider .noUi-base .noUi-handle::after {
+  display: none;
+}
+
+.slider .noUi-base {
+  width: 550px;
+  height: 20px;
+  position: relative;
+}
+
+.slider .noUi-base .noUi-origin {
+  position: absolute;
+  width: 100%;
+  z-index: 4;
+}
+
+.slider .color-ul {
+  width: 550px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  position: absolute;
+  align-items: center;
+  height: 20px;
+  top: 0px;
+  left: 0;
+  z-index: 2;
+  font-size: 12px;
+  padding: 0;
+}
+
+.slider .color-ul li {
+  flex: 1;
+  height: 20px;
+  text-align: center;
+}
+
+.slider .noUi-base::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #000;
+  font-size: 12px;
+}
+
+.slider .text,
+.slider .bg {
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider.noUi-target {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: 0px 0px 0px transparent !important;
+}
+
+.color-ul li {
+  font-size: 12px;
+  line-height: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*# sourceMappingURL=legend.css.map */
