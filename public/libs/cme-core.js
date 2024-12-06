@@ -1,6 +1,5 @@
-import { b as s, i as r, w as y } from "../index-BC1rAViB.js";
+import { b as a, i as r } from "../index-BKbfgs8H.js";
 export {
-  s as blendLayers,
-  r as style,
-  y as windyLayer
+  a as blendLayers,
+  r as style
 };
