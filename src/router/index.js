@@ -5,7 +5,7 @@ import Samples from '../views/Samples.vue';
 import DataServices from '../views/DataServices.vue';
 import Algorithms from '../views/Algorithms.vue';
 import Home from '../views/Home.vue';
-
+import SceneVue from '../views/Scene.vue';
 
 /**
  * 路径规范：
@@ -51,6 +51,11 @@ const routes = [{
   name: 'algorithmsDemo',
   component: ViewIndex,
   meta: { cate: 'algorithms' }
+}, {
+  path: '/scenes',
+  name: 'scenes',
+  component: SceneVue,
+  meta: { cate: 'scenes' }
 }];
 
 const routeBase = 'cmedocs';
