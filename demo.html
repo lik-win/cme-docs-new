@@ -4,25 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>底图切换</title>
+  <title>地图测距</title>
   <link rel="stylesheet" href="/demo.css" />
 </head>
 
 <body>
   <div id="map"></div>
   <div class="panel">
-    <p class="line">
-      切换底图
-      <select id="maplist">
-        <option value="windy">windy风格底图</option>
-        <option value="satellite">瓦片底图</option>
-      </select>
-    </p>
+    <button id="startEl">开始测距</button>
+    <button id="endEl">结束测距</button>
   </div>
   <script type="text/javascript" src="/libs/cme2d.js"></script>
   <script type="text/javascript">
-    const { Map, View, source, layer } = window.CME2D;
+    const { Map: CMEMap, View, source, layer, Overlay, interaction, sphere, geom, Observable } = window.CME2D;
 
+<<<<<<< HEAD
     let data={
     "code": 200,
     "success": true,
@@ -34,8 +30,27 @@
           },
           "msg": "操作成功"
       }
+=======
+    // 获取长度
+    function formatLength(line) {
+      const lonlats = line.getCoordinates();
+      let length = 0;
+      lonlats.forEach((v, i) => {
+        if (!i) return;
+        length += sphere.getDistance(lonlats[i - 1], lonlats[i]);
+      });
+      if (length > 1000) {
+        return `${(length / 1000).toFixed(1)} km`;
+      }
+      return `${Math.round(length)} m`;
+    };
+
+    // 创建矢量数据源和图层
+    const sourceV = new source.Vector({ wrapX: false });
+    const layerV = new layer.Vector({ source: sourceV });
+>>>>>>> 946b65394a28f1429b465855870d35fb703cb8d8
     function initMap(mapEl) {
-      const map = new Map({
+      const map = new CMEMap({
         target: mapEl,//挂载实例
         layers: [
           new layer.Tile({
@@ -43,7 +58,8 @@
               url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
               // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
             })
-          })
+          }),
+          layerV
         ],
         view: new View({ //地图视图
           center: [106, 35],
@@ -61,25 +77,67 @@
       const mapEl = document.querySelector('#map');
       mapObj = initMap(mapEl);
     }
-    // 点击按钮时设置地图中心点
-    document.querySelector('#maplist').addEventListener('change', (e) => {
-      const value = e.target.value;
-      mapObj.getAllLayers().forEach(l => mapObj.removeLayer(l));
-      if (value === 'windy') {
-        const layerWindy = new layer.Tile({
-          source: new source.XYZ({
-            url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
-          })
+    let draw;
+
+    function bindDrawEvent() {
+      if (!draw) return;
+      let sketch = null;
+      draw.on('drawstart', function (evt) {
+        sketch = evt.feature;
+        let tooltipCoord = evt.coordinate;
+
+        listener = sketch.getGeometry().on('change', function (evt) {
+          const geom = evt.target;
+          const output = formatLength(geom);
+          tooltipCoord = geom.getLastCoordinate();
+          measureTooltipEl.innerHTML = output;
+          measureTooltip.setPosition(tooltipCoord);
         });
-        mapObj.addLayer(layerWindy);
-      } else {
-        const layerVec = new layer.Tile({
-          source: new source.XYZ({
-            url: 'http://10.1.64.154/DataServer?T=vec_w&x={x}&y={y}&l={z}'
-          })
-        });
-        mapObj.addLayer(layerVec);
+      });
+      draw.on('drawend', function () {
+        measureTooltipEl.className = 'ol-tooltip ol-tooltip-static';
+        measureTooltip.setOffset([0, -7]);
+        sketch = null;
+        measureTooltipEl = null;
+        createMeasureTooltip();
+        Observable.unByKey(listener);
+      });
+    }
+
+    let measureTooltipEl = null;
+    let measureTooltip = null;
+    // 添加测量提示
+    function createMeasureTooltip() {
+      if (measureTooltipEl) {
+        measureTooltipEl.remove();
       }
+      measureTooltipEl = document.createElement('div');
+      measureTooltipEl.className = 'ol-tooltip ol-tooltip-measure';
+      measureTooltip = new Overlay({
+        element: measureTooltipEl,
+        offset: [0, -15],
+        positioning: 'bottom-center',
+        stopEvent: false,
+        insertFirst: false,
+      });
+      mapObj.addOverlay(measureTooltip);
+    }
+
+    // 开始测距
+    document.querySelector('#startEl').addEventListener('click', e => {
+      if (draw) return;
+      createMeasureTooltip();
+      draw = new interaction.Draw({ source: sourceV, type: 'LineString' });
+      bindDrawEvent();
+      mapObj.addInteraction(draw);
+    });
+
+    // 结束测距
+    document.querySelector('#endEl').addEventListener('click', e => {
+      if (!draw) return;
+      mapObj.removeInteraction(draw);
+      sourceV.clear();
+      mapObj.getOverlays().forEach(o => mapObj.removeOverlay(o));
     });
   </script>
 </body>
