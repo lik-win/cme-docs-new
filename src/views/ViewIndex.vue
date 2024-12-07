@@ -1,13 +1,19 @@
 <template>
-  <el-aside>
+  <!-- <el-aside>
     <TreeMenu :menus="store.menus3" :anchor="false" @nodeClick="nodeClick" />
-  </el-aside>
+  </el-aside> -->
   <el-main class="page-view">
     <div class="head-info">
       <h3 class="title">{{ docInfo.title }}</h3>
       <p class="src-path">
-        <img src="./../assets/images/icons/icon-srcpath.webp">
-        {{ docInfo.sourcePath || '--' }}
+        <!-- <img src="./../assets/images/icons/icon-srcpath.webp"> -->
+        <!-- {{ docInfo.sourcePath || '--' }} -->
+        <label>版本列表：</label>
+        <select class="v-list" @change="changeVersion">
+          <template v-for="v in versionList">
+            <option :value="v">{{ v }}</option>
+          </template>
+        </select>
       </p>
     </div>
     <div class="center-box">
@@ -16,12 +22,7 @@
       <div class="info-block" v-html="docInfo.useIntroduce"></div>
     </div>
     <div class="right">
-      <p class="p-title">版本列表</p>
-      <select class="v-list" @change="changeVersion">
-        <template v-for="v in versionList">
-          <option :value="v">{{ v }}</option>
-        </template>
-      </select>
+
       <!-- <p class="p-title">本页内容</p>
       <a class="a-link">用例</a>
       <a class="a-link">特征</a> -->
@@ -89,14 +90,12 @@ watch(router.currentRoute, route => {
   const { id } = route.params;
   if (!id) router.go(-1);
   getSampleInfo(id).then(data => {
-    console.log('detail =>', data);
     docInfo.value = parseDocInfo(data);
     latestDoc.value = docInfo.value;
     versionList.value.splice(0);
     versionList.value.push(docInfo.value.version);
     historyList.value = data.exampleHistoryList.map(item => parseDocInfo(item));
     versionList.value.push(...historyList.value.map(d => d.version));
-    console.log('docInfo ===>', docInfo.value.demoUrl);
     showCode(docInfo.value.demoUrl);
   });
 }, { immediate: true });
@@ -107,6 +106,10 @@ function nodeClick(data) {
   router.push(`/${meta.cate}/${data.id}`);
 }
 
+window.addEventListener('message', e => {
+  console.log('message =>', e);
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -114,18 +117,18 @@ function nodeClick(data) {
 
 $border: 1px solid #FFFFFF19;
 
-.el-aside {
-  @include position(fixed, $top: 60px);
-  width: 360px;
-  height: calc(100% - 120px);
-}
+// .el-aside {
+//   @include position(fixed, $top: 60px);
+//   width: 360px;
+//   height: calc(100% - 120px);
+// }
 
 .el-main {
   padding: 40px;
-  margin-left: 360px;
+  // margin-left: 360px;
   display: grid;
   grid-template-columns: auto 300px;
-  grid-template-rows: 120px auto;
+  grid-template-rows: 100px auto;
   grid-row-gap: 30px;
   border-left: $border;
   background-color: var(--background-color4);
@@ -144,7 +147,6 @@ $border: 1px solid #FFFFFF19;
     grid-column-start: span 2;
     @include setFont(16px, 22px);
     color: #B8C2C2;
-    text-decoration: underline;
 
     img {
       @include setBox(16px, 16px);
@@ -165,6 +167,7 @@ $border: 1px solid #FFFFFF19;
     iframe {
       height: 540px;
       border-radius: 8px;
+      border: 1px solid #B8C2C2;
     }
 
     .info-block {

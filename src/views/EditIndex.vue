@@ -1,14 +1,15 @@
 <template>
-  <!-- <el-aside>
-    <TreeMenu :menus="store.menus3" :anchor="false" @nodeClick="nodeClick" />
-  </el-aside> -->
   <el-main class="page-view">
     <div class="head-info">
       <h3 class="title">{{ docInfo.title }}</h3>
-      <!-- <p class="src-path">
-        <img src="./../assets/images/icons/icon-srcpath.webp">
-        {{ docInfo.sourcePath || '--' }}
-      </p> -->
+      <p class="src-path">
+        <label>版本列表：</label>
+        <select class="v-list" @change="changeVersion">
+          <template v-for="v in versionList">
+            <option :value="v">{{ v }}</option>
+          </template>
+        </select>
+      </p>
     </div>
     <div class="center-box">
       <p class="desc">{{ docInfo.describe || '暂无描述' }}</p>
@@ -158,7 +159,7 @@ $border: 1px solid #FFFFFF19;
   // margin-left: 360px;
   display: grid;
   // grid-template-rows: 120px auto;
-  grid-template-rows: 60px auto;
+  grid-template-rows: 120px auto;
   grid-row-gap: 30px;
   border-left: $border;
   background-color: var(--background-color4);
@@ -174,14 +175,13 @@ $border: 1px solid #FFFFFF19;
 
   .src-path {
     @include setFont(16px, 22px);
-    color: #B8C2C2;
-    text-decoration: underline;
+    color: var(--text-color);
 
-    img {
-      @include setBox(16px, 16px);
-      margin-right: 8px;
-      vertical-align: middle;
-    }
+    // img {
+    //   @include setBox(16px, 16px);
+    //   margin-right: 8px;
+    //   vertical-align: middle;
+    // }
   }
 
   .center-box {
