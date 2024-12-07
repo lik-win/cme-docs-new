@@ -41,7 +41,14 @@ const patchCssFiles: Plugin = {
 
 export default mergeConfig(base, {
   server: {
-    port: 8090
+    port: 8090,
+    proxy: {
+      '/echartUrl': {
+        target: 'http://10.1.64.146',
+        changeOrigin: true,
+        rewrite: p => p.replace(/^\/echartUrl/i, '')
+      }
+    }
   },
   plugins: [
     dts({

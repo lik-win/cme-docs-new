@@ -7,10 +7,6 @@
       <div class="content-view">
         <router-view />
       </div>
-      <el-footer>
-        <a class="logo"></a>
-        <p class="team">© 国家气象中心天气业务一体化平台团队</p>
-      </el-footer>
     </div>
   </el-config-provider>
 </template>
@@ -54,23 +50,6 @@ import NavHead from './components/NavHead.vue';
 
   :deep(.el-main) {
     overflow-x: hidden;
-  }
-}
-
-.el-footer {
-  @include flex(center, center);
-  background-color: var(--background-color2);
-
-  .logo {
-    @include setBox(106px, 24px);
-    background: url("./assets/images/logo.webp") no-repeat center;
-    background-size: 100% 100%;
-  }
-
-  .team {
-    margin-left: 20px;
-    padding-left: 20px;
-    border-left: var(--cme-border);
   }
 }
 </style>

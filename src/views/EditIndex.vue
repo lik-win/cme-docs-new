@@ -1,14 +1,14 @@
 <template>
-  <el-aside>
+  <!-- <el-aside>
     <TreeMenu :menus="store.menus3" :anchor="false" @nodeClick="nodeClick" />
-  </el-aside>
+  </el-aside> -->
   <el-main class="page-view">
     <div class="head-info">
       <h3 class="title">{{ docInfo.title }}</h3>
-      <p class="src-path">
+      <!-- <p class="src-path">
         <img src="./../assets/images/icons/icon-srcpath.webp">
         {{ docInfo.sourcePath || '--' }}
-      </p>
+      </p> -->
     </div>
     <div class="center-box">
       <p class="desc">{{ docInfo.describe || '暂无描述' }}</p>
@@ -38,17 +38,14 @@
         </ul>
       </div> -->
     </div>
-    <div class="right">
+    <!-- <div class="right">
       <p class="p-title">版本列表</p>
       <select class="v-list" @change="changeVersion">
         <template v-for="v in versionList">
           <option :value="v">{{ v }}</option>
         </template>
-      </select>
-      <!-- <p class="p-title">本页内容</p>
-      <a class="a-link">用例</a>
-      <a class="a-link">特征</a> -->
-    </div>
+</select>
+</div> -->
   </el-main>
 </template>
 <script setup>
@@ -150,24 +147,23 @@ const replOptions = reactive({
 
 $border: 1px solid #FFFFFF19;
 
-.el-aside {
-  @include position(fixed, $top: 60px);
-  width: 360px;
-  height: calc(100% - 120px);
-}
+// .el-aside {
+//   @include position(fixed, $top: 60px);
+//   width: 360px;
+//   height: calc(100% - 120px);
+// }
 
 .el-main {
   padding: 40px;
-  margin-left: 360px;
+  // margin-left: 360px;
   display: grid;
-  grid-template-columns: auto 300px;
-  grid-template-rows: 120px auto;
+  // grid-template-rows: 120px auto;
+  grid-template-rows: 60px auto;
   grid-row-gap: 30px;
   border-left: $border;
   background-color: var(--background-color4);
 
   .head-info {
-    grid-column-start: span 2;
     border-bottom: $border;
   }
 
@@ -177,7 +173,6 @@ $border: 1px solid #FFFFFF19;
   }
 
   .src-path {
-    grid-column-start: span 2;
     @include setFont(16px, 22px);
     color: #B8C2C2;
     text-decoration: underline;
@@ -191,11 +186,15 @@ $border: 1px solid #FFFFFF19;
 
   .center-box {
     flex: 1;
-    padding-right: 60px;
 
     .desc {
       color: var(--text-color4);
       margin-bottom: 20px;
+    }
+
+    .cme-repl {
+      height: 600px;
+      border: 1px solid #B8C2C2;
     }
 
     .info-block {
