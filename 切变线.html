@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>底图切换</title>
+    <link rel="stylesheet" href="/demo.css" />
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script type="text/javascript" src="/libs/cme2d.js"></script>
+    <script type="text/javascript" src="/libs/cme-core.umd.cjs"></script>
+    <script type="text/javascript">
+      const { Map: olmap, View, source, layer, Feature  } = window.CME2D
+    
+      let map,vectorS
+      const { blendLayers, style } = window.CMECore
+      const { Point, LineString, Polygon, Circle: GeomCircle } = window.CME2D.geom
+      const { Circle, Fill, Stroke, Style, Text, Icon } = window.CME2D.style
+      const {
+        Vector: VectorLayer,
+      } = window.CME2D.layer
+      const {
+        Vector: VectorSource,
+      } = window.CME2D.source
+     function init(){
+      let {data:{element,tifPath,sysGeojson},success}={
+          "code": 200,
+          "success": true,
+          "data": {
+              "sysGeojson": "{\"features\":[{\"geometry\":{\"coordinates\":[[118.0,38.057213],[117.66046,37.96864],[117.30917,37.87242],[116.95028,37.763527],[116.59496,37.63708],[116.25403,37.48831],[115.9341,37.313663],[115.637596,37.112167],[115.36386,36.885815],[115.10986,36.63881],[114.870605,36.376312],[114.63934,36.103756],[114.4077,35.82734],[114.1659,35.554832],[113.904816,35.294624],[113.61987,35.05208],[113.31461,34.825665]],\"type\":\"LineString\"},\"type\":\"Feature\",\"properties\":{\"area\":0.0,\"strength\":0.0,\"value\":0.0}}],\"type\":\"FeatureCollection\"}",
+              "tifPath": "http://10.20.64.109/NAFP/CMA_MESO_FOR_CHN/2024/2024-12-01/241201050602887859_CMA_MESO_FOR_CHN_UGRD_20241201000000_12_100_100000_10-20-64-109.tif",
+              "lineGeojson": "",
+              "element": "WIN"
+          },
+          "msg": "操作成功"
+        }
+      if(success){
+           if(element=='WIN'){
+            let urlNum = String(tifPath.slice(7, 19)).replace(/\./g, '')
+            let url='http://10.20.107.239:864/cmes-'+urlNum+tifPath.slice(19)
+            multiLayer(mapObj,url)
+            if(sysGeojson){
+              let features=JSON.parse(sysGeojson).features
+              features.map((item)=>{
+                const feature = new Feature({
+                  geometry: new Point(item.geometry.coordinates)
+                })
+                feature.setStyle(new Style({
+                  stroke:new Stroke({
+                    color: '#F00',
+                    lineDash: [0],
+                    width:  5,
+                  })
+                }))
+                vectorS.addFeature(feature)
+              })
+            }
+           }
+      }
+     }
+      function initMap(mapEl) {
+        vectorS= new VectorSource({
+            wrapX: true,
+          })
+        const map = new olmap({
+          target: mapEl, //挂载实例
+          layers: [
+            new layer.Tile({
+              source: new source.XYZ({
+                url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png', // 内网地址
+                
+              }),
+            }),
+            new VectorLayer({
+              source: vectorS,
+              name: 'Point',
+            }) 
+          ],
+          view: new View({
+            //地图视图
+            center: [106, 35],
+            projection: 'EPSG:4326',
+            zoom: 5,
+            wrapX: true,
+          }), //地图设置
+          controls: [], //取消地图操作
+        })
+        return map
+      }
+
+      let mapObj = null
+      window.onload = function () {
+        const mapEl = document.querySelector('#map')
+        mapObj = initMap(mapEl)
+        mapObj.once('postrender', function () {
+          init()
+        })
+      }
+      const options = { center: [106, 35], zoom: 4 }
+      function multiLayer(map,url) {
+        // 获取凤羽图的配置参数
+        const params = getMultiConfig()
+        // 获取文本配置参数
+        const paramstext = getTextCogtig()
+        // 获取箭头配置参数
+        const paramsArrow = getArrowCogtig()
+        let layers = new blendLayers(map, {
+          url: url,
+        })
+        //绘制色斑图
+        layers._render(params).then((object) => {
+          //绘制风向杆
+          layers.addArrowLayer(paramsArrow).then((layer) => {
+            map.addLayer(layer)
+          })
+        })
+      }
+      function getMultiConfig() {
+        let params = {
+          interpolation: 'grid', // 渐变 linear  区间 nearest  网格 grid
+          layerName: 'multiCogtifLayer',
+          opacity: 0.9,
+          zIndex: 14,
+          colors: [
+            [0, [82, 71, 141, 1]],
+            [1, [85, 78, 177, 1]],
+            [2, [80, 87, 184, 1]],
+            [4, [67, 105, 196, 1]],
+            [6, [64, 160, 180, 1]],
+            [8, [78, 193, 103, 1]],
+            [10, [104, 209, 79, 1]],
+            [12, [157, 221, 68, 1]],
+            [16, [195, 226, 51, 1]],
+            [18, [247, 122, 9, 1]],
+            [20, [251, 60, 60, 1]],
+            [24, [0, 0, 0, 1]],
+            [30, [217, 66, 114, 1]],
+            [36, [147, 23, 78, 1]],
+            [42, [43, 0, 1, 1]],
+            [24, [194, 3, 0, 1]],
+            [30, [217, 66, 114, 1]],
+            [36, [147, 23, 78, 1]],
+            [42, [43, 0, 1, 1]],
+          ],
+        }
+
+        return params
+      }
+      function getTextCogtig() {
+        let params = {
+          layerName: 'textLayer',
+    
+          precision: 1, //格网数据显示的小数点的精度
+          opacity: 1, //透明度
+          // maxZoom: 15, // 最大缩放级别
+          zIndex: 200, //图层层级
+          // showTextRange: range,
+          distanceArrow: 80, //距离
+          textStyle: {
+            //   //文本样式
+            Style: {
+              text: {
+                Text: {
+      
+                  font: '18px Calibri,sans-serif',
+                  fill: {
+                    Fill: {
+                      color: '#ff0000',
+                    },
+                  },
+                  stroke: {
+                    Stroke: {
+                      color: '#ffffff',
+                      width: 4,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+
+        return params
+      }
+      function getArrowCogtig() {
+        let params = {
+          layerName: 'arrowLayer',
+          windType: 'wind', //  arrow 表示箭头  wind 表示风向杆
+          zIndex: 1002,
+          distance:1000000,
+          style1: {
+            Style: {
+              image: {
+                cme_style_FontSymbol: {
+                  radius: 22,
+                  displacement: [0, 0],
+                  color: 'rgba(0,0,0,200)',
+                },
+              },
+            },
+          },
+         
+        }
+        return params
+      }
+      // 点击按钮时设置地图中心点
+    </script>
+  </body>
+</html>
