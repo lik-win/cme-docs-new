@@ -4,7 +4,7 @@ import ViewIndex from '../views/ViewIndex.vue';
 import Samples from '../views/Samples.vue';
 import DataServices from '../views/DataServices.vue';
 import Algorithms from '../views/Algorithms.vue';
-import Home from '../views/Home.vue';
+import Home from '../views/HomeNew.vue';
 import SceneVue from '../views/Scene.vue';
 
 /**
