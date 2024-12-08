@@ -1,89 +1,126 @@
 <template>
-  <!-- <el-aside>
-    <TreeMenu :menus="store.menus3" :anchor="false" @nodeClick="nodeClick" />
-  </el-aside> -->
   <el-main class="page-view">
+    <span class="back">
+      <img src="./../assets/images/icons/icon-back.webp">
+      <a @click="router.go(-1)">返回上一页</a>
+    </span>
     <div class="head-info">
-      <h3 class="title">{{ docInfo.title }}</h3>
+      <h3 class="page-title">服务详情</h3>
+      <h3 class="sub-title">{{ docInfo.title }}</h3>
+      <div class="desc-box">
+        <p class="desc-title">服务描述</p>
+        <p class="desc-text">这是一段服务描述</p>
+      </div>
       <p class="src-path">
-        <!-- <img src="./../assets/images/icons/icon-srcpath.webp"> -->
-        <!-- {{ docInfo.sourcePath || '--' }} -->
         <label>版本列表：</label>
-        <select class="v-list" @change="changeVersion">
+        <el-select v-model="version" placeholder="版本" @change="changeVersion">
           <template v-for="v in versionList">
-            <option :value="v">{{ v }}</option>
+            <el-option :value="v">{{ v }}</el-option>
           </template>
-        </select>
+        </el-select>
       </p>
     </div>
-    <div class="center-box">
-      <p class="desc">{{ docInfo.describe || '暂无描述' }}</p>
-      <iframe ref="frame" frameborder="0"></iframe>
-      <div class="info-block" v-html="docInfo.useIntroduce"></div>
+    <div class="sample-box">
+      <p class="title">运行效果</p>
+      <Repl ref="repl" v-bind="replOptions"></Repl>
     </div>
-    <div class="right">
+    <hr class="s-line" v-if="apiUrl">
+    <div class="args-box" v-if="apiUrl">
+      <p class="title">参数列表</p>
+      <button class="btn-run" @click="toRun">运行</button>
+      <div class="table-box">
+        <p class="api-url"><label>接口地址：</label>{{ apiUrl }}</p>
+        <el-table :data="apiArgs" border class="args-table">
+          <el-table-column type="index" label="序号" align="center" :min-width="50" />
+          <el-table-column label="参数名" prop="name" :min-width="80" />
+          <el-table-column label="描述" prop="desc" :min-width="100" />
+          <el-table-column label="数据类型" prop="type" :min-width="80" />
+          <el-table-column label="参数值" :min-width="120">
+            <template #default="{ row }">
+              <el-input type="text" v-model="row.value" />
+            </template>
+          </el-table-column>
+          <el-table-column label="是否必传" prop="required" :min-width="60" />
+          <el-table-column label="备注" prop="remark" :min-width="180" />
+        </el-table>
+      </div>
+    </div>
 
-      <!-- <p class="p-title">本页内容</p>
-      <a class="a-link">用例</a>
-      <a class="a-link">特征</a> -->
-    </div>
   </el-main>
 </template>
 <script setup>
-import { ref, useTemplateRef, watch } from 'vue';
+import { onBeforeUnmount, reactive, ref, useTemplateRef, watch } from 'vue';
 import { useRouter } from 'vue-router'
-import TreeMenu from './../components/TreeMenu.vue';
+import { Repl, useStore, File } from './../../repl/index.ts';
 import { getSampleInfo } from './../apis/index.js';
 import { useGlobal } from './../store/index.js';
 
 const store = useGlobal();
+store.updateMenus('components');
+const replRef = useTemplateRef('repl');
 const router = useRouter();
-const { meta } = router.currentRoute.value;
-if (!meta.cate) {
-  router.back();
-}
-store.updateMenus(meta.cate || 'components');
+const editStore = useStore();
+editStore.deleteAllFiles();
+editStore.mainFile = 'demo.html';
+editStore.addFile(new File('demo.html', ''));
 
-const loading = ref(false);
 const docInfo = ref({
   title: null,
   describe: null,
   sourcePath: '',
-  latestVersion: '',
-  demoUrl: null
+  latestVersion: ''
 });
 
+const apiUrl = ref(null);
+const apiArgs = ref([]);
+const version = ref(null);
 const versionList = ref([]);
 const latestDoc = ref(null);
 const historyList = ref([]);
-const frameRef = useTemplateRef('frame');
 
-function changeVersion(event) {
-  const version = event.target.value;
-  if (!version || version === docInfo.value.version) return;
-  const doc = historyList.value.find(d => d.version === version);
+function showCode(fileList) {
+  if (!fileList.length) return;
+  const { fileName, url } = fileList[0];
+  editStore.deleteAllFiles();
+  editStore.mainFile = fileName;
+  editStore.addFile(new File(fileName, ''));
+  fetch(url).then(res => res.text()).then(code => {
+    editStore.activeFile.setRaw(code);
+    replRef.value.onCodeChange(code);
+  });
+}
+
+function changeVersion() {
+  if (version.value === docInfo.value.version) return;
+  const doc = historyList.value.find(d => d.version === version.value);
   docInfo.value = doc || latestDoc.value;
-  showCode(docInfo.value.demoUrl);
+  showCode(docInfo.value.fileList);
 }
 
 function parseDocInfo(data) {
-  const { title, describe, sourcePath, version, latestVersion, useIntroduce, fileList } = data;
+  const { title, describe, sourcePath, latestVersion, useIntroduce, fileList } = data;
   return {
     title: title || docInfo.value.title,
     describe: describe || docInfo.value.describe,
     sourcePath,
-    version: version || latestVersion,
+    version: data.version || latestVersion,
     useIntroduce,
-    demoUrl: fileList[0]?.url,
     fileList
   };
 }
 
-function showCode(url) {
-  if (!url) return;
-  fetch(url).then(res => res.text()).then(code => {
-    frameRef.value.srcdoc = code;
-  });
+function parseArgs(data) {
+  const { url, args } = data;
+  if (url) {
+    apiUrl.value = data.url;
+  }
+  if (args) {
+    const list = [];
+    Object.keys(args).forEach(key => {
+      list.push({ ...args[key], name: key });
+    });
+    apiArgs.value = list;
+  }
 }
 
 watch(router.currentRoute, route => {
@@ -94,22 +131,46 @@ watch(router.currentRoute, route => {
     latestDoc.value = docInfo.value;
     versionList.value.splice(0);
     versionList.value.push(docInfo.value.version);
+    version.value = versionList.value[0];
+    showCode(data.fileList);
     historyList.value = data.exampleHistoryList.map(item => parseDocInfo(item));
     versionList.value.push(...historyList.value.map(d => d.version));
-    showCode(docInfo.value.demoUrl);
   });
 }, { immediate: true });
 
 
-function nodeClick(data) {
-  if (data.level !== 3) return;
-  router.push(`/${meta.cate}/${data.id}`);
-}
-
-window.addEventListener('message', e => {
-  console.log('message =>', e);
+const replOptions = reactive({
+  store: editStore,
+  showTsConfig: true,
+  showCompileOutput: false,
+  showImportMap: true,
+  previewOptions: { headHTML: '' },
+  clearConsole: false
 });
 
+// 处理postMessage信息
+function onMessage(evt) {
+  if (typeof evt.data !== 'string') return;
+  const data = JSON.parse(evt.data);
+  if (data.msgType === 'apiInfo') {
+    parseArgs(data.data);
+  } else if (data.msgType === 'paramError') {
+    alert(data.data);
+  }
+}
+
+function toRun() {
+  const params = apiArgs.value;
+  if (!window.frames[0]) return;
+  const data = JSON.stringify({ msgType: 'toRun', params });
+  window.frames[0].postMessage(data, location.origin);
+}
+
+onBeforeUnmount(() => {
+  window.removeEventListener('message', onMessage);
+});
+
+window.addEventListener('message', onMessage);
 </script>
 
 <style lang="scss" scoped>
@@ -117,106 +178,149 @@ window.addEventListener('message', e => {
 
 $border: 1px solid #FFFFFF19;
 
-// .el-aside {
-//   @include position(fixed, $top: 60px);
-//   width: 360px;
-//   height: calc(100% - 120px);
-// }
+.page-view {
+  position: relative;
+  padding: 0 80px 40px;
+  background-color: #F6F8FC;
 
-.el-main {
-  padding: 40px;
-  // margin-left: 360px;
-  display: grid;
-  grid-template-columns: auto 300px;
-  grid-template-rows: 100px auto;
-  grid-row-gap: 30px;
-  border-left: $border;
-  background-color: var(--background-color4);
+  .back {
+    @include position(absolute, $left: 0, $top: 20px);
+    @include flex(center, center);
+    @include setBox(168px, 48px);
+    background-color: #2A2C2F19;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    transition: 0.2s;
 
-  .head-info {
-    grid-column-start: span 2;
-    border-bottom: $border;
-  }
-
-  .title {
-    margin-bottom: 24px;
-    @include setFont(36px, 50px);
-  }
-
-  .src-path {
-    grid-column-start: span 2;
-    @include setFont(16px, 22px);
-    color: #B8C2C2;
+    &:hover {
+      cursor: pointer;
+      background-color: #2A2C2F33;
+    }
 
     img {
       @include setBox(16px, 16px);
       margin-right: 8px;
-      vertical-align: middle;
     }
   }
 
-  .center-box {
-    flex: 1;
-    padding-right: 60px;
-
-    .desc {
-      color: var(--text-color4);
-      margin-bottom: 20px;
-    }
-
-    iframe {
-      height: 540px;
-      border-radius: 8px;
-      border: 1px solid #B8C2C2;
-    }
-
-    .info-block {
-      margin-top: 30px;
-      margin-bottom: 40px;
-      padding-top: 20px;
-      border-top: $border;
-
-      .title {
-        @include setFont(30px, 42px);
-        margin: 20px 0;
-      }
-
-      .line {
-        @include setFont(16px, 24px);
-        color: var(--text-color4);
-      }
-
-      ul {
-        padding-left: 20px;
-        margin-top: 8px;
-        list-style-type: disc;
-        color: var(--text-color5);
-      }
-
-      li {
-        line-height: 24px
-      }
-    }
+  .head-info {
+    padding-top: 100px;
   }
 
-  .right {
-    padding-left: 16px;
-    width: 300px;
-    border-left: $border;
+  .page-title {
+    @include setFont(56px, 66px);
+  }
 
-    .p-title,
-    .a-link {
-      display: block;
+  .sub-title {
+    margin-top: 40px;
+    @include setFont(40px, 56px, 500);
+    color: #323439;
+  }
+
+  .desc-box {
+    @include setBox(1760px, $padding: 16px 24px, $margin: 20px 0);
+    background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
+    border-radius: 8px;
+
+    .desc-title {
+      @include setFont(20px, 28px, 600);
       margin-bottom: 8px;
-      color: var(--text-color5);
-      line-height: 24px;
+      color: #1C1D1F;
     }
 
-    select {
-      display: block;
-      @include setBox(120px, 28px);
-      border-radius: 3px;
-      outline: none;
+    .desc-text {
+      @include setFont(18px, 25px);
+      color: #2F3035;
+    }
+  }
+
+  .src-path {
+    @include flex();
+    @include setBox(240px);
+    @include setFont(16px, 22px);
+    color: var(--text-color);
+
+    label {
+      @include setBox(80px);
+    }
+
+    .el-select {
+      flex: 1
+    }
+  }
+}
+
+.sample-box {
+  margin-top: 40px;
+
+  .title {
+    @include setBox(220px, 38px);
+    background: linear-gradient(270deg, #ffffff2b 0%, #7bfff791 23%, #8ac1ff26 86%, #ffffff12 100%);
+    @include setFont(24px, 34px, 500);
+    color: #323439;
+  }
+
+  .cme-repl {
+    margin-top: 20px;
+    height: 600px;
+    padding: 10px;
+    background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
+    border: 1px solid #B8C2C2;
+    border-radius: 8px;
+  }
+
+  .info-block {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding-top: 20px;
+    border-top: $border;
+  }
+}
+
+.s-line {
+  margin-top: 60px;
+  border-top: 1px solid #DCDDDF;
+}
+
+.args-box {
+  margin-top: 20px;
+
+  .title {
+    @include setBox(220px, 38px);
+    background: linear-gradient(270deg, #ffffff2b 0%, #7bfff791 23%, #8ac1ff26 86%, #ffffff12 100%);
+    @include setFont(24px, 34px, 500);
+    color: #323439;
+  }
+
+  .btn-run {
+    @include setBox(80px, 36px, $margin: 20px 0);
+    @include setFont(20px, 32px);
+    border-radius: 20px;
+    color: #ffffff;
+    outline: none;
+    border: 1px solid #0071E3;
+    background-color: #0071E3;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #1183f6;
+    }
+  }
+
+  .table-box {
+    width: 1040px;
+    padding: 10px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #B8C2C2;
+    backdrop-filter: blur(10px);
+
+    .api-url {
+      @include setBox(100%, 40px);
+    }
+
+    .args-table {
+      width: 1020px;
     }
   }
 }

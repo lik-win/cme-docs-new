@@ -73,6 +73,7 @@ store.updateMenus('components');
 
 .page-head {
   padding: 60px 84px;
+  background: linear-gradient(136deg, rgba(217, 253, 255, 0.29) 0%, #F0F6FF 22%, #D9E9FF 100%);
 
   .page-title {
     margin-top: 30px;
@@ -92,7 +93,8 @@ store.updateMenus('components');
     padding: 32px 70px;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: -6px 6px 6px #eeeeee;
+    box-shadow: 10px -10px 20px 0px rgba(255, 255, 255, 0.3),
+      -10px 10px 20px 0px rgba(217, 217, 217, 0.5);
 
     .info-item {
       flex: 1;
