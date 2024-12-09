@@ -44,15 +44,9 @@ export default mergeConfig(base, {
     port: 8090,
     proxy: {
       '/echartUrl': {
-<<<<<<< HEAD
         target: 'http://192.168.110.25:32189/', // 目标后端API域名
         changeOrigin: true, // 是否改变源
         rewrite: (path) => path.replace(/^\/echartUrl/, '/') // 重写路径
-=======
-        target: 'http://10.1.64.146',
-        changeOrigin: true,
-        rewrite: p => p.replace(/^\/echartUrl/i, '')
->>>>>>> a259e2b266ba46e09cdec158e3c9c34870c0241f
       }
     }
   },
