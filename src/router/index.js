@@ -4,7 +4,7 @@ import ViewIndex from '../views/ViewIndex.vue';
 import Samples from '../views/Samples.vue';
 import DataServices from '../views/DataServices.vue';
 import Algorithms from '../views/Algorithms.vue';
-import Home from '../views/Home.vue';
+import Home from '../views/HomeNew.vue';
 import SceneVue from '../views/Scene.vue';
 
 /**
@@ -56,6 +56,16 @@ const routes = [{
   name: 'scenes',
   component: SceneVue,
   meta: { cate: 'scenes' }
+}, {
+  path: '/cases',
+  name: 'cases',
+  component: SceneVue,
+  meta: { cate: 'cases' }
+}, {
+  path: '/support',
+  name: 'support',
+  component: SceneVue,
+  meta: { cate: 'support' }
 }];
 
 const routeBase = 'cmedocs';

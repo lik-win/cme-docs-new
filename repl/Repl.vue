@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
   clearConsole: true,
   layoutReverse: false,
   ssr: false,
-  layout: 'vertical',
+  layout: 'horizontal',
   previewOptions: () => ({}),
   editorOptions: () => ({}),
   splitPaneOptions: () => ({}),
@@ -101,7 +101,7 @@ function onCodeChange(code: string) {
 //   outputRef.value?.reload()
 // }
 
-const sandboxAllows = 'allow-forms allow-modals allow-pointer-lock allow-popups allow-scripts allow-top-navigation-by-user-activation';
+// const sandboxAllows = 'allow-forms allow-modals allow-pointer-lock allow-popups allow-scripts allow-top-navigation-by-user-activation';
 
 // defineExpose({ reload })
 defineExpose({ onCodeChange });
@@ -118,7 +118,7 @@ defineExpose({ onCodeChange });
           :ssr="!!props.ssr" />
       </template> -->
       <template #[outputSlotName]>
-        <iframe ref="sandbox" :sandbox="sandboxAllows" frameborder="0"></iframe>
+        <iframe ref="sandbox" frameborder="0"></iframe>
       </template>
     </SplitPane>
   </div>
@@ -136,7 +136,7 @@ defineExpose({ onCodeChange });
   --header-height: 38px;
 
   /* height: 100%; */
-  height: 840px;
+  height: 500px;
   margin: 0;
   overflow: hidden;
   font-size: 13px;
