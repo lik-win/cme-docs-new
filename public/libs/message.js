@@ -35,9 +35,16 @@
       const val = typeof item.value === 'string' ? (item.value || '').trim() : item.value;
       if (item.required && isEmpty(val)) {
         errMsg = `参数"${item.name}"为必传参数!`;
+        return;
       }
-      args[item.name] = parseData(val, item.type);
+      const value = parseData(val, item.type);
+      if (value === NaN) {
+        errMsg = `参数"${item.name}"类型错误，应传${item.type}类型!`;
+        return;
+      }
+      args[item.name] = value;
     });
+
     if (errMsg) {
       const message = JSON.stringify({ msgType: 'paramError', data: errMsg });
       window.top.postMessage(message, host);
@@ -56,7 +63,7 @@
   });
 
   window.postResult = function (data) {
-    console.log('postResult =>', data);
-    window.top.postMessage(message, host);
+    const msg = JSON.stringify({ msgType: 'response', data });
+    window.top.postMessage(msg, host);
   }
 })();

@@ -156,6 +156,8 @@ function onMessage(evt) {
     parseArgs(data.data);
   } else if (data.msgType === 'paramError') {
     alert(data.data);
+  } else if (data.msgType === 'response') {
+
   }
 }
 
