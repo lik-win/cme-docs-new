@@ -1,33 +1,60 @@
 <template>
   <div class="home-view">
     <div class="panel1">
-      <div class="content">
-        <p class="line1">新一代气象WEB开发<span>框架、</span><span>服务</span></p>
-        <p class="line2">网络化支撑气象业务</p>
-        <p class="line3">针对气象、海洋数据的二三位Web端可视化引擎，基于B/S技术实现Micaps应用功能</p>
-      </div>
       <img class="globe" src="./../assets/images/globe.webp">
+      <div class="content">
+        <div class="line1">
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <span class="intro">简介</span>
+        </div>
+        <p class="line2">
+          以预报服务应用功能为基础，依托“云+端”技术体系开发的一种组件化、可插拔的轻量级WEB支撑框架。
+        </p>
+        <p class="line3">
+          使命：CME身负技术引领与创新、满足多样化需求、提升预报服务能力、保障安全与可靠性、促进气象业务发展等多项使命
+        </p>
+        <p class="line4">
+          愿景：CME框架旨在提供一个灵活、高效且易于扩展的平台，以支持多场景气象业务的发展。通过采用组件化和可插拔的设计思想，CME能够方便地集成各种气象预报、监测和服务功能，满足不同地区和领域对气象信息的多样化需求
+        </p>
+        <div class="line5">
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+          <i class="dot"></i>
+        </div>
+      </div>
     </div>
+    <div class="panel2"></div>
     <div class="panel4">
-      <div class="card2 radius8">
-        <span class="count">20</span>
-        <span class="msg">3月更新组件</span>
+      <div class="card-box">
+        <div class="card2 radius8">
+          <span class="count">20</span>
+          <span class="msg">3月更新组件</span>
+        </div>
+        <div class="card2 radius8">
+          <span class="count">200</span>
+          <span class="msg">已服务项目</span>
+        </div>
+        <div class="card2 radius8">
+          <span class="count">8926</span>
+          <span class="msg">提供接口服务</span>
+        </div>
+        <div class="card2 radius8">
+          <span class="count">109</span>
+          <span class="msg">独家版权算法</span>
+        </div>
       </div>
-      <div class="card2 radius8">
-        <span class="count">200</span>
-        <span class="msg">已服务项目</span>
-      </div>
-      <div class="card2 radius8">
-        <span class="count">8926</span>
-        <span class="msg">提供接口服务</span>
-      </div>
-      <div class="card2 radius8">
-        <span class="count">109</span>
-        <span class="msg">独家版权算法</span>
-      </div>
+
     </div>
     <div class="panel5">
-      <h3 class="title">技术特点</h3>
+      <h3 class="panel-title">技术特点</h3>
       <div class="block">
         <div class="left-box1">
           <h4 class="block-title">因云而生，与云共生</h4>
@@ -122,52 +149,73 @@
 
 .panel1 {
   position: relative;
-  height: 680px;
+  height: 886px;
   background: url("./../assets/images/sky.webp") no-repeat center;
   user-select: none;
 
   .content {
-    @include position(absolute, $top: 140px, $left: 360px);
+    @include position(absolute, $top: 148px, $left: 180px);
+    @include setBox(1400px, 600px);
+    color: #ffffff;
 
     .line1 {
-      position: relative;
-      @include setBox(510px, 196px);
-      margin-bottom: 40px;
-      @include setFont(70px, 98px);
-      color: #ffffff;
+      display: flex;
+      align-items: center;
 
-      span {
-        padding: 0 10px;
-        color: transparent;
-        font-size: inherit;
+      .dot {
+        @include setBox(12px, 12px, $margin: 5px);
+        background-color: #FFFFFF;
+      }
 
-        &:last-child {
-          position: absolute;
-          right: 34px;
+      @each $n in (1, 2, 3, 4, 5, 6) {
+        .dot:nth-of-type(#{$n}) {
+          opacity: (1 - 0.15 * $n);
         }
+      }
 
-        -webkit-text-stroke-color: #ffffff;
-        -webkit-text-stroke-width: 1px;
+      .intro {
+        @include setBox(116px, 40px);
+        @include setFont(28px, 40px, 600);
+        text-align: center;
+        background: linear-gradient(270deg, hsla(84, 100%, 50%, 0) 0%, #7DFF0033 52%, rgba(98, 255, 0, 0) 100%);
       }
     }
 
     .line2 {
-      @include setFont(24px, 32px);
-      color: #FFFFFF;
+      @include setFont(56px, 78px, 600);
     }
 
     .line3 {
-      margin: 10px 0;
-      @include setFont(14px, 24px);
-      color: var(--text-color2);
+      @include setBox(810px);
+      margin-top: 78px;
+      @include setFont(32px, 44px, 600);
+    }
+
+    .line4 {
+      @include setBox(830px);
+      margin-top: 20px;
+      @include setFont(24px, 32px, 600);
+    }
+
+    .line5 {
+      @include setBox(830px);
+      margin-top: 40px;
+      @extend .line1;
+      transform: scale(-1, 1);
     }
   }
 
   .globe {
-    @include position(absolute, $top: 50px, $right: 350px);
-    @include setBox(580px, 580px);
+    @include position(absolute, $top: 80px, $right: 160px);
+    @include setBox(740px, 740px);
     pointer-events: none;
   }
+}
+
+.panel2 {
+  @include setBox(100%, 1290px);
+  background: url('./../assets/images/panelbg2.webp') no-repeat center;
+  background-size: 100% 100%;
 }
 
 $bg_dark: linear-gradient(135deg, #1C1D1F 0%, #26272A 100%);
@@ -177,30 +225,37 @@ $bg_light3: linear-gradient(153deg, #FFF8F5 0%, #FFFFFF 100%);
 $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
 .panel4 {
-  @include setBox(1390px, 800px, unset, 20px auto);
-  align-self: center;
-  display: grid;
-  grid-template-columns: repeat(2, 680px);
-  grid-template-rows: repeat(2, 360px);
-  grid-gap: 30px;
+  @include setBox(100%, 992px, 100px 0);
+  background-color: #1C1D1F;
+
+  .card-box {
+    @include setBox(1390px, 800px, unset, auto);
+    display: grid;
+    grid-template-columns: repeat(2, 680px);
+    grid-template-rows: repeat(2, 360px);
+    grid-gap: 30px;
+  }
+
+
 
   .card2 {
     position: relative;
+    color: #ffffff;
 
     &:nth-of-type(1) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_light1 ));
+      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
     }
 
     &:nth-of-type(2) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_light2 ));
+      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
     }
 
     &:nth-of-type(3) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_light3 ));
+      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
     }
 
     &:nth-of-type(4) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_light4 ));
+      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
     }
 
     &:nth-of-type(2n) {
@@ -230,32 +285,32 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 .panel5 {
   overflow: hidden;
 
-  .title {
-    @include setBox($margin: 60px 0);
-    @include setFont(54px, 60px, 600);
+  .panel-title {
+    @include setBox($margin: 50px 0);
+    @include setFont(56px, 66px);
     text-align: center;
   }
 
   .block {
     display: flex;
-    @include setBox($margin: 70px 0);
+    @include setBox($padding: 60px 0);
 
     .block-title {
-      @include setFont(54px, 60px);
+      @include setFont(50px, 70px);
       margin-bottom: 20px;
+      color: #1C1D1F;
     }
 
     .block-desc {
       margin-top: 20px;
-      @include setFont(28px, 44px);
+      @include setFont(28px, 40px);
       color: #424349;
     }
 
     .img-box {
       position: relative;
       width: 100%;
-      border: 25px solid;
-      border-radius: 40px;
+      border-radius: 30px;
 
       overflow: hidden;
 
@@ -280,7 +335,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     width: 54%;
 
     .img-box {
-      right: -45px;
+      right: -30px;
     }
   }
 
@@ -295,7 +350,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     width: 54%;
 
     .img-box {
-      left: -45px;
+      left: -30px;
     }
   }
 }

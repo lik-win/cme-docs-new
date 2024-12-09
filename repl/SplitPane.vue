@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, reactive, useTemplateRef } from 'vue'
-// import { injectKeyPreviewRef, injectKeyProps } from './types'
+import { injectKeyPreviewRef, injectKeyProps } from './types'
 // import { injectKeyPreviewRef } from './types'
 
 const props = defineProps<{ layout?: 'horizontal' | 'vertical' }>()
 const isVertical = computed(() => props.layout === 'vertical')
 
 const containerRef = useTemplateRef('container')
-// const previewRef = inject(injectKeyPreviewRef)!
+const previewRef = inject(injectKeyPreviewRef)!
 
 // mobile only
 // const { store, splitPaneOptions } = inject(injectKeyProps)!
@@ -21,7 +21,7 @@ const state = reactive({
 })
 
 const boundSplit = computed(() => {
-  return state.showOutput ? 56 : Math.min(70, Math.max(state.split, 30));
+  return state.showOutput ? 45 : state.split;
 })
 
 let startPosition = 0
@@ -33,7 +33,7 @@ function dragStart(e: MouseEvent) {
   startPosition = isVertical.value ? e.pageY : e.pageX
   startSplit = boundSplit.value
 
-  // changeViewSize()
+  changeViewSize()
 }
 
 function dragMove(e: MouseEvent) {
@@ -45,7 +45,7 @@ function dragMove(e: MouseEvent) {
     const dp = position - startPosition
     state.split = startSplit + +((dp / totalSize) * 100).toFixed(2)
 
-    // changeViewSize()
+    changeViewSize()
   }
 }
 
@@ -53,12 +53,12 @@ function dragEnd() {
   state.dragging = false
 }
 
-// function changeViewSize() {
-//   const el = previewRef?.value
-//   if (!el) return
-//   state.viewHeight = el.offsetHeight
-//   state.viewWidth = el.offsetWidth
-// }
+function changeViewSize() {
+  const el = previewRef?.value
+  if (!el) return
+  state.viewHeight = el.offsetHeight
+  state.viewWidth = el.offsetWidth
+}
 </script>
 
 <template>

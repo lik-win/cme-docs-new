@@ -1,9 +1,4 @@
 @charset "utf8";
-@import "sass-embedded-legacy-load-done:247";
-@import "sass-embedded-legacy-load-done:3";
-@import "sass-embedded-legacy-load-done:11";
-@import "sass-embedded-legacy-load-done:19";
-
 
 @function toRem($val) {
   @if type-of($val) !='number' {
