@@ -192,13 +192,13 @@
     }
 
     .line4 {
-      @include setBox(810px);
+      @include setBox(830px);
       margin-top: 20px;
       @include setFont(24px, 32px, 600);
     }
 
     .line5 {
-      @include setBox(810px);
+      @include setBox(830px);
       margin-top: 40px;
       @extend .line1;
       transform: scale(-1, 1);
