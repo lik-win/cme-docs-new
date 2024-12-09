@@ -114,8 +114,9 @@ store.updateMenus('components');
 
       &:hover {
         cursor: pointer;
-        background: linear-gradient(45deg, #7be8fc, #47a1fe);
         color: #ffffff;
+        background: linear-gradient(47deg, #83D9FF 0%, #3291FD 100%);
+        box-shadow: 0px 10px 38px 0px #0090ff52, inset -2px 2px 3px 0px #ffffff80, inset 2px -2px 3px 0px #2b98e985;
 
         label {
           cursor: pointer;
