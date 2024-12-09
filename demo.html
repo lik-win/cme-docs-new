@@ -25,7 +25,7 @@
       }
     };
 
-    const { Map: olmap, View, source, layer } = window.CME2D;
+    const { Map: CMEMap, View, source, layer } = window.CME2D;
     const { blendLayers, style } = window.CMECore;
     // 作为全局对象保存
     let mapObj = null;
@@ -56,10 +56,6 @@
         .then((res) => res.json())
         .then((res) => {
           if (res.data) {
-            // 将请求结果传到外面的窗口
-            if (window.postResult) {
-              window.postResult(res.data);
-            }
             let urlNum = String(res.data.slice(7, 19)).replace(/\./g, '')
             let tifUrl =
               'http://10.20.107.239:864/cmes-' + urlNum + res.data.slice(19)
@@ -69,7 +65,7 @@
     }
 
     function initMap(mapEl) {
-      const map = new olmap({
+      const map = new CMEMap({
         target: mapEl, //挂载实例
         layers: [
           new layer.Tile({
