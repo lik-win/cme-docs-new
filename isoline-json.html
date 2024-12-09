@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>底图切换</title>
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/libs/polyline.js"></script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script type="text/javascript" src="/libs/cme2d.js"></script>
+    <script type="text/javascript" src="/libs/cme-core.umd.cjs"></script>
+    <script type="text/javascript">
+      const { Map: olmap, View, source, layer, proj,Feature,geom,style } = window.CME2D
+
+      let styleX=    new style.Style({
+          // stroke: new Stroke({
+            Stroke:  new style.Stroke({
+            color: 'rgba(180,0,0,255)',
+            width: 5,
+            // lineDash: [10, 10],
+          }),
+        });
+
+      const { contourLayer, CMEStyle, Layer } = window.CMECore
+      console.log(CMEStyle.cme_polyline)
+      let micapsStyle = new CMEStyle.cme_polyline()
+      let style19 = micapsStyle.getCme_LINES_19(polylineStyleJson.LINES_19)
+
+      const styles = [
+        // 冷锋
+        // // LINES_19
+        micapsStyle.getCme_LINES_19(polylineStyleJson.LINES_19),
+        // 暖锋
+        // //LINES_18
+        micapsStyle.getCme_LINES_18(polylineStyleJson.LINES_18),
+
+        //锢囚锋
+        // //LINES_51
+        micapsStyle.getCme_LINES_51(polylineStyleJson.LINES_51),
+        //静止锋
+        // // getCme_LINES_41
+        micapsStyle.getCme_LINES_41(polylineStyleJson.LINES_41),
+
+        new style.Style({
+          // stroke: new Stroke({
+            Stroke:  new style.Stroke({
+            color: 'rgba(180,0,0,255)',
+            width: 5,
+            // lineDash: [10, 10],
+          }),
+
+        }),
+
+        // new Style({
+        //   stroke: new Stroke({
+        //     color: 'rgba(180,0,0,255)',
+        //     width: 5,
+        //     // lineDash: [10, 10],
+        //   }),
+        // }),
+
+
+      ]
+      // console.log(style19);
+
+      const lines = [
+      [[126.8554,46.5],[126.74677,46.072765],[126.629616,45.663025],[126.49864,45.276367],[126.35034,44.91349],[126.18352,44.57325],[125.99933,44.253662],[125.80058,43.951603],[125.590744,43.662827],[125.37308,43.3828],[125.15019,43.10766],[124.92397,42.83471],[124.69571,42.56241],[124.46622,42.29013],[124.23585,42.018005],[124.00442,41.746918],[123.77101,41.478485],[123.5338,41.21492],[123.29008,40.958748],[123.036514,40.712574],[122.7698,40.47894],[122.48752,40.260353],[122.18858,40.059376],[121.872284,39.87842],[121.53635,39.719154],[121.1766,39.58185],[120.78999,39.465126],[120.378845,39.365868],[119.95242,39.2791],[119.524284,39.19812],[119.106705,39.11506],[118.706474,39.02211],[118.32482,38.913322],[117.9601,38.786003],[117.609985,38.64071],[117.27225,38.47994],[116.9449,38.306557],[116.626595,38.12267],[116.31734,37.92916],[116.01877,37.72558],[115.73354,37.510155],[115.46415,37.280346],[115.211815,37.03409],[114.975815,36.771393],[114.75328,36.495304],[114.539795,36.21173],[114.33078,35.928345],[114.123085,35.652435],[113.91544,35.388115],[113.70773,35.13435],[113.50001,34.88555]],
+      [[94,45.350002],[94.11535,44.921257],[94.22493,44.500187],[94.3245,44.092148],[94.40587,43.7004],[94.45478,43.32766],[94.45315,42.979576],[94.38398,42.665897],[94.23606,42.397568],[94.00744,42.181488],[93.707245,42.01557],[93.35427,41.88752],[92.97112,41.77956],[92.57608,41.676582],[92.17801,41.57138],[91.77862,41.463444],[91.37953,41.353424],[90.986755,41.23878],[90.60819,41.11434],[90.247345,40.97691],[89.89897,40.829548],[89.55026,40.681923],[89.186455,40.546936],[88.79765,40.436516],[88.3831,40.35939],[87.95172,40.32137],[87.5195,40.326084],[87.1046,40.37364],[86.7218,40.456894],[86.3784,40.55831],[86.072754,40.65162],[85.79509,40.71006],[85.530045,40.71727],[85.25983,40.67366],[84.96767,40.594536],[84.64163,40.502678],[84.27843,40.42043],[83.88503,40.36425],[83.47645,40.34156],[83.06983,40.34926],[82.67777,40.37468],[82.30398,40.400288],[81.94297,40.4112],[81.58338,40.40214],[81.21406,40.380016],[80.83078,40.360825],[80.43942,40.362938],[80.053406,40.400417],[79.68745,40.47903],[79.35153,40.59575],[79.0475,40.741417],[78.768265,40.904778],[78.5,41.075005]]
+      ]
+     
+
+
+
+      function initMap(mapEl) {
+        const map = new olmap({
+          target: mapEl, //挂载实例
+          layers: [
+            new layer.Tile({
+              source: new source.XYZ({
+                url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png', // 内网地址
+                // url: 'https://wprd0{1-4}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=2&style=6',
+              }),
+            }),
+          ],
+          view: new View({
+            //地图视图
+            center: proj.transform([106, 35], 'EPSG:4326', 'EPSG:3857'),
+            // transform([106, 35]),
+            // projection: 'EPSG:3857',
+            // center: [106, 35],
+            // projection: 'EPSG:4326',
+            zoom: 5,
+            wrapX: true,
+          }), //地图设置
+          controls: [], //取消地图操作
+        })
+        return map
+      }
+
+      let mapObj = null
+      window.onload = function () {
+        const mapEl = document.querySelector('#map')
+        mapObj = initMap(mapEl)
+        // mapObj.once('postrender', function () {
+        //   // addLayer(mapObj)
+
+        //   debugger
+          addFeatureLayer(mapObj)
+        // })
+      }
+
+      function addFeatureLayer(map) {
+
+
+     // import { Tile as TileLayer, Vector as VectorLayer } from "CME2D/layer";
+      // import { XYZ } from "CME2D/source";
+      // import { Vector as VectorSource } from "CME2D/source";
+      // import { Feature } from "CME2D";
+      // import { LineString } from "CME2D/geom";
+      // import { Style, Stroke } from "CME2D/style";
+      // import { transform } from "CME2D/proj";
+
+      
+    
+      const vectorSource = new source.Vector();//VectorSource();
+
+      // const vectorSource = new VectorSource();
+  lines.forEach((line, index) => {
+    const transformedLine = line.map(
+      (coord) => proj.transform(coord, "EPSG:4326", "EPSG:3857") // 转换为 EPSG:3857 坐标系
+    );
+    const feature = new Feature({
+      geometry: new geom.LineString(transformedLine),
+    });
+    console.log(styles[index % styles.length],'ssssss')
+    feature.setStyle(styles[index % styles.length]); // 为每条线分配样式
+    vectorSource.addFeature(feature);
+  });
+
+
+        // 创建矢量图层
+        const vectorLayer = new   layer.Vector({
+        // const vectorLayer = new VectorLayer({
+          source: vectorSource,
+        });
+
+        map.addLayer(vectorLayer);
+
+      }
+
+   
+   </script>
+  </body>
+</html>
