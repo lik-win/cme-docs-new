@@ -56,6 +56,9 @@
         .then((res) => res.json())
         .then((res) => {
           if (res.data) {
+            if (window.postResult) {
+              window.postResult(res);
+            }
             let urlNum = String(res.data.slice(7, 19)).replace(/\./g, '')
             let tifUrl =
               'http://10.20.107.239:864/cmes-' + urlNum + res.data.slice(19)
