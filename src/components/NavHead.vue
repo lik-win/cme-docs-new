@@ -7,7 +7,7 @@
       <router-link class="link" :class="{ active: menuIdx === 2 }" to="/algorithms">算法服务</router-link>
       <router-link class="link" :class="{ active: menuIdx === 3 }" to="/components">组件服务</router-link>
       <router-link class="link" :class="{ active: menuIdx === 4 }" to="/scenes">场景开发</router-link>
-      <router-link class="link" :class="{ active: menuIdx === 5 }" to="/scenes">经典案例</router-link>
+      <router-link class="link" :class="{ active: menuIdx === 5 }" to="/cases">经典案例</router-link>
       <router-link class="link" :class="{ active: menuIdx === 6 }" to="/scenes">技术支持</router-link>
       <a class="link">开发者中心</a>
     </div>

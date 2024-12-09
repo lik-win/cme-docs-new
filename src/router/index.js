@@ -56,6 +56,11 @@ const routes = [{
   name: 'scenes',
   component: SceneVue,
   meta: { cate: 'scenes' }
+}, {
+  path: '/cases',
+  name: 'cases',
+  component: SceneVue,
+  meta: { cate: 'cases' }
 }];
 
 const routeBase = 'cmedocs';
