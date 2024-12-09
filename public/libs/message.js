@@ -56,6 +56,7 @@
   });
 
   window.postResult = function (data) {
+    console.log('postResult =>', data);
     window.top.postMessage(message, host);
   }
 })();
