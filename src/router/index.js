@@ -58,11 +58,16 @@ const routes = [{
   component: SceneVue,
   meta: { cate: 'scenes' }
 }, {
+  path: '/scenes/:type',
+  name: 'scenesDetail',
+  component: ()=>import("../views/SceneDetail.vue"),
+  meta: { cate: 'scenesDetail' }
+},{
   path: '/cases',
   name: 'cases',
   component: CasesVue,
   meta: { cate: 'cases' }
-}, {
+},{
   path: '/support',
   name: 'support',
   component: SceneVue,

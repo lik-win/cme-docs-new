@@ -1,41 +1,50 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+import feat1 from '../assets/images/feat1.webp'
+const { push } = useRouter()
+interface Item {
+  id: number
+  image: string
+  title: string
+  desc: string
+}
+const list = ref(<Array<Item>>[
+  { id: 1, title: '案例1', image: feat1, desc: '' },
+  { id: 2, title: '案例2', image: feat1, desc: '' },
+  { id: 3, title: '案例3', image: feat1, desc: '' },
+])
+function handleClick(item: Item) {}
+</script>
+
 <template>
-  <div class="cases">
+  <div class="scene">
     <!-- banner区域 -->
     <div class="banner">
-      <!-- 文字区域 -->
       <div class="text-container">
-        <p class="top-title">123</p>
+        <p class="top-title">
+          树立气象领域新标杆，开启行业新征程
+        </p>
         <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
         <p class="bottom-title">
-          树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程
+          树立气象领域标杆开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆，开启行业新征程
         </p>
       </div>
     </div>
     <!-- 列表区域 -->
     <div class="list-container">
-      <div class="card" v-for="(item, index) in 12">
-        <template v-if="index % 2 == 0">
-          <div class="text-container">
-            <div class="title">案例1</div>
-            <div class="content">
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-            </div>
+      <div class="card" v-for="item in list" @click="handleClick(item)">
+        <div class="img">
+          <img :src="feat1" alt="">
+        </div>
+        <div class="text-container">
+          <div class="title">{{ item.title }}</div>
+          <div class="content">
+            这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
+            这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
+            这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
           </div>
-          <div class="img">img</div>
-        </template>
-        <template v-else>
-          <div class="img">img</div>
-          <div class="text-container">
-            <div class="title">案例1</div>
-            <div class="content">
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-            </div>
-          </div>
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +58,7 @@
 //   background-color: #ffffff;
 // }
 
-.cases {
+.scene {
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -87,62 +96,44 @@
   .list-container {
     width: 100%;
     height: auto;
+    padding: 42px 80px 0;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
 
     .card {
-      width: 100%;
-      flex: 1;
-      padding: 80px 160px;
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      background: linear-gradient(
-        136deg,
-        rgba(217, 253, 255, 0.29) 0%,
-        #f0f6ff 22%,
-        #d9e9ff 100%
-      );
+      // margin-bottom: 40px;
+      width: calc(100% / 3 - 20px);
+      box-shadow:
+        10px -10px 20px 0px rgba(255, 255, 255, 0.3),
+        -10px 10px 20px 0px rgba(217, 217, 217, 0.5);
+      border-radius: 8px;
+      border: 1px solid #e4e4e4;
+      transition: scale 0.3s linear;
+      padding: 0;
+      cursor: pointer;
 
-      &:nth-child(2n) {
-        background: none;
-        .img {
-          background: linear-gradient(315deg, #ebf8ff 0%, #e6ecff 100%);
-        }
+      &:hover {
+        scale: 1.05;
       }
+
       .img {
-        flex: 1;
-        height: 464px;
-        background: linear-gradient(315deg, #ebf8ff 0%, #e6ecff 100%);
-        padding: 20px;
-        backdrop-filter: blur(10px);
-        box-sizing: border-box;
+        height: 329px;
       }
 
       .text-container {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+        padding: 10px;
         .title {
-          font-family:
-            PingFangSC,
-            PingFang SC;
-          font-size: 36px;
-          color: #323439;
-          line-height: 50px;
-          text-align: left;
-          font-style: normal;
         }
         .content {
-          font-size: 18px;
-          // overflow: hidden; // 隐藏溢出的内容
-          // display: -webkit-box; // 使用弹性盒子布局
-          // -webkit-box-orient: vertical; // 设置盒子的子元素排列方式为垂直
-          // -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
+          overflow: hidden; // 隐藏溢出的内容
+          display: -webkit-box; // 使用弹性盒子布局
+          -webkit-box-orient: vertical; // 设置盒子的子元素排列方式为垂直
+          -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
         }
       }
-    }
+      }
     > div {
       width: calc(100% / 3);
     }
