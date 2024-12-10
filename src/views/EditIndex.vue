@@ -25,6 +25,56 @@
       <Repl ref="repl" v-bind="replOptions"></Repl>
       <!-- <div class="info-block" v-html="docInfo.useIntroduce"></div> -->
     </div>
+    <h4>版本</h4>
+    <p>CME1.0目前还处于快速开发迭代中。</p>
+    <p>此外，在dev 分支上的每个提交和 PR 都将被发布到 pkg.pr.new，如果您想要使用一些未发布的内容，您可以参考 这里。</p>
+    <pre>
+  从 npm 获取
+  npm install echarts
+
+  从 CDN 获取
+  &lt;script src="/libs/cme2d.js"&gt;&lt;/script&gt;
+</pre>
+    <div class="tip custom-block">
+      <p class="custom-block-title">TIP</p>
+      <p>我们建议使用 CDN 引入 CME1.0 的用户在链接地址上锁定版本，以免将来 Element Plus 升级时受到非兼容性更新的影响。 锁定版本的方法请查看 <a href="https://unpkg.com"
+          class="vp-link" target="_blank" rel="noreferrer">unpkg.com<svg viewBox="0 0 24 24" width="1.2em"
+            height="1.2em" class="link-icon">
+            <path fill="currentColor"
+              d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v8h-2V6.413l-7.793 7.794l-1.414-1.414L17.585 5H13V3h8z">
+            </path>
+          </svg></a>。</p>
+      <p>由于原生的 HTML 解析行为的限制，单个闭合标签可能会导致一些例外情况，所以请使用双封闭标签， <a
+          href="https://vuejs.org/guide/essentials/component-basics.html#in-dom-template-parsing-caveats"
+          class="vp-link" target="_blank" rel="noreferrer">参考<svg viewBox="0 0 24 24" width="1.2em" height="1.2em"
+            class="link-icon">
+            <path fill="currentColor"
+              d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v8h-2V6.413l-7.793 7.794l-1.414-1.414L17.585 5H13V3h8z">
+            </path>
+          </svg></a></p>
+      <div class="language-html vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span
+          class="lang">html</span>
+        <pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span
+            style="--shiki-light: #6A737D; --shiki-dark: #6A737D;">&lt;!-- examples --&gt;</span></span>
+        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&lt;</span><span
+            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table</span><span
+            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span>
+        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;"> &lt;</span><span
+            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
+            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;&lt;/</span><span
+            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
+            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span>
+        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;"> &lt;</span><span
+            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
+            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;&lt;/</span><span
+            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
+            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span>
+        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&lt;/</span><span
+            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table</span><span
+            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span></code></pre>
+      </div>
+    </div>
+
   </el-main>
 </template>
 <script setup>
@@ -165,8 +215,9 @@ $border: 1px solid #FFFFFF19;
 
   .desc-box {
     @include setBox(1760px, $padding: 16px 24px, $margin: 20px 0);
-    background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
     border-radius: 8px;
+    background: url("./../assets/images/desc-bg.webp") no-repeat center;
+    background-size: 100% 100%;
 
     .desc-title {
       @include setFont(20px, 28px, 600);

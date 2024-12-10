@@ -36,95 +36,108 @@
       <div class="card-box">
         <div class="card2 radius8">
           <span class="count">20</span>
-          <span class="msg">3月更新组件</span>
+          <span class="msg">场景应用</span>
+        </div>
+        <div class="card2 radius8">
+          <span class="count">100</span>
+          <span class="msg">前端服务组件</span>
+        </div>
+        <div class="card2 radius8">
+          <span class="count">700</span>
+          <span class="msg">接口服务</span>
         </div>
         <div class="card2 radius8">
           <span class="count">200</span>
-          <span class="msg">已服务项目</span>
-        </div>
-        <div class="card2 radius8">
-          <span class="count">8926</span>
-          <span class="msg">提供接口服务</span>
-        </div>
-        <div class="card2 radius8">
-          <span class="count">109</span>
           <span class="msg">独家版权算法</span>
         </div>
       </div>
-
     </div>
     <div class="panel5">
-      <h3 class="panel-title">技术特点</h3>
-      <div class="block">
-        <div class="left-box1">
-          <h4 class="block-title">因云而生，与云共生</h4>
-          <p class="block-desc">
-            这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述</p>
+      <h3 class="panel-title">
+        <img class="title-prefix" src="./../assets/images/icons/title-prefix.webp">
+        技术特点
+      </h3>
+      <div class="block-box box1">
+        <div class="block">
+          <div class="left-box1">
+            <h4 class="block-title">因云而生，与云共生</h4>
+            <p class="block-desc">
+              一体化云原生，紧扣 “因云而生，与云共生”
+              之精髓，深度锚定云基础设施，以容器、微服务架构重塑应用生态。于运维维度，自动化流程贯穿全程，故障瞬即回滚，稳保系统无虞；在可观测体系加持下，精准洞察运行态势；更能随业务潮汐弹性伸缩，灵动适配需求变化，全方位释放云效能，为数字化转型强势赋能。
+            </p>
+          </div>
+          <div class="right-box1">
+            <div class="img-box">
+              <img src="../assets/gifs/yygs.gif">
+            </div>
+          </div>
         </div>
-        <div class="right-box1">
-          <div class="img-box color1">
-            <img src="../assets/images/feat6.webp">
+        <div class="block left30">
+          <div class="left-box2">
+            <div class="img-box">
+              <img src="../assets/images/home-jyhl.webp">
+            </div>
+          </div>
+          <div class="right-box2">
+            <h4 class="block-title">集约互联，协同共享</h4>
+            <p class="block-desc">
+              天气业务一体化平台集成各类研发成功，支撑国省市县四级业务数据协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
           </div>
         </div>
       </div>
-      <div class="block">
-        <div class="left-box2">
-          <div class="img-box color1">
-            <img src="../assets/images/feat6.webp">
+      <div class="block-box box2">
+        <div class="block right30">
+          <div class="left-box1">
+            <h4 class="block-title white">模型驱动，数字智能</h4>
+            <p class="block-desc white">搭建开放共享的天气预报模型库提供统一齐整的标准数据集<span class="blue">(DataSet)</span>提供开源的模型调试与运行框架<span
+                class="blue">(Framework)</span></p>
+            <p class="block-desc white">提供气象模型版本管理仓库<span class="blue">(Hub)</span>提供自动化部署检验评估工具链使用/下载情况统计</p>
+          </div>
+          <div class="right-box1">
+            <div class="img-box">
+              <img src="../assets/images/home-mxqd.webp">
+            </div>
           </div>
         </div>
-        <div class="right-box2">
-          <h4 class="block-title">因云而生，与云共生</h4>
-          <p class="block-desc">
-            这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述</p>
-        </div>
-      </div>
-      <div class="block">
-        <div class="left-box1">
-          <h4 class="block-title">模型驱动，数字智能</h4>
-          <p class="block-desc">搭建开放共享的天气预报模型库提供统一齐整的标准数据集(DataSet)提供开源的模型调试与运行框架(Framework)</p>
-          <p class="block-desc">提供气象模型版本管理仓库(Hub)提供自动化部署检验评估工具链使用/下载情况统计</p>
-        </div>
-        <div class="right-box1">
-          <div class="img-box color1">
-            <img src="../assets/images/feat6.webp">
+        <div class="block left30">
+          <div class="left-box2">
+            <div class="img-box offset30">
+              <img src="../assets/images/home-txkf.webp">
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="block">
-        <div class="left-box2">
-          <div class="img-box color1">
-            <img src="../assets/images/feat6.webp">
-          </div>
-        </div>
-        <div class="right-box2">
-          <h4 class="block-title">弹性开放、复用扩展</h4>
-          <p class="block-desc">
-            这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述</p>
-        </div>
-      </div>
-      <div class="block">
-        <div class="left-box1">
-          <h4 class="block-title">拖弋定制、快速构建</h4>
-          <p class="block-desc">
-            基于代码生成器，代码自动生成后可以下载本地，进行二次开发，有效提高整体开发效率。实现了界面化流程的建模，使得流程设计变得简单和可操作，用户通过拖、拉、点、拽即可快速实现流程设计。</p>
-        </div>
-        <div class="right-box1">
-          <div class="img-box color1">
-            <img src="../assets/images/feat6.webp">
+          <div class="right-box2">
+            <h4 class="block-title  white">弹性开放、复用扩展</h4>
+            <p class="block-desc white">
+              通过模块化架构，实现系统功能的高内聚与低耦合设计，确保架构的灵活性与稳健性；借助动态适配能力，敏捷应对变化，达成极致的弹性与扩展性；以功能复用和资源优化为核心，最大化发挥组件化资源价值，提升开发效率、降低技术冗余，并推动绿色可持续发展；同时，通过支持功能模块的无缝扩展与迭代，构建面向未来的开放型技术生态；最终，以技术与业务深度融合为驱动力，加速数字化转型，全面释放创新潜能。
+            </p>
           </div>
         </div>
       </div>
-      <div class="block">
-        <div class="left-box2">
-          <div class="img-box color1">
-            <img src="../assets/images/feat6.webp">
+      <div class="block-box box3">
+        <div class="block">
+          <div class="left-box1">
+            <h4 class="block-title">拖弋定制、快速构建</h4>
+            <p class="block-desc">
+              基于代码生成器，代码自动生成后可以下载本地，进行二次开发，有效提高整体开发效率。实现了界面化流程的建模，使得流程设计变得简单和可操作，用户通过拖、拉、点、拽即可快速实现流程设计。</p>
+          </div>
+          <div class="right-box1">
+            <div class="img-box center">
+              <img class="radius30" src="../assets/gifs/tydz.gif">
+            </div>
           </div>
         </div>
-        <div class="right-box2">
-          <h4 class="block-title">自主可控，持续迭代</h4>
-          <p class="block-desc">
-            这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述这是描述</p>
+        <div class="block">
+          <div class="left-box2">
+            <div class="img-box right bg">
+              <img src="../assets/images/home-zzkk.webp">
+            </div>
+          </div>
+          <div class="right-box2">
+            <h4 class="block-title">自主可控，持续迭代</h4>
+            <p class="block-desc">
+              平台依托于完全自主研发的技术架构，从核心算法到用户界面，每一环节都严格遵循最高安全标准。我们保持系统的高度灵活性和可定制性，以适应市场和需求的不断演变。系统配备了灵活的更新机制，能够迅速适应市场变化和技术进步，持续迭代不仅限于功能更新，更涵盖性能优化和安全增强，确保我们的平台始终走在行业前沿
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -285,15 +298,54 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 .panel5 {
   overflow: hidden;
 
+  .block-box.box1 {
+    background: url("./../assets/images/homebg4.webp") no-repeat center;
+    background-size: cover;
+  }
+
+  .block-box.box2 {
+    background: url("./../assets/images/homebg5.webp") no-repeat center;
+    background-size: cover;
+  }
+
+  .block-box.box3 {
+    background: url("./../assets/images/homebg6.webp") no-repeat center;
+    background-size: cover;
+  }
+
   .panel-title {
     @include setBox($margin: 50px 0);
     @include setFont(56px, 66px);
     text-align: center;
+
+    .title-prefix {
+      @include position(relative, $left: 8px, $top: -4px);
+      @include setBox(50px, 50px);
+    }
   }
 
   .block {
     display: flex;
     @include setBox($padding: 60px 0);
+
+    &.left30 {
+      position: relative;
+      left: -30px;
+    }
+
+    &.right30 {
+      position: relative;
+      right: -30px;
+    }
+
+    .white {
+      color: #ffffff !important;
+    }
+
+    .blue {
+      font-size: inherit;
+      color: #0671e6;
+    }
 
     .block-title {
       @include setFont(50px, 70px);
@@ -309,18 +361,32 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     .img-box {
       position: relative;
-      width: 100%;
+      width: 1033px;
+      height: 584px;
       border-radius: 30px;
 
       overflow: hidden;
 
-      img {
-        height: 580px;
+      &.center {
+        text-align: center;
       }
-    }
 
-    .color1 {
-      border-color: #d6eefb;
+      &.right {
+        text-align: right;
+      }
+
+      &.bg {
+        background: url("./../assets/images/home-imgbg.webp") no-repeat center;
+        background-size: 100% 100%;
+      }
+
+      // img {
+      //   @include setBox(auto, auto);
+      // }
+
+      .radius30 {
+        border-radius: 30px;
+      }
     }
   }
 
@@ -328,30 +394,22 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     @include flex(center, flex-start, column);
     width: 46%;
     padding-left: 200px;
-    padding-right: 30px;
+    padding-right: 60px;
   }
 
   .right-box1 {
     width: 54%;
-
-    .img-box {
-      right: -30px;
-    }
   }
 
   .right-box2 {
     @include flex(center, flex-start, column);
     width: 46%;
     padding-right: 200px;
-    padding-left: 30px;
+    padding-left: 60px;
   }
 
   .left-box2 {
     width: 54%;
-
-    .img-box {
-      left: -30px;
-    }
   }
 }
 
