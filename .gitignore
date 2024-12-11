@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
 dist
+videos
 TODOs.md
 *.lock
 .yarnrc

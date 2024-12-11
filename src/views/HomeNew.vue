@@ -1,54 +1,46 @@
 <template>
   <div class="home-view">
-    <div class="panel1">
-      <img class="globe" src="./../assets/images/globe.webp">
-      <div class="content">
-        <div class="line1">
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <span class="intro">简介</span>
-        </div>
-        <p class="line2">
-          以预报服务应用功能为基础，依托“云+端”技术体系开发的一种组件化、可插拔的轻量级WEB支撑框架。
-        </p>
-        <p class="line3">
-          使命：CME身负技术引领与创新、满足多样化需求、提升预报服务能力、保障安全与可靠性、促进气象业务发展等多项使命
-        </p>
-        <p class="line4">
-          愿景：CME框架旨在提供一个灵活、高效且易于扩展的平台，以支持多场景气象业务的发展。通过采用组件化和可插拔的设计思想，CME能够方便地集成各种气象预报、监测和服务功能，满足不同地区和领域对气象信息的多样化需求
-        </p>
-        <div class="line5">
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
-          <i class="dot"></i>
+    <div class="slide-box">
+      <div class="panel1">
+        <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
+        <div class="content">
+          <div class="line1">
+            <span class="intro">简介</span>
+          </div>
+          <p class="line2">
+            以预报服务应用功能为基础，依托“云+端”技术体系开发的一种组件化、可插拔的轻量级WEB支撑框架。
+          </p>
+          <p class="line3">
+            使命：CME身负技术引领与创新、满足多样化需求、提升预报服务能力、保障安全与可靠性、促进气象业务发展等多项使命
+          </p>
+          <p class="line4">
+            愿景：CME框架旨在提供一个灵活、高效且易于扩展的平台，以支持多场景气象业务的发展。通过采用组件化和可插拔的设计思想，CME能够方便地集成各种气象预报、监测和服务功能，满足不同地区和领域对气象信息的多样化需求
+          </p>
         </div>
       </div>
-    </div>
-    <div class="panel2"></div>
-    <div class="panel4">
-      <div class="card-box">
-        <div class="card2 radius8">
-          <span class="count">20</span>
-          <span class="msg">场景应用</span>
-        </div>
-        <div class="card2 radius8">
-          <span class="count">100</span>
-          <span class="msg">前端服务组件</span>
-        </div>
-        <div class="card2 radius8">
-          <span class="count">700</span>
-          <span class="msg">接口服务</span>
-        </div>
-        <div class="card2 radius8">
-          <span class="count">200</span>
-          <span class="msg">独家版权算法</span>
+      <div class="panel2"></div>
+      <div class="panel4">
+        <div class="card-box">
+          <router-link to="/algorithms" class="card2 radius8">
+            <span class="count">200</span>
+            <span class="msg">独家版权算法</span>
+            <span class="desc">智能感知、智能研判、智能诊断和智能服务生成</span>
+          </router-link>
+          <router-link to="/data-services" class="card2 radius8">
+            <span class="count">200</span>
+            <span class="msg">数据服务</span>
+            <span class="desc">提供各类模式、雷达、卫星、高空和大模型等资料服务</span>
+          </router-link>
+          <router-link to="/components" class="card2 radius8">
+            <span class="count">100</span>
+            <span class="msg">组件服务</span>
+            <span class="desc">集成数据上图和图表展示、交互、编辑、分析等能力</span>
+          </router-link>
+          <router-link to="/scenes" class="card2 radius8">
+            <span class="count">20</span>
+            <span class="msg">场景应用</span>
+            <span class="desc">提供多种经典场景和3D等场景开发能力</span>
+          </router-link>
         </div>
       </div>
     </div>
@@ -62,26 +54,25 @@
           <div class="left-box1">
             <h4 class="block-title">因云而生，与云共生</h4>
             <p class="block-desc">
-              一体化云原生，紧扣 “因云而生，与云共生”
-              之精髓，深度锚定云基础设施，以容器、微服务架构重塑应用生态。于运维维度，自动化流程贯穿全程，故障瞬即回滚，稳保系统无虞；在可观测体系加持下，精准洞察运行态势；更能随业务潮汐弹性伸缩，灵动适配需求变化，全方位释放云效能，为数字化转型强势赋能。
+              天气业务一体化平台致力于云原生生态，已微服形式打造运行稳定、技术可靠的组件共享、平台共享、应用共享，可持续交的平台，天气业务一体化平台依托天擎云环境已气象智脑为核心，数字服务平台为支撑构建气象业务多场景应用。
             </p>
           </div>
           <div class="right-box1">
             <div class="img-box">
-              <img src="../assets/gifs/yygs.gif">
+              <img src="../assets/images/home-yygs.png">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box">
-              <img src="../assets/images/home-jyhl.webp">
+              <img src="../assets/images/home-jyhl.png">
             </div>
           </div>
           <div class="right-box2">
             <h4 class="block-title">集约互联，协同共享</h4>
             <p class="block-desc">
-              天气业务一体化平台集成各类研发成功，支撑国省市县四级业务数据协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
+              天气业务一体化平台集成各类自主研发的功能，支撑国省市县四级业务数据协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
           </div>
         </div>
       </div>
@@ -89,20 +80,18 @@
         <div class="block right30">
           <div class="left-box1">
             <h4 class="block-title white">模型驱动，数字智能</h4>
-            <p class="block-desc white">搭建开放共享的天气预报模型库提供统一齐整的标准数据集<span class="blue">(DataSet)</span>提供开源的模型调试与运行框架<span
-                class="blue">(Framework)</span></p>
-            <p class="block-desc white">提供气象模型版本管理仓库<span class="blue">(Hub)</span>提供自动化部署检验评估工具链使用/下载情况统计</p>
+            <p class="block-desc white">基于大模型驱动，融合多源气象数据、专业气象算法，构建从数据处理、模型分析到场景应用的全链条智能化气象解决方案，助力气象业务的数字化与精准化发展。</p>
           </div>
           <div class="right-box1">
             <div class="img-box">
-              <img src="../assets/images/home-mxqd.webp">
+              <img src="../assets/images/home-mxqd.png">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
-              <img src="../assets/images/home-txkf.webp">
+              <img src="../assets/images/home-txkf.png">
             </div>
           </div>
           <div class="right-box2">
@@ -129,13 +118,13 @@
         <div class="block">
           <div class="left-box2">
             <div class="img-box right bg">
-              <img src="../assets/images/home-zzkk.webp">
+              <img src="../assets/gifs/zzkk.gif">
             </div>
           </div>
           <div class="right-box2">
             <h4 class="block-title">自主可控，持续迭代</h4>
             <p class="block-desc">
-              平台依托于完全自主研发的技术架构，从核心算法到用户界面，每一环节都严格遵循最高安全标准。我们保持系统的高度灵活性和可定制性，以适应市场和需求的不断演变。系统配备了灵活的更新机制，能够迅速适应市场变化和技术进步，持续迭代不仅限于功能更新，更涵盖性能优化和安全增强，确保我们的平台始终走在行业前沿
+              天气业务一体化平台致力于构建一个自主可控、持续迭代的技术生态系统。平台严格遵守信创支持原则，依托开源的微服务架构和中国气象局的业务组件规范，确保业务组件的开发遵循开源、自主原则，保障技术透明度和可控性。同时支持开发者下载原型应用代码和组件依赖，进行二次开发，满足定制化业务需求。平台的组件迭代机制确保了功能的持续优化和性能提升，以适应业务和技术的演进。
             </p>
           </div>
         </div>
@@ -149,6 +138,13 @@
 </template>
 
 <script setup>
+import { onMounted, useTemplateRef } from 'vue';
+const videoUrl = '/videos/3dearth.mp4';
+const videoEl = useTemplateRef('videoRef');
+onMounted(() => {
+  videoEl.value.playbackRate += 1;
+
+});
 
 </script>
 
@@ -162,29 +158,23 @@
 
 .panel1 {
   position: relative;
-  height: 886px;
-  background: url("./../assets/images/sky.webp") no-repeat center;
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  background: url("./../assets/images/sky1.webp") no-repeat center;
+  background-size: 100% 100%;
   user-select: none;
 
   .content {
-    @include position(absolute, $top: 148px, $left: 180px);
+    margin-left: 220px;
+    // @include position(absolute, $top: 200px, $left: 220px);
     @include setBox(1400px, 600px);
     color: #ffffff;
+    z-index: 1;
 
     .line1 {
       display: flex;
       align-items: center;
-
-      .dot {
-        @include setBox(12px, 12px, $margin: 5px);
-        background-color: #FFFFFF;
-      }
-
-      @each $n in (1, 2, 3, 4, 5, 6) {
-        .dot:nth-of-type(#{$n}) {
-          opacity: (1 - 0.15 * $n);
-        }
-      }
 
       .intro {
         @include setBox(116px, 40px);
@@ -200,46 +190,44 @@
 
     .line3 {
       @include setBox(810px);
-      margin-top: 78px;
+      margin-top: 60px;
       @include setFont(32px, 44px, 600);
     }
 
     .line4 {
-      @include setBox(830px);
+      @include setBox(810px);
       margin-top: 20px;
-      @include setFont(24px, 32px, 600);
-    }
-
-    .line5 {
-      @include setBox(830px);
-      margin-top: 40px;
-      @extend .line1;
-      transform: scale(-1, 1);
+      @include setFont(32px, 44px, 600);
     }
   }
 
   .globe {
-    @include position(absolute, $top: 80px, $right: 160px);
-    @include setBox(740px, 740px);
+    @include position(absolute, $right: 100px);
+    @include setBox(840px, 840px);
+    clip-path: circle(41.9%);
     pointer-events: none;
   }
 }
 
 .panel2 {
-  @include setBox(100%, 1290px);
+  @include setBox(100%, 100vh);
   background: url('./../assets/images/panelbg2.webp') no-repeat center;
   background-size: 100% 100%;
 }
 
-$bg_dark: linear-gradient(135deg, #1C1D1F 0%, #26272A 100%);
+$bg_dark1: linear-gradient(135deg, #070D1B 0%, #203358 100%);
+$bg_dark2: linear-gradient(47deg, #203358 0%, #070D1B 100%);
+$bg_dark3: linear-gradient(225deg, #203358 0%, #070D1B 100%);
+$bg_dark4: linear-gradient(135deg, #203358 0%, #070D1B 100%);
 $bg_light1: linear-gradient(153deg, #ECF2FF 0%, #FFFFFF 100%);
 $bg_light2: linear-gradient(153deg, #F3FEFD 0%, #FFFFFF 100%);
 $bg_light3: linear-gradient(153deg, #FFF8F5 0%, #FFFFFF 100%);
 $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
 .panel4 {
-  @include setBox(100%, 992px, 100px 0);
-  background-color: #1C1D1F;
+  @include setBox(100%, 100vh, 100px 0);
+  background: url("./../assets/images/panelbg3.webp") no-repeat center;
+  background-size: 100% 100%;
 
   .card-box {
     @include setBox(1390px, 800px, unset, auto);
@@ -254,21 +242,28 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
   .card2 {
     position: relative;
     color: #ffffff;
+    transition: 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #2f446f;
+    }
 
     &:nth-of-type(1) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
+      @include setTheme('background', (dark: $bg_dark1, light: $bg_dark1 ));
     }
 
     &:nth-of-type(2) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
+      @include setTheme('background', (dark: $bg_dark2, light: $bg_dark2 ));
     }
 
     &:nth-of-type(3) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
+      @include setTheme('background', (dark: $bg_dark3, light: $bg_dark3 ));
     }
 
     &:nth-of-type(4) {
-      @include setTheme('background', (dark: $bg_dark, light: $bg_dark ));
+      @include setTheme('background', (dark: $bg_dark4, light: $bg_dark4 ));
     }
 
     &:nth-of-type(2n) {
@@ -290,7 +285,16 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     .msg {
       @include position(absolute, $bottom: 80px, $right: 80px);
-      font-size: 20px;
+      @include setFont(32px, 45px, 400);
+    }
+
+    .desc {
+      @include position(absolute, $bottom: 30px, $right: 80px);
+      @include setFont(20px, 28px, 400);
+      color: #ffffff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
