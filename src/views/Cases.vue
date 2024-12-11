@@ -23,11 +23,11 @@ function handleClick(item: Item) {}
     <div class="banner">
       <div class="text-container">
         <p class="top-title">
-          树立气象领域新标杆，开启行业新征程
+          引领行业创新发展，塑造未来气象服务新高度
         </p>
         <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
         <p class="bottom-title">
-          树立气象领域标杆开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆，开启行业新征程
+          从科技创新到服务升级，树立行业新标准；以精准气象助力发展，开创未来新篇章
         </p>
       </div>
     </div>
