@@ -20,41 +20,39 @@ const list = ref(<Array<Item>>[
     title: '省级支撑应用平台',
     image: img_taihai,
     link: 'http://10.20.107.239:930/taihai/#/home',
-    desc: '使用CME一体化开发平台，对'
+    desc: '该案例使用CME一体化开发平台，对海洋气候进行监测和预警。通过接入CME平台卫星、雷达等数据及海平面气压、海表温度、温度、风等要素资料，预测并分析台风，为强对流天气提供预报预警服务'
   },
   {
     title: '大连气象防灾减灾服务保障系统',
     image: img_dalian,
     link: 'http://10.1.64.146/dalian/#/liveMonitoring',
-    desc: ''
+    desc: '该案例整合实时监测与数值预报能力，为用户提供覆盖全面、精准可靠的气象信息服务。针对特定行业和场景，提供定制化气象保障服务，支持极端天气预警和快速响应，助力用户进行科学决策与风险管理，提供精细化的网格化数据编辑能力，支持用户根据具体需求对网格气象数据进行调整'
   },
   {
     title: '远洋导航业务平台',
     image: img_yydh,
     link: 'http://10.20.107.239:854/daohang/#/home',
-    desc: ''
+    desc: '该案例是专为船舶设计的智能导航系统，结合CME的气象要素分析与航行风险预警技术，通过对全球气象数据、海洋环境监测信息以及船舶实时状态，为船舶提供精确的航线规划和动态调整。'
   },
   {
     title: '智能网格预报应用分析平台',
     image: img_dmx,
     link: 'http://10.1.64.146/nwfd/index.html#/bigModel',
-    desc: ''
+    desc: '该案例包含了多种领先的气象大模型，包括风清，伏羲，风乌，FourCast，GraphCaseNet、盘古，通过数据可视化表达形式，提供了核心要素的展示和预测，依托先进气象大模型，实现对未来天气趋势的精准把握'
   },
   {
     title: '川藏铁路气象保障预报预警与共享系统',
     image: img_cztl,
     link: 'http://10.40.82.36:4399/czbz#/czbz',
-    desc: ''
+    desc: '该案例为川藏铁路智能气象服务平台，集实时监测、精细预报、风险预警和保障服务于一体，通过先进的气象技术为铁路安全运行提供全面支持。系统涵盖多个功能模块，结合可视化设计与气象数据处理技术，确保服务的高效性与可靠性。'
   },
   {
-    title: '天气业务一体化平台',
+    title: '3D天气业务一体化平台示例项目',
     image: img_3d,
     link: 'http://cme.leonhan.com:9995/#/home',
-    desc: ''
+    desc: '该案例为CME平台3D示例项目，项目实现了风场、风粒子动画、台风三维体、三维云等3D效果'
   },
 ]);
-
-
 </script>
 
 <template>
@@ -81,9 +79,7 @@ const list = ref(<Array<Item>>[
           <div class="text-container">
             <div class="title">{{ item.title }}</div>
             <div class="content">
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
+              {{ item.desc }}
             </div>
           </div>
         </a>
@@ -96,6 +92,7 @@ const list = ref(<Array<Item>>[
 .scene {
   width: 100%;
   height: 100%;
+  padding-bottom: 40px;
   overflow-y: auto;
 
   .banner {

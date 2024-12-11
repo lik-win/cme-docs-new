@@ -22,22 +22,22 @@
       <div class="panel4">
         <div class="card-box">
           <router-link to="/algorithms" class="card2 radius8">
-            <span class="count">200</span>
+            <span class="count">95</span>
             <span class="msg">独家版权算法</span>
             <span class="desc">智能感知、智能研判、智能诊断和智能服务生成</span>
           </router-link>
           <router-link to="/data-services" class="card2 radius8">
-            <span class="count">125</span>
+            <span class="count">930</span>
             <span class="msg">数据服务</span>
             <span class="desc">提供各类模式、雷达、卫星、高空和大模型等资料服务</span>
           </router-link>
           <router-link to="/components" class="card2 radius8">
-            <span class="count">110</span>
+            <span class="count">116</span>
             <span class="msg">组件服务</span>
             <span class="desc">集成数据上图和图表展示、交互、编辑、分析等能力</span>
           </router-link>
           <router-link to="/scenes" class="card2 radius8">
-            <span class="count">20</span>
+            <span class="count">3</span>
             <span class="msg">场景应用</span>
             <span class="desc">提供多种经典场景和3D等场景开发能力</span>
           </router-link>
@@ -72,7 +72,7 @@
           <div class="right-box2">
             <h4 class="block-title">集约互联，协同共享</h4>
             <p class="block-desc">
-              天气业务一体化平台集成各类自主研发的功能，支撑国省市县四级业务数据协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
+              天气业务一体化平台集成各类气象数据要素，支撑国省市县四级业务数据上下协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@
           <div class="right-box2">
             <h4 class="block-title  white">弹性开放、复用扩展</h4>
             <p class="block-desc white">
-              通过模块化架构，实现系统功能的高内聚与低耦合设计，确保架构的灵活性与稳健性；借助动态适配能力，敏捷应对变化，达成极致的弹性与扩展性；以功能复用和资源优化为核心，最大化发挥组件化资源价值，提升开发效率、降低技术冗余，并推动绿色可持续发展；同时，通过支持功能模块的无缝扩展与迭代，构建面向未来的开放型技术生态；最终，以技术与业务深度融合为驱动力，加速数字化转型，全面释放创新潜能。
+              天气业务一体化平台框架由开放式应用框架与组件库组成，为场景开发提供基础编码环境，其中开放式应用框架实现天气监测、预报、预警和服务业务流程中的整体框架和核心功能抽象和泛化，组件库提供包含气象图层组件集、交互制作组件集、智能产品加工组件集、业务协同组件集、统计查询组件集、智能支撑组件集等各类具体处理逻辑和交互功能组件，支撑多元化业务场景应用。
             </p>
           </div>
         </div>
@@ -107,7 +107,8 @@
           <div class="left-box1">
             <h4 class="block-title">拖弋定制、快速构建</h4>
             <p class="block-desc">
-              基于代码生成器，代码自动生成后可以下载本地，进行二次开发，有效提高整体开发效率。实现了界面化流程的建模，使得流程设计变得简单和可操作，用户通过拖、拉、点、拽即可快速实现流程设计。</p>
+              依托功能完备的组件库以及灵活高效的平台集成规则，能够迅速根据场景需要拖拽出界面友好、简洁直观的低代码应用场景；系统提供丰富多样的自定义气象业务功能组件，既可以从预设的多套业务（数据）主题模板中选择应用，也可进行深度定制；气象服务人员无需编写代码，仅用鼠标拖拽，就能轻松变更功能模块与数据展示区域的位置、大小与顺序，满足不同应用场景，极大提升服务效率与便捷性。
+            </p>
           </div>
           <div class="right-box1">
             <div class="img-box center">
@@ -124,7 +125,7 @@
           <div class="right-box2">
             <h4 class="block-title">自主可控，持续迭代</h4>
             <p class="block-desc">
-              天气业务一体化平台致力于构建一个自主可控、持续迭代的技术生态系统。平台严格遵守信创支持原则，依托开源的微服务架构和中国气象局的业务组件规范，确保业务组件的开发遵循开源、自主原则，保障技术透明度和可控性。同时支持开发者下载原型应用代码和组件依赖，进行二次开发，满足定制化业务需求。平台的组件迭代机制确保了功能的持续优化和性能提升，以适应业务和技术的演进。
+              天气业务一体化平台致力于构建一个自主可控、持续迭代的技术生态系统。平台严格遵守信创原则。依照中国气象局的业务组件开发规范，确保业务组件的开发遵循开源、自主原则，保障技术透明度和可控性。同时对外提供框架开发手册、二次开发手册、多场景应用开发手册、应用场景开发规范等一系列开发标准，确保平台组件可以达到持续优化以及安全可控，以适应业务和技术的迭代。
             </p>
           </div>
         </div>

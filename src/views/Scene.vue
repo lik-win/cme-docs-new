@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import windy from '../assets/images/scene/windy.jpg'
-import d3 from '../assets/images/scene/3d.jpg'
+import d3 from '../assets/images/scene/scenes-3d.png'
 import defaultJpg from '../assets/images/scene/default.jpg'
 const { push } = useRouter()
 interface Item {
@@ -42,7 +42,7 @@ function handleClick(item: Item) {
     path: `/scenes/${item.type}`,
   })
 }
-function download(item: Item) {}
+function download(item: Item) { }
 </script>
 
 <template>
@@ -60,11 +60,7 @@ function download(item: Item) {}
     </div>
     <!-- 列表区域 -->
     <div class="list-container">
-      <div
-        class="card"
-        v-for="(item, index) in list"
-        @click="handleClick(item)"
-      >
+      <div class="card" v-for="(item, index) in list" @click="handleClick(item)">
         <template v-if="index % 2 == 0">
           <div class="img">
             <img :src="item.image" alt="" />
@@ -119,7 +115,7 @@ function download(item: Item) {}
       width: 60%;
       text-align: center;
 
-      > p {
+      >p {
         color: #ffffff;
         font-size: 20px;
         font-weight: 300;
@@ -150,12 +146,10 @@ function download(item: Item) {}
       display: flex;
       align-items: center;
       gap: 30px;
-      background: linear-gradient(
-        136deg,
-        rgba(217, 253, 255, 0.29) 0%,
-        #f0f6ff 22%,
-        #d9e9ff 100%
-      );
+      background: linear-gradient(136deg,
+          rgba(217, 253, 255, 0.29) 0%,
+          #f0f6ff 22%,
+          #d9e9ff 100%);
       transition: all 0.3s linear;
       cursor: pointer;
 
@@ -250,7 +244,7 @@ function download(item: Item) {}
       }
     }
 
-    > div {
+    >div {
       width: calc(100% / 3);
     }
   }

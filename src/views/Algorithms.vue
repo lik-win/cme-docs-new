@@ -1,45 +1,45 @@
 <template>
   <SampleLayout type="algorithms">
     <template #page-head>
-      <h3 class="page-title">算法服务 <span class="bubble">224种</span></h3>
+      <h3 class="page-title">算法服务 <span class="bubble">95种</span></h3>
       <p class="page-desc">
         按照微服务框架进行算法服务集的建设，以实现数字预报员为目标，结合气象客观分析算法与大预报模型产品，利用人工智能与大数据应用技术实现面向智能感知、智能诊断、智能研判、智能生成等服务，为各类前端应用场景提供统一的算法服务支撑。
       </p>
       <div class="info-list">
         <a href="#meteoAlgorithms" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">50+气象基础算法</label>
+          <label class="lbl2">50种气象基础算法</label>
           <p class="desc">模式数据计算、穿透算法等</p>
         </a>
         <span class="splitor"></span>
         <a href="#intelligentperception" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">20+智能感知</label>
-          <p class="desc">智能感知、实时统计分析等服务</p>
+          <label class="lbl2">20种智能感知</label>
+          <p class="desc">灾害性天气识别、实时统计分析等服务</p>
         </a>
         <span class="splitor"></span>
         <a href="#intelligentJudgment" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">8+智能研判</label>
+          <label class="lbl2">8种智能研判</label>
           <p class="desc">协同编辑、校验服务等算法</p>
         </a>
         <span class="splitor"></span>
         <a href="#smartAssessment" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">8+智能诊断</label>
+          <label class="lbl2">8种智能诊断</label>
           <p class="desc">天气系统识别、天气智能诊断等</p>
         </a>
         <span class="splitor"></span>
         <a href="#businessComponent" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">8+智能产品加工</label>
+          <label class="lbl2">8种智能产品加工</label>
           <p class="desc">全国及区域专题图生成等算法</p>
         </a>
         <span class="splitor"></span>
         <a href="#ai" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">1+AI算法集成</label>
-          <p class="desc">通过语音调用服务能力</p>
+          <label class="lbl2">1种AI算法集成</label>
+          <p class="desc">语音调用服务</p>
         </a>
       </div>
     </template>
@@ -102,6 +102,10 @@ import SampleLayout from '../components/SampleLayout.vue';
     border-radius: 8px;
     background: #F8FCFF;
     box-shadow: inset -2px 2px 3px 0px #ffffff80;
+
+    &:first-of-type {
+      min-width: 260px;
+    }
 
     .lbl1 {
       display: inline-block;
