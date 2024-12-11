@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import feat1 from '../assets/images/feat1.webp'
+import windy from '../assets/images/scene/windy.jpg'
+import d3 from '../assets/images/scene/scenes-3d.png'
+import defaultJpg from '../assets/images/scene/default.jpg'
 const { push } = useRouter()
 interface Item {
   id: number
@@ -11,55 +13,77 @@ interface Item {
   desc: string
 }
 const list = ref(<Array<Item>>[
-  { id: 1, title: 'Windy风格', type: 'windy', image: feat1, desc: '' },
-  { id: 2, title: '3D风格', type: '3d', image: feat1, desc: '' },
-  { id: 3, title: '默认风格', type: 'default', image: feat1, desc: '' },
+  {
+    id: 1,
+    title: 'Windy风格',
+    type: 'windy',
+    image: windy,
+    desc: 'Windy风格的地图是一种专注于气象数据可视化的地图展示方式，主要特点是通过动态风场、气象层和高分辨率数据呈现全球天气状况。该风格地图采用实时更新的气象信息，支持风速、风向、气温、降水量、气压等多种气象要素的显示，并以流动的箭头和渐变色表示，直观反映天气变化。用户可以根据需求自由切换不同的气象图层、调整显示参数，甚至查看历史和未来天气数据。此外，Windy风格地图通过精确的动画和交互设计，增强了用户对气象信息的理解和应用，提供了极具实用性的气象预警与分析工具。',
+  },
+  {
+    id: 2,
+    title: '3D风格',
+    type: '3d',
+    image: d3,
+    desc: '该风格通过三维渲染技术呈现气象数据和地形特征，增强了用户的空间感和视觉深度。与传统二维地图不同，使用户能够更直观地感知天气变化和气象数据的空间分布。该风格特别强调气象信息的立体化表现，展示了风速、降水量、气温等气象要素的色彩渐变与立体效果，并且可以在三维视角下实时查看不同天气层次的变化。用户可以自由旋转、缩放视角，精确观察特定区域的气象数据和地理特征，适用于需要气象分析和动态气象预测的场景。',
+  },
+  {
+    id: 3,
+    title: '默认风格',
+    type: 'default',
+    image: defaultJpg,
+    desc: '在默认风格下，气象信息的显示较为简洁，主要展示基本的天气数据，如温度和降水量，并以静态图层呈现。与Windy风格的动态风场和多样化气象层相比，默认风格更注重地图的可读性和易用性，减少了视觉干扰，适合于需要清晰地图呈现的场景。',
+  },
 ])
 
 function handleClick(item: Item) {
+  return
   push({
     path: `/scenes/${item.type}`,
   })
 }
+function download(item: Item) { }
 </script>
 
 <template>
   <div class="cases">
     <!-- <iframe src="/scenes/windy/index.html" frameborder="0"></iframe> -->
     <!-- banner区域 -->
-    <!-- <div class="banner">
+    <div class="banner">
       <div class="text-container">
-        <p class="top-title">123</p>
+        <p class="top-title">引领行业创新发展，塑造未来气象服务新高度</p>
         <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
         <p class="bottom-title">
-          树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程树立气象领域新标杆，开启行业新征程
+          从科技创新到服务升级，树立行业新标准；以精准气象助力发展，开创未来新篇章
         </p>
       </div>
-    </div> -->
+    </div>
     <!-- 列表区域 -->
     <div class="list-container">
-      <div
-        class="card"
-        v-for="(item, index) in list"
-        @click="handleClick(item)"
-      >
+      <div class="card" v-for="(item, index) in list" @click="handleClick(item)">
         <template v-if="index % 2 == 0">
           <div class="img">
             <img :src="item.image" alt="" />
           </div>
           <div class="text-container">
-            <div class="title">{{ item.title }}</div>
-            <div class="content">
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析、地球系统数值模式等基础数据访问，管理智能数字预报、灾害性天气预报预警、气象风险预警与影响预报等各类数字化预报信息，实现各类数据的集约高效的汇集、处理、管理和服务，，解决数据规范、存储集约、应用效率等问题。
+            <div class="title">
+              {{ item.title }}
             </div>
+            <div class="content">
+              {{ item.desc }}
+            </div>
+            <div class="button" @click="download(item)">下载</div>
           </div>
         </template>
         <template v-else>
           <div class="text-container">
-            <div class="title">{{ item.title }}</div>
-            <div class="content">
-              这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析、地球系统数值模式等基础数据访问，管理智能数字预报、灾害性天气预报预警、气象风险预警与影响预报等各类数字化预报信息，实现各类数据的集约高效的汇集、处理、管理和服务，，解决数据规范、存储集约、应用效率等问题。
+            <div class="title">
+              {{ item.title }}
             </div>
+            <div class="content">
+              {{ item.desc }}
+            </div>
+            <div class="button" @click="download(item)">下载</div>
           </div>
           <div class="img">
             <img :src="item.image" alt="" />
@@ -86,10 +110,12 @@ function handleClick(item: Item) {
     display: flex;
     align-items: center;
     justify-content: center;
+
     .text-container {
       width: 60%;
       text-align: center;
-      > p {
+
+      >p {
         color: #ffffff;
         font-size: 20px;
         font-weight: 300;
@@ -97,6 +123,7 @@ function handleClick(item: Item) {
         &.top-title {
           margin-bottom: 20px;
         }
+
         &.center-title {
           font-weight: 400;
           font-size: 60px;
@@ -119,12 +146,10 @@ function handleClick(item: Item) {
       display: flex;
       align-items: center;
       gap: 30px;
-      background: linear-gradient(
-        136deg,
-        rgba(217, 253, 255, 0.29) 0%,
-        #f0f6ff 22%,
-        #d9e9ff 100%
-      );
+      background: linear-gradient(136deg,
+          rgba(217, 253, 255, 0.29) 0%,
+          #f0f6ff 22%,
+          #d9e9ff 100%);
       transition: all 0.3s linear;
       cursor: pointer;
 
@@ -134,10 +159,12 @@ function handleClick(item: Item) {
 
       &:nth-child(2n) {
         background: none;
+
         .img {
           background: linear-gradient(315deg, #ebf8ff 0%, #e6ecff 100%);
         }
       }
+
       .img {
         flex: 1;
         height: 464px;
@@ -154,7 +181,10 @@ function handleClick(item: Item) {
         height: 100%;
         display: flex;
         flex-direction: column;
+        gap: 10px;
+
         .title {
+          position: relative;
           font-family:
             PingFangSC,
             PingFang SC;
@@ -163,17 +193,58 @@ function handleClick(item: Item) {
           line-height: 50px;
           text-align: left;
           font-style: normal;
+          transition: all 0.3s linear;
+          z-index: 3;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20%;
+            height: 60%;
+            background: linear-gradient(90deg, #b3e5fc 0%, #e0f7fa 100%);
+            z-index: -1;
+          }
         }
+
         .content {
           font-size: 18px;
+          color: #323439;
           // overflow: hidden; // 隐藏溢出的内容
           // display: -webkit-box; // 使用弹性盒子布局
           // -webkit-box-orient: vertical; // 设置盒子的子元素排列方式为垂直
           // -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
         }
+
+        .button {
+          width: 100px;
+          text-align: center;
+          background-color: #3498db;
+          color: white;
+          padding: 5px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+          transition:
+            box-shadow 0.3s,
+            background-color 0.3s,
+            transform 0.3s,
+            color 0.3s;
+
+          &:hover {
+            transform: rotate(2deg);
+            box-shadow:
+              0 12px 16px 0 rgba(0, 0, 0, 0.24),
+              0 17px 50px 0 rgba(0, 0, 0, 0.19);
+            background-color: #2980b9;
+            color: #ecf0f1;
+          }
+        }
       }
     }
-    > div {
+
+    >div {
       width: calc(100% / 3);
     }
   }

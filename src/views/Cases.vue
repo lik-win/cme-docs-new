@@ -1,20 +1,58 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
-import feat1 from '../assets/images/feat1.webp'
+// @ts-ignore
+import img_taihai from './../assets/images/cases/cases-taihai.png';
+import img_dalian from './../assets/images/cases/cases-dalian.png';
+import img_yydh from './../assets/images/cases/cases-yydh.png';
+import img_dmx from './../assets/images/cases/cases-dmx.png';
+import img_cztl from './../assets/images/cases/cases-cztl.png';
+import img_3d from './../assets/images/cases/cases-3d.png';
 const { push } = useRouter()
 interface Item {
-  id: number
   image: string
   title: string
+  link: string
   desc: string
 }
 const list = ref(<Array<Item>>[
-  { id: 1, title: '案例1', image: feat1, desc: '' },
-  { id: 2, title: '案例2', image: feat1, desc: '' },
-  { id: 3, title: '案例3', image: feat1, desc: '' },
-])
-function handleClick(item: Item) {}
+  {
+    title: '省级支撑应用平台',
+    image: img_taihai,
+    link: 'http://10.20.107.239:930/taihai/#/home',
+    desc: '该案例使用CME一体化开发平台，对海洋气候进行监测和预警。通过接入CME平台卫星、雷达等数据及海平面气压、海表温度、温度、风等要素资料，预测并分析台风，为强对流天气提供预报预警服务'
+  },
+  {
+    title: '大连气象防灾减灾服务保障系统',
+    image: img_dalian,
+    link: 'http://10.1.64.146/dalian/#/liveMonitoring',
+    desc: '该案例整合实时监测与数值预报能力，为用户提供覆盖全面、精准可靠的气象信息服务。针对特定行业和场景，提供定制化气象保障服务，支持极端天气预警和快速响应，助力用户进行科学决策与风险管理，提供精细化的网格化数据编辑能力，支持用户根据具体需求对网格气象数据进行调整'
+  },
+  {
+    title: '远洋导航业务平台',
+    image: img_yydh,
+    link: 'http://10.20.107.239:854/daohang/#/home',
+    desc: '该案例是专为船舶设计的智能导航系统，结合CME的气象要素分析与航行风险预警技术，通过对全球气象数据、海洋环境监测信息以及船舶实时状态，为船舶提供精确的航线规划和动态调整。'
+  },
+  {
+    title: '智能网格预报应用分析平台',
+    image: img_dmx,
+    link: 'http://10.1.64.146/nwfd/index.html#/bigModel',
+    desc: '该案例包含了多种领先的气象大模型，包括风清，伏羲，风乌，FourCast，GraphCaseNet、盘古，通过数据可视化表达形式，提供了核心要素的展示和预测，依托先进气象大模型，实现对未来天气趋势的精准把握'
+  },
+  {
+    title: '川藏铁路气象保障预报预警与共享系统',
+    image: img_cztl,
+    link: 'http://10.40.82.36:4399/czbz#/czbz',
+    desc: '该案例为川藏铁路智能气象服务平台，集实时监测、精细预报、风险预警和保障服务于一体，通过先进的气象技术为铁路安全运行提供全面支持。系统涵盖多个功能模块，结合可视化设计与气象数据处理技术，确保服务的高效性与可靠性。'
+  },
+  {
+    title: '3D天气业务一体化平台示例项目',
+    image: img_3d,
+    link: 'http://cme.leonhan.com:9995/#/home',
+    desc: '该案例为CME平台3D示例项目，项目实现了风场、风粒子动画、台风三维体、三维云等3D效果'
+  },
+]);
 </script>
 
 <template>
@@ -23,44 +61,38 @@ function handleClick(item: Item) {}
     <div class="banner">
       <div class="text-container">
         <p class="top-title">
-          树立气象领域新标杆，开启行业新征程
+          引领行业创新发展，塑造未来气象服务新高度
         </p>
         <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
         <p class="bottom-title">
-          树立气象领域标杆开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆开启行业新征程树立气象领域标杆，开启行业新征程树立气象领域标杆，开启行业新征程
+          从科技创新到服务升级，树立行业新标准；以精准气象助力发展，开创未来新篇章
         </p>
       </div>
     </div>
     <!-- 列表区域 -->
     <div class="list-container">
-      <div class="card" v-for="item in list" @click="handleClick(item)">
-        <div class="img">
-          <img :src="feat1" alt="">
-        </div>
-        <div class="text-container">
-          <div class="title">{{ item.title }}</div>
-          <div class="content">
-            这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-            这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
-            这是一条待替换的文案针对业务前端应用特点，制定针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析
+      <template v-for="item in list">
+        <a :href="item.link" target="_blank" class="card">
+          <div class="img">
+            <img :src="item.image" alt="">
           </div>
-        </div>
-      </div>
+          <div class="text-container">
+            <div class="title">{{ item.title }}</div>
+            <div class="content">
+              {{ item.desc }}
+            </div>
+          </div>
+        </a>
+      </template>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-// iframe {
-//   width: 100%;
-//   height: 100%;
-//   border: none;
-//   background-color: #ffffff;
-// }
-
 .scene {
   width: 100%;
   height: 100%;
+  padding-bottom: 40px;
   overflow-y: auto;
 
   .banner {
@@ -73,10 +105,12 @@ function handleClick(item: Item) {}
     display: flex;
     align-items: center;
     justify-content: center;
+
     .text-container {
       width: 60%;
       text-align: center;
-      > p {
+
+      >p {
         color: #ffffff;
         font-size: 20px;
         font-weight: 300;
@@ -84,6 +118,7 @@ function handleClick(item: Item) {}
         &.top-title {
           margin-bottom: 20px;
         }
+
         &.center-title {
           font-weight: 400;
           font-size: 60px;
@@ -124,8 +159,13 @@ function handleClick(item: Item) {}
 
       .text-container {
         padding: 10px;
+
         .title {
+          font-size: 20px;
+          line-height: 36px;
+          font-weight: 600;
         }
+
         .content {
           overflow: hidden; // 隐藏溢出的内容
           display: -webkit-box; // 使用弹性盒子布局
@@ -133,8 +173,9 @@ function handleClick(item: Item) {}
           -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
         }
       }
-      }
-    > div {
+    }
+
+    >div {
       width: calc(100% / 3);
     }
   }
