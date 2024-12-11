@@ -19,7 +19,7 @@ const genStub: Plugin = {
 const cssNameMap = {
   'vue-repl': 'index',
   'monaco-editor': 'MonacoEditor',
-};
+}
 /**
  * Patch generated entries and import their corresponding CSS files.
  * Also normalize MonacoEditor.css
@@ -30,12 +30,15 @@ const patchCssFiles: Plugin = {
   writeBundle() {
     //  inject css imports to the files
     const outDir = path.resolve('dist')
-      ;['vue-repl', 'monaco-editor'].forEach((file) => {
-        const filePath = path.resolve(outDir, file + '.js')
-        const content = fs.readFileSync(filePath, 'utf-8')
-        // @ts-ignore
-        fs.writeFileSync(filePath, `import './${cssNameMap[file]}.css'\n${content}`)
-      })
+    ;['vue-repl', 'monaco-editor'].forEach((file) => {
+      const filePath = path.resolve(outDir, file + '.js')
+      const content = fs.readFileSync(filePath, 'utf-8')
+      // @ts-ignore
+      fs.writeFileSync(
+        filePath,
+        `import './${cssNameMap[file]}.css'\n${content}`,
+      )
+    })
   },
 }
 
@@ -46,9 +49,14 @@ export default mergeConfig(base, {
       '/echartUrl': {
         target: 'http://10.1.64.146',
         changeOrigin: true,
-        rewrite: p => p.replace(/^\/echartUrl/i, '')
-      }
-    }
+        rewrite: (p) => p.replace(/^\/echartUrl/i, ''),
+      },
+      '/tiffUrl': {
+        target: 'http://10.20.107.239:864',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/tiffUrl/i, ''),
+      },
+    },
   },
   plugins: [
     dts({
@@ -59,7 +67,7 @@ export default mergeConfig(base, {
   ],
   resolve: {
     alias: {
-      '@': 'src'
+      '@': 'src',
     },
   },
   optimizeDeps: {
@@ -77,7 +85,7 @@ export default mergeConfig(base, {
     lib: {
       entry: {
         'vue-repl': './src/index.ts',
-        'monaco-editor': './src/editor/MonacoEditor.vue'
+        'monaco-editor': './src/editor/MonacoEditor.vue',
       },
       formats: ['es'],
       fileName: () => '[name].js',
