@@ -27,12 +27,12 @@
             <span class="desc">智能感知、智能研判、智能诊断和智能服务生成</span>
           </router-link>
           <router-link to="/data-services" class="card2 radius8">
-            <span class="count">200</span>
+            <span class="count">125</span>
             <span class="msg">数据服务</span>
             <span class="desc">提供各类模式、雷达、卫星、高空和大模型等资料服务</span>
           </router-link>
           <router-link to="/components" class="card2 radius8">
-            <span class="count">100</span>
+            <span class="count">110</span>
             <span class="msg">组件服务</span>
             <span class="desc">集成数据上图和图表展示、交互、编辑、分析等能力</span>
           </router-link>

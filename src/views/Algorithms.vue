@@ -7,39 +7,39 @@
       </p>
       <div class="info-list">
         <a href="#meteoAlgorithms" class="info-item">
-          <label class="lbl1">9+大类</label>
+          <!-- <label class="lbl1 nodata"></label> -->
           <label class="lbl2">50+气象基础算法</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">模式数据计算、穿透算法等</p>
         </a>
         <span class="splitor"></span>
         <a href="#intelligentperception" class="info-item">
-          <label class="lbl1">5+大类</label>
+          <!-- <label class="lbl1 nodata"></label> -->
           <label class="lbl2">20+智能感知</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">智能感知、实时统计分析等服务</p>
         </a>
         <span class="splitor"></span>
         <a href="#intelligentJudgment" class="info-item">
-          <label class="lbl1">3+大类</label>
+          <!-- <label class="lbl1 nodata"></label> -->
           <label class="lbl2">8+智能研判</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">协同编辑、校验服务等算法</p>
         </a>
         <span class="splitor"></span>
         <a href="#smartAssessment" class="info-item">
-          <label class="lbl1">4+大类</label>
+          <!-- <label class="lbl1 nodata"></label> -->
           <label class="lbl2">8+智能诊断</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">天气系统识别、天气智能诊断等</p>
         </a>
         <span class="splitor"></span>
         <a href="#businessComponent" class="info-item">
-          <label class="lbl1">2+大类</label>
+          <!-- <label class="lbl1 nodata"></label> -->
           <label class="lbl2">8+智能产品加工</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">全国及区域专题图生成等算法</p>
         </a>
         <span class="splitor"></span>
         <a href="#ai" class="info-item">
-          <label class="lbl1">1+大类</label>
+          <!-- <label class="lbl1 nodata"></label> -->
           <label class="lbl2">1+AI算法集成</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">通过语音调用服务能力</p>
         </a>
       </div>
     </template>
@@ -96,6 +96,7 @@ import SampleLayout from '../components/SampleLayout.vue';
   box-shadow: 10px -10px 20px 0px #ffffff4d, -10px 10px 20px 0px #d9d9d980;
 
   .info-item {
+    position: relative;
     flex: 1;
     padding: 14px;
     border-radius: 8px;
@@ -108,6 +109,12 @@ import SampleLayout from '../components/SampleLayout.vue';
       @extend .labelStyle;
       @include setFont(18px, 32px, 600);
       border-radius: 20px;
+
+      &.nodata {
+        pointer-events: none;
+        background-color: transparent !important;
+        visibility: hidden;
+      }
     }
 
     .lbl2 {
@@ -115,10 +122,12 @@ import SampleLayout from '../components/SampleLayout.vue';
       margin-top: 16px;
       color: #566b8e;
       @include setFont(26px, 36px, 600);
-      text-align: right;
+      // text-align: right;
+      text-align: left;
     }
 
     .desc {
+      margin-top: 24px;
       @include setFont(16px, 22px);
       color: #566b8e;
       text-align: right;
