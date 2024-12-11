@@ -1,12 +1,13 @@
 <template>
   <el-main class="page-view">
-    <span class="back">
-      <img src="./../assets/images/icons/icon-back.webp">
-      <a @click="router.go(-1)">返回上一页</a>
-    </span>
+    <div class="header">
+      <span class="back">
+        <img src="./../assets/images/icons/icon-back.webp">
+        <a @click="router.go(-1)">返回上一页</a>
+      </span>
+      <span class="page-title">{{ docInfo.title }}</span>
+    </div>
     <div class="head-info">
-      <h3 class="page-title">服务详情</h3>
-      <h3 class="sub-title">{{ docInfo.title }}</h3>
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
         <p class="desc-text">这是一段服务描述</p>
@@ -25,56 +26,18 @@
       <Repl ref="repl" v-bind="replOptions"></Repl>
       <!-- <div class="info-block" v-html="docInfo.useIntroduce"></div> -->
     </div>
-    <h4>版本</h4>
-    <p>CME1.0目前还处于快速开发迭代中。</p>
-    <p>此外，在dev 分支上的每个提交和 PR 都将被发布到 pkg.pr.new，如果您想要使用一些未发布的内容，您可以参考 这里。</p>
-    <pre>
-  从 npm 获取
-  npm install echarts
-
-  从 CDN 获取
-  &lt;script src="/libs/cme2d.js"&gt;&lt;/script&gt;
-</pre>
-    <div class="tip custom-block">
-      <p class="custom-block-title">TIP</p>
-      <p>我们建议使用 CDN 引入 CME1.0 的用户在链接地址上锁定版本，以免将来 Element Plus 升级时受到非兼容性更新的影响。 锁定版本的方法请查看 <a href="https://unpkg.com"
-          class="vp-link" target="_blank" rel="noreferrer">unpkg.com<svg viewBox="0 0 24 24" width="1.2em"
-            height="1.2em" class="link-icon">
-            <path fill="currentColor"
-              d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v8h-2V6.413l-7.793 7.794l-1.414-1.414L17.585 5H13V3h8z">
-            </path>
-          </svg></a>。</p>
-      <p>由于原生的 HTML 解析行为的限制，单个闭合标签可能会导致一些例外情况，所以请使用双封闭标签， <a
-          href="https://vuejs.org/guide/essentials/component-basics.html#in-dom-template-parsing-caveats"
-          class="vp-link" target="_blank" rel="noreferrer">参考<svg viewBox="0 0 24 24" width="1.2em" height="1.2em"
-            class="link-icon">
-            <path fill="currentColor"
-              d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v8h-2V6.413l-7.793 7.794l-1.414-1.414L17.585 5H13V3h8z">
-            </path>
-          </svg></a></p>
-      <div class="language-html vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span
-          class="lang">html</span>
-        <pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span
-            style="--shiki-light: #6A737D; --shiki-dark: #6A737D;">&lt;!-- examples --&gt;</span></span>
-        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&lt;</span><span
-            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table</span><span
-            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span>
-        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;"> &lt;</span><span
-            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
-            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;&lt;/</span><span
-            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
-            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span>
-        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;"> &lt;</span><span
-            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
-            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;&lt;/</span><span
-            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table-column</span><span
-            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span>
-        <span class="line"><span style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&lt;/</span><span
-            style="--shiki-light: #22863A; --shiki-dark: #85E89D;">el-table</span><span
-            style="--shiki-light: #24292E; --shiki-dark: #E1E4E8;">&gt;</span></span></code></pre>
-      </div>
+    <div class="sample-box">
+      <p class="title">使用方式</p>
+      <p class="line">从 npm 获取</p>
+      <code>
+    npm install --save cme2d cme-core;
+  </code>
+      <p class="line">从 cdn 获取</p>
+      <code>
+    &lt;script src="/libs/cme2d.js"&gt;&lt;/script&gt;<br />
+    &lt;script src="/libs/cme-core.js"&gt;&lt;/script&gt;
+  </code>
     </div>
-
   </el-main>
 </template>
 <script setup>
@@ -179,8 +142,13 @@ $border: 1px solid #FFFFFF19;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
 
-  .back {
+  .header {
     @include position(absolute, $left: 0, $top: 20px);
+    width: 100%;
+  }
+
+  .back {
+    @include position(absolute, $left: 0);
     @include flex(center, center);
     @include setBox(168px, 48px);
     background-color: #2A2C2F19;
@@ -200,16 +168,12 @@ $border: 1px solid #FFFFFF19;
   }
 
   .head-info {
-    padding-top: 100px;
+    padding-top: 80px;
   }
 
   .page-title {
-    @include setFont(56px, 66px);
-  }
-
-  .sub-title {
-    margin-top: 40px;
-    @include setFont(40px, 56px, 500);
+    @include position(absolute, $left: 200px, $top: 10px);
+    @include setFont(20px, 28px, 500);
     color: #323439;
   }
 
@@ -247,19 +211,7 @@ $border: 1px solid #FFFFFF19;
   }
 }
 
-// .el-aside {
-//   @include position(fixed, $top: 60px);
-//   width: 360px;
-//   height: calc(100% - 120px);
-// }
-
 .el-main {
-  // margin-left: 360px;
-  // display: grid;
-  // grid-template-rows: 120px auto;
-  // grid-template-rows: 120px auto;
-  // grid-row-gap: 30px;
-  border-left: $border;
   background-color: var(--background-color4);
 
   .head-info {
@@ -298,6 +250,20 @@ $border: 1px solid #FFFFFF19;
       padding-top: 20px;
       border-top: $border;
     }
+  }
+
+  p.line {
+    @include setFont(16px, 32px);
+  }
+
+  code {
+    display: block;
+    padding: 10px 24px;
+    border-radius: 8px;
+    background-color: #333438;
+    color: #d1cfcf;
+    @include setFont(16px, 24px, 400);
+    font-family: Consolas, serif;
   }
 }
 </style>

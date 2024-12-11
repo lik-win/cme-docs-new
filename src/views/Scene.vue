@@ -38,11 +38,7 @@ function handleClick(item: Item) {
     </div> -->
     <!-- 列表区域 -->
     <div class="list-container">
-      <div
-        class="card"
-        v-for="(item, index) in list"
-        @click="handleClick(item)"
-      >
+      <div class="card" v-for="(item, index) in list" @click="handleClick(item)">
         <template v-if="index % 2 == 0">
           <div class="img">
             <img :src="item.image" alt="" />
@@ -86,10 +82,12 @@ function handleClick(item: Item) {
     display: flex;
     align-items: center;
     justify-content: center;
+
     .text-container {
       width: 60%;
       text-align: center;
-      > p {
+
+      >p {
         color: #ffffff;
         font-size: 20px;
         font-weight: 300;
@@ -97,6 +95,7 @@ function handleClick(item: Item) {
         &.top-title {
           margin-bottom: 20px;
         }
+
         &.center-title {
           font-weight: 400;
           font-size: 60px;
@@ -119,12 +118,10 @@ function handleClick(item: Item) {
       display: flex;
       align-items: center;
       gap: 30px;
-      background: linear-gradient(
-        136deg,
-        rgba(217, 253, 255, 0.29) 0%,
-        #f0f6ff 22%,
-        #d9e9ff 100%
-      );
+      background: linear-gradient(136deg,
+          rgba(217, 253, 255, 0.29) 0%,
+          #f0f6ff 22%,
+          #d9e9ff 100%);
       transition: all 0.3s linear;
       cursor: pointer;
 
@@ -134,10 +131,12 @@ function handleClick(item: Item) {
 
       &:nth-child(2n) {
         background: none;
+
         .img {
           background: linear-gradient(315deg, #ebf8ff 0%, #e6ecff 100%);
         }
       }
+
       .img {
         flex: 1;
         height: 464px;
@@ -154,6 +153,7 @@ function handleClick(item: Item) {
         height: 100%;
         display: flex;
         flex-direction: column;
+
         .title {
           font-family:
             PingFangSC,
@@ -164,6 +164,7 @@ function handleClick(item: Item) {
           text-align: left;
           font-style: normal;
         }
+
         .content {
           font-size: 18px;
           // overflow: hidden; // 隐藏溢出的内容
@@ -173,7 +174,8 @@ function handleClick(item: Item) {
         }
       }
     }
-    > div {
+
+    >div {
       width: calc(100% / 3);
     }
   }

@@ -1,12 +1,13 @@
 <template>
   <el-main class="page-view">
-    <span class="back">
-      <img src="./../assets/images/icons/icon-back.webp">
-      <a @click="router.go(-1)">返回上一页</a>
-    </span>
+    <div class="header">
+      <span class="back">
+        <img src="./../assets/images/icons/icon-back.webp">
+        <a @click="router.go(-1)">返回上一页</a>
+      </span>
+      <h3 class="page-title">{{ docInfo.title }}</h3>
+    </div>
     <div class="head-info">
-      <h3 class="page-title">服务详情</h3>
-      <h3 class="sub-title">{{ docInfo.title }}</h3>
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
         <p class="desc-text">这是一段服务描述</p>
@@ -196,8 +197,12 @@ $border: 1px solid #FFFFFF19;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
 
-  .back {
+  .header {
     @include position(absolute, $left: 0, $top: 20px);
+    width: 100%;
+  }
+
+  .back {
     @include flex(center, center);
     @include setBox(168px, 48px);
     background-color: #2A2C2F19;
@@ -216,18 +221,14 @@ $border: 1px solid #FFFFFF19;
     }
   }
 
-  .head-info {
-    padding-top: 100px;
-  }
-
   .page-title {
-    @include setFont(56px, 66px);
+    @include position(absolute, $left: 200px, $top: 10px);
+    @include setFont(20px, 28px, 500);
+    color: #323439;
   }
 
-  .sub-title {
-    margin-top: 40px;
-    @include setFont(40px, 56px, 500);
-    color: #323439;
+  .head-info {
+    padding-top: 80px;
   }
 
   .desc-box {

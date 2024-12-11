@@ -3,34 +3,36 @@
     <div class="page-head">
       <slot name="page-head"></slot>
     </div>
-    <el-aside :class="menuClass" v-top>
-      <TreeMenu :menus="store.menus"></TreeMenu>
-    </el-aside>
-    <el-main class="content">
-      <template v-for="item in store.menus">
-        <div :id="item.path" class="list-box">
-          <p class="box-title">{{ item.name }}</p>
-          <!-- <p class="menu-desc">这是描述</p> -->
-          <template v-for="sub in item.children">
-            <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
-            <div class="list">
-              <template v-for="eg in store.samples[sub.id]">
-                <div class="item">
-                  <router-link class="img-box" :to="`/components/${eg.id}`">
-                    <img :src="eg.cover">
-                  </router-link>
-                  <p class="name">
-                    <span>{{ eg.title }}</span>
-                    <span v-if="eg.latestVersion" class="version">{{ eg.latestVersion }}</span>
-                  </p>
-                  <p class="pub-date">发布 {{ getTime(eg) }}</p>
-                </div>
-              </template>
-            </div>
-          </template>
-        </div>
-      </template>
-    </el-main>
+    <div class="page-body">
+      <el-aside :class="menuClass">
+        <TreeMenu :menus="store.menus"></TreeMenu>
+      </el-aside>
+      <el-main class="content">
+        <template v-for="item in store.menus">
+          <div :id="item.path" class="list-box">
+            <p class="box-title">{{ item.name }}</p>
+            <!-- <p class="menu-desc">这是描述</p> -->
+            <template v-for="sub in item.children">
+              <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
+              <div class="list">
+                <template v-for="eg in store.samples[sub.id]">
+                  <div class="item" :title="eg.title">
+                    <router-link class="img-box" :to="`/${path}/${eg.id}`">
+                      <img :src="eg.cover">
+                    </router-link>
+                    <p class="name-box">
+                      <span class="name">{{ eg.title }}</span>
+                      <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
+                    </p>
+                    <p class="pub-date">发布 {{ getTime(eg) }}</p>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </template>
+      </el-main>
+    </div>
   </div>
 </template>
 
@@ -44,6 +46,7 @@ const props = defineProps({
   type: { type: String, required: true }
 });
 
+const path = computed(() => props.type.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`));
 const types = ['components', 'algorithms', 'dataServices'];
 watch(() => props.type, val => {
   if (!types.includes(val)) return;
@@ -62,16 +65,18 @@ function getTime(item) {
   return (updateTime || createTime || '').split(/\s/)[0];
 }
 
-const vTop = {
-  mounted(el) {
-    const targetNode = document.querySelector('.cme-layout');
-    const { top } = el.getBoundingClientRect();
-    targetNode.addEventListener('scroll', e => {
-      const dy = Math.max(e.target.scrollTop - top + 200, 0) * 10 / window.innerWidth;
-      el.style.transform = `translateY(${dy}rem)`;
-    }, { passive: true });
-  }
-}
+// const vTop = {
+//   mounted(el) {
+//     const targetNode = document.querySelector('.cme-layout');
+//     const headH = document.querySelector('.page-head').offsetHeight;
+//     const { top } = el.getBoundingClientRect();
+//     targetNode.addEventListener('scroll', e => {
+//       const dy = Math.max(e.target.scrollTop - top + 60, 0) * 10 / window.innerWidth;
+//       console.log('dy ===>', e.target.scrollTop, top, headH);
+//       el.style.transform = `translateY(${dy}rem)`;
+//     });
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>
@@ -81,22 +86,30 @@ const vTop = {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-rows: repeat(2, auto);
-  grid-template-columns: repeat(2, auto);
-  grid-row-gap: 40px;
+
   background-color: var(--background-color);
 
   .page-head {
     grid-column-start: span 2;
     border-bottom: 1px solid #dcdddf;
-    padding: 60px 84px;
-    background: linear-gradient(136deg, rgba(217, 253, 255, 0.29) 0%, #F0F6FF 22%, #D9E9FF 100%);
+    padding: 80px 80px 60px;
+    background: url("./../assets/images/bannerbg.webp") no-repeat center;
+    background-size: 100% 100%;
+  }
+
+  .page-body {
+    position: sticky;
+    top: 60px;
+    display: flex;
+    padding-top: 60px;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+
   }
 }
 
 .el-aside {
-  position: relative;
-  height: calc(100% - 120px);
 
   &.w280 {
     width: 280px;
@@ -116,8 +129,8 @@ const vTop = {
   padding-top: 0;
   padding-left: 24px;
   padding-right: 50px;
-  // margin-left: 360px;
   border-left: 1px solid #dcdddf;
+  scroll-behavior: smooth;
 }
 
 .anchor {
@@ -152,6 +165,7 @@ const vTop = {
     margin: 16px 0;
     padding-left: 14px;
     @include setFont(24px, 32px);
+    color: #0071E3;
   }
 
   .list {
@@ -163,22 +177,24 @@ const vTop = {
 
     .item {
       display: inline-block;
-      padding: 10px;
-      border: 4px dashed transparent;
+      border: 1px solid #E4E4E4;
       border-radius: 8px;
-      transition: 0.2s;
+      box-shadow: 10px -10px 20px 0px #ffffff4d, -10px 10px 20px 0px #d9d9d980;
+      overflow: hidden;
+      background-color: #ffffff;
 
       &:hover {
-        border-color: #47a1fe;
-        background-color: #47a1fe22;
+        background: linear-gradient(315deg, #EBF8FF 1%, #C9D5FF 100%);
+        border-color: #0071E3;
+        box-shadow: 0 0 4px #0071E3;
 
-        .name {
-          font-weight: 700;
+        .name-box {
+          font-weight: 600;
         }
 
         .version {
-          background-color: #47a1fe !important;
-          border-color: #47a1fe !important;
+          background-color: #0071E3 !important;
+          border-color: #0071E3 !important;
           color: #ffffff;
         }
       }
@@ -188,20 +204,28 @@ const vTop = {
         width: 100%;
         aspect-ratio: 1;
         margin-bottom: 12px;
-        border-radius: 8px;
         overflow: hidden;
       }
 
 
 
-      .name {
+      .name-box {
+        display: flex;
         margin-bottom: 8px;
+        padding-right: 10px;
         @include setFont(16px, 20px);
-        color: var(--text-color3);
+        color: #323439;
 
-        span {
+        span:first-child {
+          padding-left: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        span:last-child {
           padding: 0 6px;
-          margin-left: 4px;
+          margin-left: 8px;
         }
 
         .version {
@@ -214,7 +238,10 @@ const vTop = {
       }
 
       .pub-date {
+        padding-left: 14px;
+        margin-bottom: 14px;
         color: var(--text-color2);
+        @include setFont(14px, 16px);
       }
     }
   }
