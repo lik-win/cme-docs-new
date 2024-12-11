@@ -13,7 +13,7 @@
     </div>
     <div class="login-box">
       <div class="search-box"></div>
-      <!-- <a class="link btn-login">开发者登录</a> -->
+      <a class="link btn-login">开发者登录</a>
     </div>
   </div>
 </template>
@@ -39,8 +39,8 @@ watch(router.currentRoute, route => {
 @import './../assets/mixins.scss';
 
 .cme-nav {
-  @include flex(space-between, center);
-  @include setBox(1200px, 60px);
+  @include flex(flex-start, center);
+  @include setBox(100%, 60px, 0 200px);
   user-select: none;
 
   .logo {
@@ -50,7 +50,8 @@ watch(router.currentRoute, route => {
   }
 
   .link {
-    @include setBox($height: 30px, $padding: 0 20px);
+    @include setBox($height: 30px);
+    margin-left: 60px;
     line-height: 28px;
     opacity: 0.7;
     transition: 0.2s;
@@ -70,6 +71,20 @@ watch(router.currentRoute, route => {
     &.active,
     &:hover {
       opacity: 1;
+    }
+  }
+
+  .login-box {
+    @include position(absolute, $right: 200px);
+    @include flex(flex-start, center);
+
+    .search-box {
+      @include setBox(20px, 20px);
+      background: url("./../assets/images/icons/icon-search.webp") no-repeat center;
+    }
+
+    .btn-login {
+      margin-left: 20px;
     }
   }
 }
