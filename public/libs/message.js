@@ -27,6 +27,8 @@
     return val === null || val === undefined || val === '';
   }
 
+  const numTypes = ['number', 'float', 'int', 'integer', 'double'];
+
   function parseArgsAndRun(params) {
     const args = {};
     let errMsg = '';
@@ -37,8 +39,9 @@
         errMsg = `参数"${item.name}"为必传参数!`;
         return;
       }
-      const value = parseData(val, item.type);
-      if (value === NaN) {
+      const _type = item.type.toLowerCase();
+      const value = parseData(val, _type);
+      if (value !== value) {
         errMsg = `参数"${item.name}"类型错误，应传${item.type}类型!`;
         return;
       }

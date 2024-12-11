@@ -21,12 +21,12 @@
       </p>
     </div>
     <div class="sample-box">
-      <p class="title">运行效果</p>
+      <p class="box-title">运行效果</p>
       <Repl ref="repl" v-bind="replOptions"></Repl>
     </div>
     <hr class="s-line" v-if="apiUrl">
     <div class="args-box" v-if="apiUrl">
-      <p class="title">参数列表</p>
+      <p class="box-title">参数列表</p>
       <button class="btn-run" @click="toRun">运行</button>
       <div class="table-box">
         <p class="api-url"><label>接口地址：</label>{{ apiUrl }}</p>
@@ -45,7 +45,13 @@
         </el-table>
       </div>
     </div>
-
+    <hr class="s-line" v-if="result">
+    <div class="result-box" v-if="result">
+      <p class="box-title">接口数据</p>
+      <div class="res-box">
+        <pre>{{ result }}</pre>
+      </div>
+    </div>
   </el-main>
 </template>
 <script setup>
@@ -77,6 +83,7 @@ const version = ref(null);
 const versionList = ref([]);
 const latestDoc = ref(null);
 const historyList = ref([]);
+const result = ref(null);
 
 function showCode(fileList) {
   if (!fileList.length) return;
@@ -157,8 +164,12 @@ function onMessage(evt) {
   } else if (data.msgType === 'paramError') {
     alert(data.data);
   } else if (data.msgType === 'response') {
-
+    parseResult(data.data);
   }
+}
+
+function parseResult(data) {
+  result.value = JSON.stringify(data, null, 2);
 }
 
 function toRun() {
@@ -221,8 +232,9 @@ $border: 1px solid #FFFFFF19;
 
   .desc-box {
     @include setBox(1760px, $padding: 16px 24px, $margin: 20px 0);
-    background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
     border-radius: 8px;
+    background: url("./../assets/images/desc-bg.webp") no-repeat center;
+    background-size: 100% 100%;
 
     .desc-title {
       @include setFont(20px, 28px, 600);
@@ -252,15 +264,15 @@ $border: 1px solid #FFFFFF19;
   }
 }
 
+.box-title {
+  @include setBox(220px, 38px);
+  background: linear-gradient(270deg, #ffffff2b 0%, #7bfff791 23%, #8ac1ff26 86%, #ffffff12 100%);
+  @include setFont(24px, 34px, 500);
+  color: #323439;
+}
+
 .sample-box {
   margin-top: 40px;
-
-  .title {
-    @include setBox(220px, 38px);
-    background: linear-gradient(270deg, #ffffff2b 0%, #7bfff791 23%, #8ac1ff26 86%, #ffffff12 100%);
-    @include setFont(24px, 34px, 500);
-    color: #323439;
-  }
 
   .cme-repl {
     margin-top: 20px;
@@ -286,13 +298,6 @@ $border: 1px solid #FFFFFF19;
 
 .args-box {
   margin-top: 20px;
-
-  .title {
-    @include setBox(220px, 38px);
-    background: linear-gradient(270deg, #ffffff2b 0%, #7bfff791 23%, #8ac1ff26 86%, #ffffff12 100%);
-    @include setFont(24px, 34px, 500);
-    color: #323439;
-  }
 
   .btn-run {
     @include setBox(80px, 36px, $margin: 20px 0);
@@ -323,6 +328,25 @@ $border: 1px solid #FFFFFF19;
 
     .args-table {
       width: 1020px;
+    }
+  }
+}
+
+.result-box {
+  margin-top: 20px;
+
+  .res-box {
+    padding: 24px;
+    margin-top: 20px;
+    background: #F1F1F1;
+    border-radius: 8px;
+    border: 1px solid #B8C2C2;
+    backdrop-filter: blur(10px);
+
+    pre {
+      margin: 0;
+      @include setFont(16px, 20px, 300);
+      font-family: codicon, Consolas, serif;
     }
   }
 }

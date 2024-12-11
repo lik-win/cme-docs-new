@@ -6,6 +6,7 @@ import DataServices from '../views/DataServices.vue';
 import Algorithms from '../views/Algorithms.vue';
 import Home from '../views/HomeNew.vue';
 import SceneVue from '../views/Scene.vue';
+import CasesVue from '../views/Cases.vue';
 
 /**
  * 路径规范：
@@ -57,11 +58,16 @@ const routes = [{
   component: SceneVue,
   meta: { cate: 'scenes' }
 }, {
+  path: '/scenes/:type',
+  name: 'scenesDetail',
+  component: ()=>import("../views/SceneDetail.vue"),
+  meta: { cate: 'scenesDetail' }
+},{
   path: '/cases',
   name: 'cases',
-  component: SceneVue,
+  component: CasesVue,
   meta: { cate: 'cases' }
-}, {
+},{
   path: '/support',
   name: 'support',
   component: SceneVue,
