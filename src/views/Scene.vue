@@ -37,10 +37,12 @@ const list = ref(<Array<Item>>[
 ])
 
 function handleClick(item: Item) {
+  return
   push({
     path: `/scenes/${item.type}`,
   })
 }
+function download(item: Item) {}
 </script>
 
 <template>
@@ -49,9 +51,7 @@ function handleClick(item: Item) {
     <!-- banner区域 -->
     <div class="banner">
       <div class="text-container">
-        <p class="top-title">
-          引领行业创新发展，塑造未来气象服务新高度
-        </p>
+        <p class="top-title">引领行业创新发展，塑造未来气象服务新高度</p>
         <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
         <p class="bottom-title">
           从科技创新到服务升级，树立行业新标准；以精准气象助力发展，开创未来新篇章
@@ -60,7 +60,11 @@ function handleClick(item: Item) {
     </div>
     <!-- 列表区域 -->
     <div class="list-container">
-      <div class="card" v-for="(item, index) in list" @click="handleClick(item)">
+      <div
+        class="card"
+        v-for="(item, index) in list"
+        @click="handleClick(item)"
+      >
         <template v-if="index % 2 == 0">
           <div class="img">
             <img :src="item.image" alt="" />
@@ -72,6 +76,7 @@ function handleClick(item: Item) {
             <div class="content">
               {{ item.desc }}
             </div>
+            <div class="button" @click="download(item)">下载</div>
           </div>
         </template>
         <template v-else>
@@ -82,6 +87,7 @@ function handleClick(item: Item) {
             <div class="content">
               {{ item.desc }}
             </div>
+            <div class="button" @click="download(item)">下载</div>
           </div>
           <div class="img">
             <img :src="item.image" alt="" />
@@ -113,7 +119,7 @@ function handleClick(item: Item) {
       width: 60%;
       text-align: center;
 
-      >p {
+      > p {
         color: #ffffff;
         font-size: 20px;
         font-weight: 300;
@@ -144,10 +150,12 @@ function handleClick(item: Item) {
       display: flex;
       align-items: center;
       gap: 30px;
-      background: linear-gradient(136deg,
-          rgba(217, 253, 255, 0.29) 0%,
-          #f0f6ff 22%,
-          #d9e9ff 100%);
+      background: linear-gradient(
+        136deg,
+        rgba(217, 253, 255, 0.29) 0%,
+        #f0f6ff 22%,
+        #d9e9ff 100%
+      );
       transition: all 0.3s linear;
       cursor: pointer;
 
@@ -179,6 +187,7 @@ function handleClick(item: Item) {
         height: 100%;
         display: flex;
         flex-direction: column;
+        gap: 10px;
 
         .title {
           position: relative;
@@ -201,11 +210,7 @@ function handleClick(item: Item) {
             transform: translateY(-50%);
             width: 20%;
             height: 60%;
-            background: linear-gradient(
-              90deg,
-              #b3e5fc 0%,
-              #e0f7fa 100%
-            );
+            background: linear-gradient(90deg, #b3e5fc 0%, #e0f7fa 100%);
             z-index: -1;
           }
         }
@@ -218,10 +223,34 @@ function handleClick(item: Item) {
           // -webkit-box-orient: vertical; // 设置盒子的子元素排列方式为垂直
           // -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
         }
+
+        .button {
+          width: 100px;
+          text-align: center;
+          background-color: #3498db;
+          color: white;
+          padding: 5px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+          transition:
+            box-shadow 0.3s,
+            background-color 0.3s,
+            transform 0.3s,
+            color 0.3s;
+
+          &:hover {
+            transform: rotate(2deg);
+            box-shadow:
+              0 12px 16px 0 rgba(0, 0, 0, 0.24),
+              0 17px 50px 0 rgba(0, 0, 0, 0.19);
+            background-color: #2980b9;
+            color: #ecf0f1;
+          }
+        }
       }
     }
 
-    >div {
+    > div {
       width: calc(100% / 3);
     }
   }
