@@ -1,39 +1,39 @@
 <template>
   <SampleLayout type="dataServices">
     <template #page-head>
-      <h3 class="page-title">数据服务 <span class="bubble">238种</span></h3>
+      <h3 class="page-title">数据服务 <span class="bubble">125种</span></h3>
       <p class="page-desc">
-        针对业务前端应用特点，定制针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析、地球系统数值模式等基础数据访问，管理智能数字预报、灾害性天气预报预警、气象风险预警与影响预报等各类数字化预报信息，实现各类数据的节约报销的汇集、处理、管理和服务，解决数据规范、存储集约、应用效率等问题。
+        针对业务前端应用特点，定制针对业务应用的数据存储结构和存储类型，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的节约报销的汇集、处理、管理和服务，解决数据规范、存储集约、应用效率等问题。
       </p>
       <div class="info-list">
         <a href="#modeData" class="info-item">
-          <label class="lbl1">9+模式</label>
-          <label class="lbl2">70+模式资料</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <label class="lbl1">6+模式</label>
+          <label class="lbl2">54+模式资料</label>
+          <p class="desc">MESO、EC、NCEP等模式</p>
         </a>
         <span class="splitor"></span>
         <a href="#radar" class="info-item">
-          <label class="lbl1">9+模式</label>
-          <label class="lbl2">10+雷达资料</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <label class="lbl1 nodata"></label>
+          <label class="lbl2">20+雷达资料</label>
+          <p class="desc">组合反射率、回波顶高等雷达资料</p>
         </a>
         <span class="splitor"></span>
         <a href="#satellite" class="info-item">
-          <label class="lbl1">5+模式</label>
-          <label class="lbl2">10+卫星资料</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <label class="lbl1">7+卫星</label>
+          <label class="lbl2">30+卫星资料</label>
+          <p class="desc">FY4B、FY3D、FY3G、FY3G等资料</p>
         </a>
         <span class="splitor"></span>
         <a href="#largeModel" class="info-item">
           <label class="lbl1">6+模式</label>
           <label class="lbl2">10+大模型资料</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <p class="desc">风清、风乌、FourCastNet等大模型</p>
         </a>
         <span class="splitor"></span>
         <a href="#businessComponent" class="info-item">
-          <label class="lbl1">2+模式</label>
-          <label class="lbl2">2+高空资料</label>
-          <p class="desc">资料描述资料描述资料描述</p>
+          <label class="lbl1">6+模式</label>
+          <label class="lbl2">11+高空资料</label>
+          <p class="desc">风廓线、微波辐射计等资料</p>
         </a>
       </div>
     </template>
@@ -102,6 +102,12 @@ import SampleLayout from '../components/SampleLayout.vue';
       @extend .labelStyle;
       @include setFont(18px, 32px, 600);
       border-radius: 20px;
+
+      &.nodata {
+        pointer-events: none;
+        background-color: transparent !important;
+        visibility: hidden;
+      }
     }
 
     .lbl2 {
