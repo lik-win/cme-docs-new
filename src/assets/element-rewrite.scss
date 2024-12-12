@@ -35,7 +35,8 @@
     display: none !important;
 
     &+span {
-      padding-left: 36px;
+      padding-left: 20px;
+      font-size: 14px;
     }
   }
 
@@ -71,6 +72,10 @@
         height: 100%;
         border-left: 1px solid #bec1c8;
       }
+
+      .el-icon {
+        display: none !important;
+      }
     }
 
     .el-icon:not(.is-leaf) {
@@ -84,6 +89,10 @@
 
     .el-icon:not(.is-leaf) {
       background: url("./images/icons/icon-collapsed.webp") no-repeat center;
+    }
+
+    .el-tree-node__children .el-icon {
+      display: none !important;
     }
   }
 }

@@ -44,8 +44,6 @@ const useGlobal = defineStore('global', () => {
   // let treeMenus = [];
   let menus = ref([]);
   let menus3 = ref([]);
-  const menusSet = {};
-  const menus2Set = {};
   const samples = reactive({});
 
   // 获取菜单树和示例列表
@@ -74,12 +72,21 @@ const useGlobal = defineStore('global', () => {
     return root;
   }
 
+  const cMenus = {
+    path: 'quickStart',
+    name: '快速上手',
+    level: 1,
+    ignore: true,
+    children: [
+      { path: 'npm', name: 'npm安装', level: 2 },
+      { path: 'cdn', name: 'CDN', level: 2 }
+    ]
+  };
   function updateMenus(cate) {
     if (currentCate === cate) return;
     currentCate = cate;
     const mList = menuList[cate] || [];
-    menus2Set[cate] = getMenus2(mList);
-    menus.value = copy(menus2Set[cate]);
+    menus.value = getMenus2(mList);
     const m2 = copy(mList.filter(m => m.level === 2));
     const m2Ids = m2.map(m => m.id);
     m2.forEach(m => m.children = []);
@@ -103,7 +110,9 @@ const useGlobal = defineStore('global', () => {
         });
       });
     });
-    console.log('menus.value ==>', menus.value);
+    // if (cate === 'components') {
+    //   menus.value.unshift(copy(cMenus));
+    // }
     menus3.value = m2.filter(m => m.children.length);
   }
   return { menus, menus3, samples, updateMenus };

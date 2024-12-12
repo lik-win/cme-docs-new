@@ -58,15 +58,15 @@
             </p>
           </div>
           <div class="right-box1">
-            <div class="img-box">
-              <img src="../assets/images/home-yygs.webp">
+            <div class="img-box shadow1">
+              <img src="../assets/images/home-yygs.png">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
-            <div class="img-box">
-              <img src="../assets/images/home-jyhl.webp">
+            <div class="img-box shadow2">
+              <img src="../assets/images/home-jyhl.png">
             </div>
           </div>
           <div class="right-box2">
@@ -84,14 +84,14 @@
           </div>
           <div class="right-box1">
             <div class="img-box">
-              <img src="../assets/images/home-mxqd.webp">
+              <img src="../assets/images/home-mxqd.png">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
-              <img src="../assets/images/home-txkf.png">
+              <img src="../assets/images/home-txkf.webp">
             </div>
           </div>
           <div class="right-box2">
@@ -372,6 +372,14 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
       &.bg {
         background: url("./../assets/images/home-imgbg.webp") no-repeat center;
         background-size: 100% 100%;
+      }
+
+      &.shadow1 {
+        box-shadow: -2px 2px 8px #e4e4e4;
+      }
+
+      &.shadow2 {
+        box-shadow: 2px -2px 8px #e4e4e4;
       }
 
       .radius30 {

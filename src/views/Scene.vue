@@ -186,9 +186,6 @@ function download(item: Item) { }
 
         .title {
           position: relative;
-          font-family:
-            PingFangSC,
-            PingFang SC;
           font-size: 36px;
           color: #323439;
           line-height: 50px;
@@ -213,33 +210,22 @@ function download(item: Item) { }
         .content {
           font-size: 18px;
           color: #323439;
-          // overflow: hidden; // 隐藏溢出的内容
-          // display: -webkit-box; // 使用弹性盒子布局
-          // -webkit-box-orient: vertical; // 设置盒子的子元素排列方式为垂直
-          // -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
         }
 
         .button {
-          width: 100px;
+          width: 126px;
+          height: 40px;
           text-align: center;
-          background-color: #3498db;
+          line-height: 30px;
+          background-color: #0071E3;
           color: white;
           padding: 5px 20px;
           text-decoration: none;
-          border-radius: 5px;
-          transition:
-            box-shadow 0.3s,
-            background-color 0.3s,
-            transform 0.3s,
-            color 0.3s;
+          border-radius: 20px;
+          transition: 0.2s;
 
           &:hover {
-            transform: rotate(2deg);
-            box-shadow:
-              0 12px 16px 0 rgba(0, 0, 0, 0.24),
-              0 17px 50px 0 rgba(0, 0, 0, 0.19);
-            background-color: #2980b9;
-            color: #ecf0f1;
+            transform: scale(1.05);
           }
         }
       }
