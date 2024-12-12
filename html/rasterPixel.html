@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>栅格数据拾取</title>
+    <link rel="stylesheet" href="/demo.css" />
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <div class="panel">
+      <p class="line">拾取到数据值:<span id="pixelValue">--</span></p>
+    </div>
+    <script type="text/javascript" src="/libs/cme2d.js"></script>
+    <script type="text/javascript" src="/libs/cme-core.umd.cjs"></script>
+    <script type="text/javascript">
+
+      const { Map: CMEMap, View, source, layer } = window.CME2D
+      let map
+      let rasterLayer
+      const { blendLayers, style } = window.CMECore
+      function initMap(mapEl) {
+        const map = new CMEMap({
+          target: mapEl, //挂载实例
+          layers: [
+            new layer.Tile({
+              source: new source.XYZ({
+                url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png', // 内网地址
+                // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
+              }),
+            }),
+          ],
+          view: new View({
+            //地图视图
+            center: [106, 35],
+            projection: 'EPSG:4326',
+            zoom: 5,
+            wrapX: true,
+          }), //地图设置
+          controls: [], //取消地图操作
+        })
+        return map
+      }
+      let mapObj = null
+      let layers = null
+      window.onload = function () {
+        const mapEl = document.querySelector('#map')
+        mapObj = initMap(mapEl)
+        mapObj.once('postrender', function () {
+          addRadarLayer(mapObj)
+        })
+        mapObj.on('click', (e) => {
+          if (!rasterLayer) return
+          const pixel = e.pixel
+          // const coords = e.coordinate;
+          const data = rasterLayer.getData(pixel)
+          console.log('屏幕点击像素点的值')
+          console.log(data)
+            // 动态更新页面中的 span 内容
+            document.getElementById('pixelValue').textContent = data.toFixed(2);
+        })
+      }
+
+      function addRadarLayer(map) {
+        let url = '/data/radar/RADA_CREF_20230728120000_4326.tif' //雷达图
+        // 获取凤羽图的配置参数
+        const params = getsingleConfig()
+        // 获取文本配置参数
+        const paramstext = getTextCogtig()
+        // 获取箭头配置参数
+        //  const paramsArrow=getArrowCogtig();
+        layers = new blendLayers(map, { url })
+        //绘制色斑图
+        layers._render(params).then((object) => {
+          layers.addCogeoLayer(params).then((layer) => {
+            rasterLayer = layer
+            map.addLayer(layer)
+          })
+        })
+      }
+
+      function getsingleConfig() {
+        let params = {
+          layerName: 'cogtifLayer',
+          opacity: 1.0,
+          interpolation: 'linear', // 渐变 linear  区间 nearest  网格 grid
+          zIndex: 14,
+          colors: [
+            [0, [0, 1, 237, 0]],
+            [5, [65, 157, 234, 1]],
+            [10, [97, 228, 236, 1]],
+            [15, [110, 247, 73, 1]],
+            [20, [12, 202, 18, 1]],
+            [25, [0, 143, 0, 1]],
+            [30, [253, 253, 9, 1]],
+            [35, [233, 188, 1, 1]],
+            [40, [247, 147, 4, 1]],
+            [45, [245, 1, 0, 1]],
+            [50, [210, 2, 0, 1]],
+            [55, [185, 3, 4, 1]],
+            [60, [246, 3, 243, 1]],
+            [65, [153, 1, 183, 1]],
+            [70, [177, 139, 242, 0]],
+          ],
+        }
+        return params
+      }
+      function getTextCogtig() {
+        let params = {
+          layerName: 'textLayer',
+          range: {
+            min: 10,
+            max: 100,
+          },
+
+          opacity: 1, //透明度
+          zIndex: 200, //图层层级
+          textStyle: {
+            //   //文本样式
+            Style: {
+              text: {
+                Text: {
+                  font: '18px Calibri,sans-serif',
+                  fill: {
+                    Fill: {
+                      color: '#ff0000',
+                    },
+                  },
+                  stroke: {
+                    Stroke: {
+                      color: '#ffffff',
+                      width: 4,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }
+
+        return params
+      }
+    </script>
+  </body>
+</html>

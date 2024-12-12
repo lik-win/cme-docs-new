@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Map Editor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css"
+    />
+    <link rel="stylesheet" href="/font/micaps/iconfont.css" />
+    <style>
+      #app {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #map {
+        flex: 1;
+      }
+
+      .handler-pop {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 100;
+        background: white;
+        /* padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="map"></div>
+      <div class="handler-pop" style="width: 300px">
+        <div id="button-group"></div>
+        <hr class="horizontal-line" />
+        <div id="micapsIcons"></div>
+      </div>
+    </div>
+    <!-- Vue 3 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <!-- 引入 Element Plus 样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-plus@2.3.6/dist/index.css"
+    />
+    <!-- Element Plus -->
+    <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.js"></script>
+    <!-- OpenLayers -->
+    <script type="text/javascript" src="/libs/cme2d.js"></script>
+    <script type="text/javascript" src="/libs/micaps/micaps.umd.cjs"></script>
+    <link rel="stylesheet" href="/demo.css" />
+    <script>
+      const { ref, onMounted } = Vue
+      const { ElIcon } = ElementPlus // 正确导入
+
+      const { Map: CMEMap, View, source, layer } = window.CME2D
+      const { interactionsControl } = window.micaps
+      let map = null
+      let vectorLayer = null
+      let buttons = [
+        { label: '开始编辑', value: 'start', disabled: false },
+        { label: '停止编辑', value: 'end', disabled: true },
+      ]
+
+      let Texticons = []
+      //   // 将图标添加到容器中
+      let interactionsClass = null
+
+      const initMap = () => {
+        const mapView = new window.CME2D.View({
+          center: window.CME2D.proj.fromLonLat([0, 0]),
+          zoom: 2,
+        })
+
+        vectorLayer = new window.CME2D.layer.Vector({
+          source: new window.CME2D.source.Vector(),
+        })
+
+        map = new window.CME2D.Map({
+          target: 'map',
+          layers: [
+            new window.CME2D.layer.Tile({
+              source: new window.CME2D.source.XYZ({
+                url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png', // 内网地址
+              }),
+            }),
+          ],
+          view: mapView,
+        })
+
+        interactionsClass = new interactionsControl(map)
+      }
+
+      function handleButtonClick(e) {
+        let value = e.value
+        if (value == 'start') {
+          // 在交互控制类中开始交互，传入矢量层作为参数
+          interactionsClass.startInteraction(vectorLayer)
+          setButtonDisable(['start', 'copy', 'cut', 'paste'], false) //false表示数组里面的为灰色 不可用状态，true表示状态可用
+          //开始编辑
+        } else if (value == 'undo') {
+          interactionsClass.UndoClickFunction()
+          //撤销
+        } else if (value == 'redo') {
+          interactionsClass.RedoClickFunction()
+          //重做
+        } else if (value == 'end') {
+          //停止编辑
+          interactionsClass.cleanIneractions()
+          interactionsClass = null
+          setButtonDisable(['start'], true)
+        }
+        // 按钮的值对应的操作
+        if (value == '1') {
+          // 进入修改模式
+          interactionsClass.activeModel('modify')
+        } else if (value == '2') {
+          // 进入转换模式
+          interactionsClass.activeModel('transform')
+          setButtonDisable(['start'], false)
+        } else if (value == 'copy') {
+          interactionsClass.CopyPasterClickFunctionC()
+          // 进入转换模式
+          // interactionsClass.activeModel("transform");
+        } else if (value == 'cut') {
+          interactionsClass.CopyPasterClickFunctionX()
+          // 进入转换模式
+          // interactionsClass.activeModel("transform");
+        } else if (value == 'paste') {
+          interactionsClass.CopyPasterClickFunctionV()
+          // 进入转换模式
+          // interactionsClass.activeModel("transform");
+        } else if (value == '3') {
+          // 进入选中模式
+          interactionsClass.activeModel('select')
+        } else if (value == '4') {
+          // 删除当前选中的要素
+          interactionsClass.deleteFeature()
+        } else if (value == '5') {
+          // 进入绘制点模式
+          interactionsClass.activeModel('Point')
+        } else if (value == '6') {
+          // 进入绘制线模式
+          interactionsClass.activeModel('LineString')
+        } else if (value == '7') {
+          // 进入绘制面模式
+          interactionsClass.activeModel('Polygon')
+        }
+        // Add corresponding logic here
+      }
+      const addMicapsImage = () => {
+        let windyData = [
+          'SYMBOLSS_36',
+          'SYMBOLS_101',
+          'SYMBOLS_103',
+          'SYMBOLS_35',
+          'SYMBOLS_33',
+          'SYMBOLS_102',
+          'SYMBOLS_39',
+          'SYMBOLS_41',
+          'SYMBOLS_43',
+          'SYMBOLS_34',
+          'SYMBOLS_40',
+        ]
+
+        let arr = ['SYMBOLS_26', 'SYMBOLS_64', 'SYMBOLS_221', 'SYMBOLS_55', 'SYMBOLS_25', 'SYMBOLS_47', 'SYMBOLS_231', 'SYMBOLS_28', 'SYMBOLS_27', 'SYMBOLS_23', 'SYMBOLS_65', 'SYMBOLS_24', 'SYMBOLS_22', 'SYMBOLS_21', 'SYMBOLS_66', 'SYMBOLS_51', 'SYMBOLS_50', 'SYMBOLS_52', 'SYMBOLS_32', 'SYMBOLS_31', 'SYMBOLS_201', 'SYMBOLS_44', 'SYMBOLS_46', 'SYMBOLS_211', 'SYMBOLS_45']
+        let fontMicapsStyle = interactionsClass.convertIconFont()
+        let glyph = fontMicapsStyle.glyphs
+        let fonts = fontMicapsStyle.font
+        for (let font in fonts) {
+          for (let i in glyph) {
+            if (glyph[i].font == fonts[font]) {
+              if (arr.includes(glyph[i].search)) {
+                Texticons.push({
+                class: 'iconfont ' + i,
+                title: glyph[i].name,
+                text: i,
+              })
+              }
+          
+            }
+          }
+        }
+        //// 获取图标容器
+        const iconContainer = document.getElementById('micapsIcons')
+        // 动态生成图标
+        Texticons.forEach((icon, index) => {
+          const iconElement = document.createElement('i')
+          // iconElement.className = `iconfont ${icon.class}`;
+          iconElement.className = icon.class
+          iconElement.title = icon.title // 设置鼠标悬浮提示
+          iconElement.style.fontSize = 'px'
+          iconElement.style.margin = '10px'
+          iconElement.style.cursor = 'pointer'
+          //   // 绑定点击事件
+          iconElement.addEventListener('click', () =>
+            handleFontLineSymbolClick(icon.text),
+          )
+          iconContainer.appendChild(iconElement)
+        })
+
+      }
+      const setButtonDisable = (buttonsName, bool) => {
+        if (bool == false) {
+          for (let i = 0; i < buttons.value.length; i++) {
+            buttons.value[i].disabled = false
+          }
+          for (let m = 0; m < buttons.value.length; m++) {
+            // buttons.value[i].disabled=false;
+            for (let n = 0; n < buttonsName.length; n++) {
+              if (buttons.value[m].value == buttonsName[n]) {
+                buttons.value[m].disabled = !bool
+              }
+            }
+          }
+        } else {
+          for (let i = 0; i < buttons.value.length; i++) {
+            buttons.value[i].disabled = true
+          }
+          for (let m = 0; m < buttons.value.length; m++) {
+            // buttons.value[i].disabled=false;
+            for (let n = 0; n < buttonsName.length; n++) {
+              if (buttons.value[m].value == buttonsName[n]) {
+                buttons.value[m].disabled = !bool
+              }
+            }
+          }
+
+        }
+      }
+      function handleFontLineSymbolClick(value) {
+        //前缀名
+        // LINES - 线（不带属性）
+        // LINESYMBOLS-线（带属性，颜色、大小、粗细）
+        // FILLAREA-面（带属性）
+        // REGION-线
+        // SYMBOLS-点
+        // NOTES-文本
+        if (interactionsClass) {
+          console.log(value)
+          let styleType = value.split('_')[0]
+          let geoType = ''
+          let windyData = [
+            'SYMBOLSS_36',
+            'SYMBOLS_101',
+            'SYMBOLS_103',
+            'SYMBOLS_35',
+            'SYMBOLS_33',
+            'SYMBOLS_102',
+            'SYMBOLS_39',
+            'SYMBOLS_41',
+            'SYMBOLS_43',
+            'SYMBOLS_34',
+            'SYMBOLS_40',
+          ]
+          //判断是否绘制风向风速符号，如果是就是
+          if (windyData.indexOf(value) >= 0) {
+            geoType = 'LineString'
+            interactionsClass.activePointModel(geoType, value)
+          } else {
+            if (styleType == 'SYMBOLS' || styleType == 'NOTES') {
+              geoType = 'Point'
+            } else if (
+              styleType == 'LINES' ||
+              styleType == 'LINESYMBOLS' ||
+              styleType == 'REGION'
+            ) {
+              geoType = 'LineString'
+            } else if (styleType == 'FILLAREA') {
+              geoType = 'Polygon'
+            }
+            // Point  LineString  Polygon
+            // 激活点模型
+            interactionsClass.activePointModel(geoType, value)
+          }
+        } else {
+          console.log('interactionsClass is null')
+        }
+      }
+
+      const initializeMap = () => {
+        vectorLayer = addVectorLayer()
+        map.addLayer(vectorLayer)
+      }
+      const addVectorLayer = () => {
+        let source = new CME2D.source.Vector()
+        return new CME2D.layer.Vector({
+          layerName: 'eidtSource',
+          source: source,
+          style: new CME2D.style.Style({
+            fill: new CME2D.style.Fill({
+              color: 'rgba(0, 0, 255, 0.2)',
+            }),
+            stroke: new CME2D.style.Stroke({
+              color: '#ff0000',
+              width: 2,
+            }),
+            image: new CME2D.style.Circle({
+              radius: 7,
+              fill: new CME2D.style.Fill({ color: '#ffcc33' }),
+            }),
+          }),
+        })
+      }
+      function addEditButtoon() {
+        // 获取按钮组容器
+        const buttonGroup = document.getElementById('button-group')
+        // 创建按钮组元素
+        const elButtonGroup = document.createElement('div')
+        elButtonGroup.className = 'el-button-group'
+        // 动态生成按钮
+        buttons.forEach((button) => {
+          const elButton = document.createElement('button')
+          elButton.className = 'el-button'
+          elButton.textContent = button.label
+          elButton.disabled = button.disabled
+          elButton.addEventListener('click', () => handleButtonClick(button))
+
+          // 将按钮添加到按钮组中
+          elButtonGroup.appendChild(elButton)
+        })
+
+        // 将按钮组添加到容器中
+        buttonGroup.appendChild(elButtonGroup)
+      }
+      addEditButtoon();
+      initMap(), 
+      initializeMap()
+      addMicapsImage()
+
+    </script>
+  </body>
+</html>
