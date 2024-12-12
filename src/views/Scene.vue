@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+// @ts-ignore
 import windy from '../assets/images/scene/windy.jpg'
+// @ts-ignore
 import d3 from '../assets/images/scene/scenes-3d.png'
+// @ts-ignore
 import defaultJpg from '../assets/images/scene/default.jpg'
 const { push } = useRouter()
 interface Item {
@@ -33,14 +36,12 @@ const list = ref(<Array<Item>>[
     type: 'default',
     image: defaultJpg,
     desc: '在默认风格下，气象信息的显示较为简洁，主要展示基本的天气数据，如温度和降水量，并以静态图层呈现。与Windy风格的动态风场和多样化气象层相比，默认风格更注重地图的可读性和易用性，减少了视觉干扰，适合于需要清晰地图呈现的场景。',
-  },
+  }
 ])
 
 function handleClick(item: Item) {
   return
-  push({
-    path: `/scenes/${item.type}`,
-  })
+  push({ path: `/scenes/${item.type}` })
 }
 function download(item: Item) { }
 </script>
@@ -169,7 +170,7 @@ function download(item: Item) { }
         flex: 1;
         height: 464px;
         background: linear-gradient(315deg, #ebf8ff 0%, #e6ecff 100%);
-        padding: 20px;
+        padding: 10px;
         backdrop-filter: blur(10px);
         box-sizing: border-box;
         border: 1px solid #e3e3e3;

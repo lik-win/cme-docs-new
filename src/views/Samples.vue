@@ -17,22 +17,41 @@
           <label class="lbl2">20+气象图层组件</label>
           <p class="desc">提供实况、预报、卫星和雷达等数据上图功能</p>
         </a>
-        <!-- <a href="#meteoLayer" class="info-item">20+<label>气象图层组件</label></a> -->
         <span class="splitor"></span>
         <a href="#observationData" class="info-item">
           <label class="lbl1">2+大类</label>
           <label class="lbl2">20+新型观测资料组件</label>
           <p class="desc">提供多种要素廓线和时序图表等功能</p>
         </a>
-        <!-- <a href="#observationData" class="info-item">8+<label>新型观测资料组件</label></a> -->
         <span class="splitor"></span>
-        <!-- <a href="#businessComponent" class="info-item">8+<label>业务组件</label></a> -->
         <a href="#businessComponent" class="info-item">
           <label class="lbl1">2+大类</label>
           <label class="lbl2">8+业务组件</label>
           <p class="desc">提供格点编辑等功能</p>
         </a>
       </div>
+    </template>
+    <template #module>
+      <div class="module-box">
+        <h3 class="box-title">快速上手</h3>
+        <p class="sub-title">npm 安装</p>
+        <p class="line">推荐使用 npm 方式安装，它能更好地与 webpack、vite等打包工具配合使用。</p>
+        <code>
+          npm install --save cme2d cme-core;
+        </code>
+        <p class="sub-title">CDN</p>
+        <p class="line">目前可以从cme静态资源服务器获取最新的cme2d和cme-core库文件，在页面上引入js即可开始使用。</p>
+        <code>
+          &lt;!-- 引入 cme2d.js 地图引擎库 --&gt;<br/>
+          &lt;script type="text/javascript" src="/libs/cme2d.js"&gt;&lt;/script&gt;<br/><br/>
+          &lt;!-- 引入 cme-core.js 核心库 --&gt;<br/>
+          &lt;script type="text/javascript" src="/libs/cme-core.js"&gt;&lt;/script&gt;
+        </code>
+        <div class="tip-box">
+          <p class="line">我们建议使用 CDN 和 NPM 方式的引入都锁定版本，以免将来 cme2d 和 cme-core 在升级时产生兼容问题，并对您的项目造成未知的影响。</p>
+        </div>
+      </div>
+
     </template>
   </SampleLayout>
 </template>
@@ -141,6 +160,43 @@ import SampleLayout from '../components/SampleLayout.vue';
     height: 100%;
     margin: 0 26px;
     border: 1px dashed #d3e6e7;
+  }
+}
+
+.module-box {
+  padding: 60px 60px 30px;
+
+  .box-title {
+    @include setFont(40px, 56px, 500);
+  }
+
+  .sub-title {
+    margin: 30px 0 10px;
+    @include setFont(24px, 32px);
+  }
+
+  .line {
+    @include setFont(16px, 28px);
+    color: #566b8e;
+  }
+
+  code {
+    display: block;
+    padding: 20px 24px;
+    margin: 10px 0;
+    background-color: #fafafa;
+    color: #566b8e;
+    font-family: Consolas, serif, sans-serif;
+    border-radius: 8px;
+    border: 1px solid #edf0fb;
+  }
+
+  .tip-box {
+    padding: 24px;
+    margin-top: 20px;
+    background-color: #ecf8ff;
+    border-left: 5px solid #50bfff;
+    border-radius: 4px;
   }
 }
 </style>
