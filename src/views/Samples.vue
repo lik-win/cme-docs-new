@@ -31,7 +31,7 @@
         </a>
       </div>
     </template>
-    <template #module>
+    <!-- <template #module>
       <div id="quickStart" class="module-box">
         <h3 class="box-title">快速上手</h3>
         <p id="npm" class="sub-title">npm 安装</p>
@@ -51,8 +51,7 @@
           <p class="line">我们建议使用 CDN 和 NPM 方式的引入都锁定版本，以免将来 cme2d 和 cme-core 在升级时产生兼容问题，并对您的项目造成未知的影响。</p>
         </div>
       </div>
-
-    </template>
+    </template> -->
   </SampleLayout>
 </template>
 

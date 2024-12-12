@@ -7,7 +7,7 @@
       <el-aside :class="menuClass">
         <TreeMenu :menus="store.menus"></TreeMenu>
       </el-aside>
-      <el-main class="content">
+      <el-main ref="contentRef" class="content">
         <div v-if="$slots.module" class="list-box module">
           <slot name="module"></slot>
         </div>
@@ -21,9 +21,7 @@
                 <template v-for="eg in store.samples[sub.id]">
                   <template v-if="eg.id === '1867136462803275778'">
                     <div class="item" :title="eg.title" @click="handleOpen">
-                      <router-link class="img-box">
-                        <img :src="eg.cover" />
-                      </router-link>
+                      <a class="img-box"><img :src="eg.cover" /></a>
                       <p class="name-box">
                         <span class="name">{{ eg.title }}</span>
                         <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
@@ -57,9 +55,12 @@
 <script setup>
 import TreeMenu from './../components/TreeMenu.vue'
 import { useGlobal } from '../store/index.js'
-import { computed, watch } from 'vue'
-const store = useGlobal()
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { useRouter } from 'vue-router';
+const store = useGlobal();
+const router = useRouter();
 
+const contentEl = useTemplateRef('contentRef');
 const props = defineProps({
   type: { type: String, required: true },
 })
@@ -75,7 +76,8 @@ watch(
     store.updateMenus(props.type)
   },
   { immediate: true },
-)
+);
+
 
 const classMap = {
   components: 'w280',
@@ -88,6 +90,22 @@ function getTime(item) {
   const { updateTime, createTime } = item
   return (updateTime || createTime || '').split(/\s/)[0]
 }
+
+function skipToAnchor() {
+  //router.currentRoute
+  console.log('currentRoute =>', router.currentRoute)
+  const { hash } = router.currentRoute.value;
+  if (!hash) return;
+  const targetEl = contentEl.value.$el.querySelector(hash);
+  console.log('targetEl =>', contentEl.value.$el, hash, targetEl);
+  if (!targetEl) return;
+  const page = document.querySelector('.page-sample');
+  console.log('scrollHeight =>', page.scrollHeight)
+  // const { top }  =targetEl.getBoundingClientRect();
+
+}
+
+defineExpose({ skipToAnchor });
 
 // const vTop = {
 //   mounted(el) {
@@ -139,11 +157,11 @@ function handleOpen() {
   padding-top: 60px;
 
   &.w280 {
-    width: 320px;
+    width: 300px;
   }
 
   &.w320 {
-    width: 320px;
+    width: 360px;
   }
 
   &.w400 {

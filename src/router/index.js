@@ -7,6 +7,7 @@ import Algorithms from '../views/Algorithms.vue';
 import Home from '../views/HomeNew.vue';
 import SceneVue from '../views/Scene.vue';
 import CasesVue from '../views/Cases.vue';
+import Support from '../views/Support.vue';
 
 /**
  * 路径规范：
@@ -60,24 +61,27 @@ const routes = [{
 }, {
   path: '/scenes/:type',
   name: 'scenesDetail',
-  component: ()=>import("../views/SceneDetail.vue"),
+  component: () => import("../views/SceneDetail.vue"),
   meta: { cate: 'scenesDetail' }
-},{
+}, {
   path: '/cases',
   name: 'cases',
   component: CasesVue,
   meta: { cate: 'cases' }
-},{
+}, {
   path: '/support',
   name: 'support',
-  component: SceneVue,
+  component: Support,
   meta: { cate: 'support' }
 }];
 
 const routeBase = 'cmedocs';
 const router = createRouter({
   history: createWebHistory(routeBase),
-  routes
+  routes,
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  }
 });
 
 

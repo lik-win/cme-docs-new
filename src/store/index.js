@@ -110,10 +110,9 @@ const useGlobal = defineStore('global', () => {
         });
       });
     });
-    if (cate === 'components') {
-      menus.value.unshift(copy(cMenus));
-    }
-    console.log('menus.value ==>', menus.value);
+    // if (cate === 'components') {
+    //   menus.value.unshift(copy(cMenus));
+    // }
     menus3.value = m2.filter(m => m.children.length);
   }
   return { menus, menus3, samples, updateMenus };
