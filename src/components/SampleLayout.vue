@@ -19,16 +19,35 @@
               <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
               <div class="list">
                 <template v-for="eg in store.samples[sub.id]">
-                  <div class="item" :title="eg.title">
-                    <router-link class="img-box" :to="`/${path}/${eg.id}`">
-                      <img :src="eg.cover">
-                    </router-link>
-                    <p class="name-box">
-                      <span class="name">{{ eg.title }}</span>
-                      <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
-                    </p>
-                    <p class="pub-date">发布 {{ getTime(eg) }}</p>
-                  </div>
+                  <template v-if="eg.id === '1867136462803275778'">
+                    <div class="item" :title="eg.title" @click="handleOpen">
+                      <router-link class="img-box">
+                        <img :src="eg.cover" />
+                      </router-link>
+                      <p class="name-box">
+                        <span class="name">{{ eg.title }}</span>
+                        <span v-if="eg.latestVersion" class="version"
+                          >v{{ eg.latestVersion }}</span
+                        >
+                      </p>
+                      <p class="pub-date">发布 {{ getTime(eg) }}</p>
+                    </div>
+                  </template>
+
+                  <template v-else>
+                    <div class="item" :title="eg.title">
+                      <router-link class="img-box" :to="`/${path}/${eg.id}`">
+                        <img :src="eg.cover" />
+                      </router-link>
+                      <p class="name-box">
+                        <span class="name">{{ eg.title }}</span>
+                        <span v-if="eg.latestVersion" class="version"
+                          >v{{ eg.latestVersion }}</span
+                        >
+                      </p>
+                      <p class="pub-date">发布 {{ getTime(eg) }}</p>
+                    </div>
+                  </template>
                 </template>
               </div>
             </template>
@@ -40,32 +59,38 @@
 </template>
 
 <script setup>
-import TreeMenu from './../components/TreeMenu.vue';
-import { useGlobal } from '../store/index.js';
-import { computed, watch } from 'vue';
-const store = useGlobal();
+import TreeMenu from './../components/TreeMenu.vue'
+import { useGlobal } from '../store/index.js'
+import { computed, watch } from 'vue'
+const store = useGlobal()
 
 const props = defineProps({
-  type: { type: String, required: true }
-});
+  type: { type: String, required: true },
+})
 
-const path = computed(() => props.type.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`));
-const types = ['components', 'algorithms', 'dataServices'];
-watch(() => props.type, val => {
-  if (!types.includes(val)) return;
-  store.updateMenus(props.type);
-}, { immediate: true });
+const path = computed(() =>
+  props.type.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`),
+)
+const types = ['components', 'algorithms', 'dataServices']
+watch(
+  () => props.type,
+  (val) => {
+    if (!types.includes(val)) return
+    store.updateMenus(props.type)
+  },
+  { immediate: true },
+)
 
 const classMap = {
   components: 'w280',
   algorithms: 'w320',
-  dataServices: 'w360'
+  dataServices: 'w360',
 }
-const menuClass = computed(() => classMap[props.type]);
+const menuClass = computed(() => classMap[props.type])
 
 function getTime(item) {
-  const { updateTime, createTime } = item;
-  return (updateTime || createTime || '').split(/\s/)[0];
+  const { updateTime, createTime } = item
+  return (updateTime || createTime || '').split(/\s/)[0]
 }
 
 // const vTop = {
@@ -80,10 +105,14 @@ function getTime(item) {
 //     });
 //   }
 // }
+
+function handleOpen(){
+  window.open('http://10.40.88.119:12009/#/', '_blank');
+}
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/mixins.scss";
+@import './../assets/mixins.scss';
 
 .page-sample {
   display: grid;
@@ -96,7 +125,7 @@ function getTime(item) {
     grid-column-start: span 2;
     border-bottom: 1px solid #dcdddf;
     padding: 80px 80px 60px;
-    background: url("./../assets/images/bannerbg.webp") no-repeat center;
+    background: url('./../assets/images/bannerbg.webp') no-repeat center;
     background-size: 100% 100%;
   }
 
@@ -107,7 +136,6 @@ function getTime(item) {
     height: 100vh;
     width: 100vw;
     overflow-y: auto;
-
   }
 }
 
@@ -189,24 +217,26 @@ function getTime(item) {
 
     .item {
       display: inline-block;
-      border: 1px solid #E4E4E4;
+      border: 1px solid #e4e4e4;
       border-radius: 8px;
-      box-shadow: 10px -10px 20px 0px #ffffff4d, -10px 10px 20px 0px #d9d9d980;
+      box-shadow:
+        10px -10px 20px 0px #ffffff4d,
+        -10px 10px 20px 0px #d9d9d980;
       overflow: hidden;
       background-color: #ffffff;
 
       &:hover {
-        background: linear-gradient(315deg, #EBF8FF 1%, #C9D5FF 100%);
-        border-color: #0071E3;
-        box-shadow: 0 0 4px #0071E3;
+        background: linear-gradient(315deg, #ebf8ff 1%, #c9d5ff 100%);
+        border-color: #0071e3;
+        box-shadow: 0 0 4px #0071e3;
 
         .name-box {
           font-weight: 600;
         }
 
         .version {
-          background-color: #0071E3 !important;
-          border-color: #0071E3 !important;
+          background-color: #0071e3 !important;
+          border-color: #0071e3 !important;
           color: #ffffff;
         }
       }
@@ -222,8 +252,6 @@ function getTime(item) {
           border: none;
         }
       }
-
-
 
       .name-box {
         display: flex;
@@ -245,8 +273,18 @@ function getTime(item) {
         }
 
         .version {
-          @include setTheme('background-color', (dark: var(--text-color-active)));
-          @include setTheme('border', (light: 1px solid var(--text-color2)));
+          @include setTheme(
+            'background-color',
+            (
+              dark: var(--text-color-active),
+            )
+          );
+          @include setTheme(
+            'border',
+            (
+              light: 1px solid var(--text-color2),
+            )
+          );
           font-size: 12px;
           background-color: var(--background-color5);
           border-radius: 20px;
