@@ -84,14 +84,14 @@
           </div>
           <div class="right-box1">
             <div class="img-box">
-              <img src="../assets/images/home-mxqd.webp">
+              <img src="../assets/images/home-mxqd.png">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
-              <img src="../assets/images/home-txkf.png">
+              <img src="../assets/images/home-txkf.webp">
             </div>
           </div>
           <div class="right-box2">

@@ -12,7 +12,7 @@
           <slot name="module"></slot>
         </div>
         <template v-for="item in store.menus">
-          <div :id="item.path" class="list-box">
+          <div v-if="!item.ignore" :id="item.path" class="list-box">
             <h3 class="box-title">{{ item.name }}</h3>
             <!-- <p class="menu-desc">这是描述</p> -->
             <template v-for="sub in item.children">
@@ -59,7 +59,7 @@ watch(() => props.type, val => {
 const classMap = {
   components: 'w280',
   algorithms: 'w320',
-  dataServices: 'w360'
+  dataServices: 'w400'
 }
 const menuClass = computed(() => classMap[props.type]);
 
@@ -115,15 +115,15 @@ function getTime(item) {
   padding-top: 60px;
 
   &.w280 {
-    width: 280px;
+    width: 320px;
   }
 
   &.w320 {
     width: 320px;
   }
 
-  &.w360 {
-    width: 360px;
+  &.w400 {
+    width: 400px;
   }
 }
 

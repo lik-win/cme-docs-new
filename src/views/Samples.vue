@@ -32,14 +32,14 @@
       </div>
     </template>
     <template #module>
-      <div class="module-box">
+      <div id="quickStart" class="module-box">
         <h3 class="box-title">快速上手</h3>
-        <p class="sub-title">npm 安装</p>
+        <p id="npm" class="sub-title">npm 安装</p>
         <p class="line">推荐使用 npm 方式安装，它能更好地与 webpack、vite等打包工具配合使用。</p>
         <code>
           npm install --save cme2d cme-core;
         </code>
-        <p class="sub-title">CDN</p>
+        <p id="cdn" class="sub-title">CDN</p>
         <p class="line">目前可以从cme静态资源服务器获取最新的cme2d和cme-core库文件，在页面上引入js即可开始使用。</p>
         <code>
           &lt;!-- 引入 cme2d.js 地图引擎库 --&gt;<br/>
