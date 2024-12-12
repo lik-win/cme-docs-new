@@ -1,13 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import EditIndex from '../views/EditIndex.vue';
-import ViewIndex from '../views/ViewIndex.vue';
-import Samples from '../views/Samples.vue';
-import DataServices from '../views/DataServices.vue';
-import Algorithms from '../views/Algorithms.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/HomeNew.vue';
-import SceneVue from '../views/Scene.vue';
-import CasesVue from '../views/Cases.vue';
-import Support from '../views/Support.vue';
+// import EditIndex from '../views/EditIndex.vue';
+// import ViewIndex from '../views/ViewIndex.vue';
+// import Samples from '../views/Samples.vue';
+// import DataServices from '../views/DataServices.vue';
+// import Algorithms from '../views/Algorithms.vue';
+// import SceneVue from '../views/Scene.vue';
+// import CasesVue from '../views/Cases.vue';
+// import Support from '../views/Support.vue';
 
 /**
  * 路径规范：
@@ -26,37 +26,37 @@ const routes = [{
 }, {
   path: '/components',
   name: 'components',
-  component: Samples,
+  component: () => import('./../views/Samples.vue'),
   meta: { cate: 'components' }
 }, {
   path: '/components/:id',
   name: 'example',
-  component: EditIndex,
+  component: () => import('./../views/EditIndex.vue'),
   meta: { cate: 'components' }
 }, {
   path: '/data-services',
   name: 'dataServices',
-  component: DataServices,
+  component: () => import('./../views/DataServices.vue'),
   meta: { cate: 'dataServices' }
 }, {
   path: '/data-services/:id',
   name: 'dataServicesDemo',
-  component: ViewIndex,
+  component: () => import('./../views/ViewIndex.vue'),
   meta: { cate: 'dataServices' }
 }, {
   path: '/algorithms',
   name: 'algorithms',
-  component: Algorithms,
+  component: () => import('./../views/Algorithms.vue'),
   meta: { cate: 'algorithms' }
 }, {
   path: '/algorithms/:id',
   name: 'algorithmsDemo',
-  component: ViewIndex,
+  component: () => import('./../views/ViewIndex.vue'),
   meta: { cate: 'algorithms' }
 }, {
   path: '/scenes',
   name: 'scenes',
-  component: SceneVue,
+  component: () => import('./../views/Scene.vue'),
   meta: { cate: 'scenes' }
 }, {
   path: '/scenes/:type',
@@ -66,12 +66,12 @@ const routes = [{
 }, {
   path: '/cases',
   name: 'cases',
-  component: CasesVue,
+  component: () => import('./../views/Cases.vue'),
   meta: { cate: 'cases' }
 }, {
   path: '/support',
   name: 'support',
-  component: Support,
+  component: () => import('./../views/Support.vue'),
   meta: { cate: 'support' }
 }];
 
