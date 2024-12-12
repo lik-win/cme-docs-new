@@ -19,7 +19,7 @@ const genStub: Plugin = {
 const cssNameMap = {
   'vue-repl': 'index',
   'monaco-editor': 'MonacoEditor',
-};
+}
 /**
  * Patch generated entries and import their corresponding CSS files.
  * Also normalize MonacoEditor.css
@@ -30,12 +30,15 @@ const patchCssFiles: Plugin = {
   writeBundle() {
     //  inject css imports to the files
     const outDir = path.resolve('dist')
-      ;['vue-repl', 'monaco-editor'].forEach((file) => {
-        const filePath = path.resolve(outDir, file + '.js')
-        const content = fs.readFileSync(filePath, 'utf-8')
-        // @ts-ignore
-        fs.writeFileSync(filePath, `import './${cssNameMap[file]}.css'\n${content}`)
-      })
+    ;['vue-repl', 'monaco-editor'].forEach((file) => {
+      const filePath = path.resolve(outDir, file + '.js')
+      const content = fs.readFileSync(filePath, 'utf-8')
+      // @ts-ignore
+      fs.writeFileSync(
+        filePath,
+        `import './${cssNameMap[file]}.css'\n${content}`,
+      )
+    })
   },
 }
 
@@ -44,11 +47,24 @@ export default mergeConfig(base, {
     port: 8090,
     proxy: {
       '/echartUrl': {
+<<<<<<< HEAD
         target: 'http://192.168.110.25:32189/', // 目标后端API域名
         changeOrigin: true, // 是否改变源
         rewrite: (path) => path.replace(/^\/echartUrl/, '/') // 重写路径
       }
     }
+=======
+        target: 'http://10.1.64.146',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/echartUrl/i, ''),
+      },
+      '/tiffUrl': {
+        target: 'http://10.20.107.239:864',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/tiffUrl/i, ''),
+      },
+    },
+>>>>>>> 9bba2e316aec980648393c76b35a7529c194cd0d
   },
   plugins: [
     dts({
@@ -59,7 +75,7 @@ export default mergeConfig(base, {
   ],
   resolve: {
     alias: {
-      '@': 'src'
+      '@': 'src',
     },
   },
   optimizeDeps: {
@@ -77,7 +93,7 @@ export default mergeConfig(base, {
     lib: {
       entry: {
         'vue-repl': './src/index.ts',
-        'monaco-editor': './src/editor/MonacoEditor.vue'
+        'monaco-editor': './src/editor/MonacoEditor.vue',
       },
       formats: ['es'],
       fileName: () => '[name].js',

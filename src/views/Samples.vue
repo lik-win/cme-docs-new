@@ -1,252 +1,146 @@
 <template>
-  <div class="page-sample">
-    <div class="page-head">
-      <h3 class="page-title">组件服务</h3>
+  <SampleLayout type="components">
+    <template #page-head>
+      <h3 class="page-title">组件服务 <span class="bubble">116种</span></h3>
       <p class="page-desc">
-        针对业务前端应用特点，定制针对业务应用的数据存储结构和存储类型，提供立体观测、三维实况分析、地球系统数值模式等基础数据访问，管理智能数字预报、灾害性天气预报预警、气象风险预警与影响预报等各类数字化预报信息，实现各类数据的节约报销的汇集、处理、管理和服务，解决数据规范、存储集约、应用效率等问题。
+        按照组件仓库要求封装平台底层地图渲染引擎，集成数据展示、数据交互、交互编辑、剖面分析、图表制作等组件，支撑二三维一体化的业务需求，解决算法集约、应用规范、服务统一等问题。
       </p>
       <div class="info-list">
-        <a href="#baseFns" class="info-item">50+<label>基础功能</label></a>
+        <a href="#baseFns" class="info-item">
+          <label class="lbl1">4+大类</label>
+          <label class="lbl2">50+基础功能组件</label>
+          <p class="desc">提供地图加载和基础交互及事件等功能</p>
+        </a>
         <span class="splitor"></span>
-        <a href="#meteoLayer" class="info-item">20+<label>气象图层</label></a>
+        <a href="#meteoLayer" class="info-item">
+          <label class="lbl1">4+大类</label>
+          <label class="lbl2">20+气象图层组件</label>
+          <p class="desc">提供实况、预报、卫星和雷达等数据上图功能</p>
+        </a>
+        <!-- <a href="#meteoLayer" class="info-item">20+<label>气象图层组件</label></a> -->
         <span class="splitor"></span>
-        <a href="#observationData" class="info-item">8+<label>新型观测资料</label></a>
+        <a href="#observationData" class="info-item">
+          <label class="lbl1">2+大类</label>
+          <label class="lbl2">20+新型观测资料组件</label>
+          <p class="desc">提供多种要素廓线和时序图表等功能</p>
+        </a>
+        <!-- <a href="#observationData" class="info-item">8+<label>新型观测资料组件</label></a> -->
         <span class="splitor"></span>
-        <a href="#businessComponent" class="info-item">8+<label>业务组件</label></a>
+        <!-- <a href="#businessComponent" class="info-item">8+<label>业务组件</label></a> -->
+        <a href="#businessComponent" class="info-item">
+          <label class="lbl1">2+大类</label>
+          <label class="lbl2">8+业务组件</label>
+          <p class="desc">提供格点编辑等功能</p>
+        </a>
       </div>
-    </div>
-    <el-aside>
-      <TreeMenu :menus="store.menus"></TreeMenu>
-    </el-aside>
-    <el-main class="content">
-      <template v-for="item in store.menus">
-        <div :id="item.path" class="list-box">
-          <p class="box-title">{{ item.name }}</p>
-          <p class="menu-desc">这是描述</p>
-          <template v-for="sub in item.children">
-            <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
-            <div class="list">
-              <template v-for="eg in store.samples[sub.id]">
-                <div class="item">
-                  <router-link class="img-box" :to="`/components/${eg.id}`">
-                    <img :src="eg.cover">
-                  </router-link>
-                  <p class="name">
-                    {{ eg.title }}
-                    <span v-if="eg.latestVersion" class="version">{{ eg.latestVersion }}</span>
-                  </p>
-                  <p class="pub-date">发布 {{ eg.updateTime.split(/\s/)[0] }}</p>
-                </div>
-              </template>
-            </div>
-          </template>
-        </div>
-      </template>
-    </el-main>
-  </div>
+    </template>
+  </SampleLayout>
 </template>
 
 <script setup>
-import TreeMenu from './../components/TreeMenu.vue';
-import { useGlobal } from './../store/index.js';
-const store = useGlobal();
-store.updateMenus('components');
+import SampleLayout from '../components/SampleLayout.vue';
 </script>
 
 <style lang="scss" scoped>
 @import "./../assets/mixins.scss";
 
-.page-sample {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template-rows: 590px auto;
-  grid-template-columns: 360px auto;
-  grid-row-gap: 40px;
-  background-color: var(--background-color);
+.labelStyle {
+  background: #3291FD33;
+  color: #0071E3;
+}
 
-  .page-head {
-    grid-column-start: span 2;
-    border-bottom: 1px solid #dcdddf;
+.oneline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-title {
+  @include flex(flex-start, center);
+  @include setFont(56px, 66px);
+
+  .bubble {
+    display: inline-block;
+    @include setBox(96px, 54px);
+    margin-left: 10px;
+    margin-top: 10px;
+    @include setFont(26px, 52px, 600);
+    text-align: center;
+    @extend .labelStyle;
+    border-radius: 0px 27px 27px 27px;
   }
 }
 
-.page-head {
-  padding: 60px 84px;
-  background: linear-gradient(136deg, rgba(217, 253, 255, 0.29) 0%, #F0F6FF 22%, #D9E9FF 100%);
+.page-desc {
+  margin-top: 20px;
+  @include setFont(28px, 40px);
+}
 
-  .page-title {
-    margin-top: 30px;
-    @include setFont(54px, 60px, 600);
-  }
+.info-list {
+  display: flex;
+  width: 100%;
+  height: 206px;
+  margin-top: 40px;
+  padding: 32px 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 10px -10px 20px 0px #ffffff4d, -10px 10px 20px 0px #d9d9d980;
 
-  .page-desc {
-    margin-top: 20px;
-    @include setFont(28px, 40px);
-  }
-
-  .info-list {
-    display: flex;
-    width: 100%;
-    height: 206px;
-    margin-top: 40px;
-    padding: 32px 70px;
-    background-color: #ffffff;
+  .info-item {
+    flex: 1;
+    padding: 14px;
     border-radius: 8px;
-    box-shadow: 10px -10px 20px 0px rgba(255, 255, 255, 0.3),
-      -10px 10px 20px 0px rgba(217, 217, 217, 0.5);
+    background: #F8FCFF;
+    box-shadow: inset -2px 2px 3px 0px #ffffff80;
 
-    .info-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 32px;
+    .lbl1 {
+      display: inline-block;
+      @include setBox($height: 34px, $padding: 0 12px);
+      @extend .labelStyle;
+      @include setFont(18px, 32px, 600);
+      border-radius: 20px;
+    }
+
+    .lbl2 {
+      display: block;
+      margin-top: 16px;
+      color: #566b8e;
+      @include setFont(26px, 36px, 600);
+      text-align: right;
+    }
+
+    .desc {
+      @include setFont(16px, 22px);
+      color: #566b8e;
+      text-align: right;
+      @extend .oneline;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: #ffffff;
+      background: linear-gradient(47deg, #83D9FF 0%, #3291FD 100%);
+      box-shadow: 0px 10px 38px 0px #0090ff52, inset -2px 2px 3px 0px #ffffff80, inset 2px -2px 3px 0px #2b98e985;
       border-radius: 8px;
-      @include setFont(32px, 40px, 600);
-      color: var(--text-color);
 
+      .desc,
       label {
-        margin-top: 16px;
-        color: #566b8e;
-        font-size: 28px;
-      }
-
-      &:hover {
         cursor: pointer;
         color: #ffffff;
-        background: linear-gradient(47deg, #83D9FF 0%, #3291FD 100%);
-        box-shadow: 0px 10px 38px 0px #0090ff52, inset -2px 2px 3px 0px #ffffff80, inset 2px -2px 3px 0px #2b98e985;
-
-        label {
-          cursor: pointer;
-          color: #ffffff;
-          text-decoration: underline;
-        }
       }
-    }
 
-    .splitor {
-      max-width: 0;
-      height: 100%;
-      margin: 0 60px;
-      border: 1px dashed #d3e6e7;
+      .lbl2 {
+        text-decoration: underline;
+      }
+
     }
   }
-}
 
-.el-aside {
-  // @include position(sticky, $top: 60px);
-  width: 360px;
-  height: calc(100% - 120px);
-}
-
-.content {
-  flex: 1;
-  padding-top: 0;
-  padding-left: 24px;
-  padding-right: 50px;
-  // margin-left: 360px;
-  border-left: 1px solid #dcdddf;
-}
-
-.anchor {
-  display: block;
-  padding: 0 12px;
-  height: 40px;
-  line-height: 40px;
-  color: #ffffffa6;
-
-  &:hover {
-    color: #ffffff;
-    background-color: #333333;
-  }
-}
-
-.list-box {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 60px;
-
-  .box-title {
-    margin-bottom: 20px;
-    padding-left: 14px;
-    @include setFont(40px, 56px, 500);
-  }
-
-  .menu-desc {
-    padding-left: 14px;
-  }
-
-  .sub-title {
-    margin: 16px 0;
-    padding-left: 14px;
-    @include setFont(24px, 32px);
-  }
-
-  .list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 14px;
-    padding: 10px 0;
-    min-width: 400px;
-
-    .item {
-      display: inline-block;
-      padding: 10px;
-      border: 4px dashed transparent;
-      border-radius: 8px;
-      transition: 0.2s;
-
-      &:hover {
-        border-color: #47a1fe;
-        background-color: #47a1fe22;
-
-        .name {
-          font-weight: 700;
-        }
-
-        .version {
-          background-color: #47a1fe !important;
-          border-color: #47a1fe !important;
-          color: #ffffff;
-        }
-      }
-
-      .img-box {
-        display: inline-block;
-        width: 100%;
-        aspect-ratio: 1;
-        margin-bottom: 12px;
-        border-radius: 8px;
-        overflow: hidden;
-      }
-
-
-
-      .name {
-        margin-bottom: 8px;
-        @include setFont(16px, 20px);
-        color: var(--text-color3);
-
-        span {
-          padding: 0 6px;
-          margin-left: 4px;
-        }
-
-        .version {
-          @include setTheme('background-color', (dark: var(--text-color-active)));
-          @include setTheme('border', (light: 1px solid var(--text-color2)));
-          font-size: 12px;
-          background-color: var(--background-color5);
-          border-radius: 20px;
-        }
-      }
-
-      .pub-date {
-        color: var(--text-color2);
-      }
-    }
+  .splitor {
+    max-width: 0;
+    height: 100%;
+    margin: 0 26px;
+    border: 1px dashed #d3e6e7;
   }
 }
 </style>

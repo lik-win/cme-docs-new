@@ -1,12 +1,13 @@
 <template>
   <el-main class="page-view">
-    <span class="back">
-      <img src="./../assets/images/icons/icon-back.webp">
-      <a @click="router.go(-1)">返回上一页</a>
-    </span>
+    <div class="header">
+      <span class="back">
+        <img src="./../assets/images/icons/icon-back.webp">
+        <a @click="router.go(-1)">返回上一页</a>
+      </span>
+      <span class="page-title">{{ docInfo.title }}</span>
+    </div>
     <div class="head-info">
-      <h3 class="page-title">服务详情</h3>
-      <h3 class="sub-title">{{ docInfo.title }}</h3>
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
         <p class="desc-text">这是一段服务描述</p>
@@ -24,6 +25,18 @@
       <p class="title">运行效果</p>
       <Repl ref="repl" v-bind="replOptions"></Repl>
       <!-- <div class="info-block" v-html="docInfo.useIntroduce"></div> -->
+    </div>
+    <div class="sample-box">
+      <p class="title">使用方式</p>
+      <p class="line">从 npm 获取</p>
+      <code>
+    npm install --save cme2d cme-core;
+  </code>
+      <p class="line">从 cdn 获取</p>
+      <code>
+    &lt;script src="/libs/cme2d.js"&gt;&lt;/script&gt;<br />
+    &lt;script src="/libs/cme-core.js"&gt;&lt;/script&gt;
+  </code>
     </div>
   </el-main>
 </template>
@@ -129,8 +142,13 @@ $border: 1px solid #FFFFFF19;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
 
-  .back {
+  .header {
     @include position(absolute, $left: 0, $top: 20px);
+    width: 100%;
+  }
+
+  .back {
+    @include position(absolute, $left: 0);
     @include flex(center, center);
     @include setBox(168px, 48px);
     background-color: #2A2C2F19;
@@ -150,23 +168,20 @@ $border: 1px solid #FFFFFF19;
   }
 
   .head-info {
-    padding-top: 100px;
+    padding-top: 80px;
   }
 
   .page-title {
-    @include setFont(56px, 66px);
-  }
-
-  .sub-title {
-    margin-top: 40px;
-    @include setFont(40px, 56px, 500);
+    @include position(absolute, $left: 200px, $top: 10px);
+    @include setFont(20px, 28px, 500);
     color: #323439;
   }
 
   .desc-box {
     @include setBox(1760px, $padding: 16px 24px, $margin: 20px 0);
-    background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
     border-radius: 8px;
+    background: url("./../assets/images/desc-bg.webp") no-repeat center;
+    background-size: 100% 100%;
 
     .desc-title {
       @include setFont(20px, 28px, 600);
@@ -196,19 +211,7 @@ $border: 1px solid #FFFFFF19;
   }
 }
 
-// .el-aside {
-//   @include position(fixed, $top: 60px);
-//   width: 360px;
-//   height: calc(100% - 120px);
-// }
-
 .el-main {
-  // margin-left: 360px;
-  // display: grid;
-  // grid-template-rows: 120px auto;
-  // grid-template-rows: 120px auto;
-  // grid-row-gap: 30px;
-  border-left: $border;
   background-color: var(--background-color4);
 
   .head-info {
@@ -247,6 +250,20 @@ $border: 1px solid #FFFFFF19;
       padding-top: 20px;
       border-top: $border;
     }
+  }
+
+  p.line {
+    @include setFont(16px, 32px);
+  }
+
+  code {
+    display: block;
+    padding: 10px 24px;
+    border-radius: 8px;
+    background-color: #333438;
+    color: #d1cfcf;
+    @include setFont(16px, 24px, 400);
+    font-family: Consolas, serif;
   }
 }
 </style>
