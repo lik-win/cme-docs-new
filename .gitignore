@@ -6,5 +6,7 @@ TODOs.md
 *.lock
 .yarnrc
 
+html
+
 # jetbrains files
 .idea

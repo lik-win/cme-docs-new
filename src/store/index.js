@@ -44,6 +44,8 @@ const useGlobal = defineStore('global', () => {
   // let treeMenus = [];
   let menus = ref([]);
   let menus3 = ref([]);
+  const menusSet = {};
+  const menus2Set = {};
   const samples = reactive({});
 
   // 获取菜单树和示例列表
@@ -76,7 +78,8 @@ const useGlobal = defineStore('global', () => {
     if (currentCate === cate) return;
     currentCate = cate;
     const mList = menuList[cate] || [];
-    menus.value = getMenus2(mList);
+    menus2Set[cate] = getMenus2(mList);
+    menus.value = copy(menus2Set[cate]);
     const m2 = copy(mList.filter(m => m.level === 2));
     const m2Ids = m2.map(m => m.id);
     m2.forEach(m => m.children = []);
@@ -91,9 +94,18 @@ const useGlobal = defineStore('global', () => {
       const m2Item = m2.find(m => m.id === item.appMenuId);
       m2Item.children.push({ id, name: title, level: 3 });
     });
+    menus.value.forEach(menu => {
+      menu.children.forEach(m2 => {
+        if (!(samples[m2.id] && samples[m2.id].length)) return;
+        m2.children = samples[m2.id].map(s => {
+          const { id, title } = s;
+          return { id, name: title };
+        });
+      });
+    });
+    console.log('menus.value ==>', menus.value);
     menus3.value = m2.filter(m => m.children.length);
   }
-
   return { menus, menus3, samples, updateMenus };
 });
 

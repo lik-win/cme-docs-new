@@ -12,8 +12,8 @@
       <!-- <a class="link">开发者中心</a> -->
     </div>
     <div class="login-box">
-      <div class="search-box"></div>
-      <a class="link btn-login">开发者登录</a>
+      <!-- <div class="search-box"></div>
+      <a class="link btn-login">开发者登录</a> -->
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ watch(router.currentRoute, route => {
 @import './../assets/mixins.scss';
 
 .cme-nav {
-  @include flex(flex-start, center);
+  @include flex(space-between, center);
   @include setBox(100%, 60px, 0 200px);
   user-select: none;
 
@@ -75,8 +75,9 @@ watch(router.currentRoute, route => {
   }
 
   .login-box {
-    @include position(absolute, $right: 200px);
+    // @include position(absolute, $right: 200px);
     @include flex(flex-start, center);
+    width: 200px;
 
     .search-box {
       @include setBox(20px, 20px);

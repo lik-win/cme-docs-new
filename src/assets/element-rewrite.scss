@@ -22,7 +22,7 @@
     }
 
     .el-tree-node__content {
-      padding-left: 52px !important;
+      padding-left: 50px !important;
       color: #B8C2C2;
     }
   }
@@ -33,6 +33,10 @@
 
   .el-icon.is-leaf {
     display: none !important;
+
+    &+span {
+      padding-left: 36px;
+    }
   }
 
   .el-tree-node .el-icon {

@@ -27,16 +27,11 @@
       <!-- <div class="info-block" v-html="docInfo.useIntroduce"></div> -->
     </div>
     <div class="sample-box">
-      <p class="title">使用方式</p>
-      <p class="line">从 npm 获取</p>
-      <code>
-    npm install --save cme2d cme-core;
-  </code>
-      <p class="line">从 cdn 获取</p>
-      <code>
-    &lt;script src="/libs/cme2d.js"&gt;&lt;/script&gt;<br />
-    &lt;script src="/libs/cme-core.js"&gt;&lt;/script&gt;
-  </code>
+      <p class="title">接口参数</p>
+      <p class="line">入参列表</p>
+      <p>暂无</p>
+      <p class="line">出参列表</p>
+      <p>暂无</p>
     </div>
   </el-main>
 </template>
