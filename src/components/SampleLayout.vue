@@ -8,9 +8,12 @@
         <TreeMenu :menus="store.menus"></TreeMenu>
       </el-aside>
       <el-main class="content">
+        <div v-if="$slots.module" class="list-box module">
+          <slot name="module"></slot>
+        </div>
         <template v-for="item in store.menus">
           <div :id="item.path" class="list-box">
-            <p class="box-title">{{ item.name }}</p>
+            <h3 class="box-title">{{ item.name }}</h3>
             <!-- <p class="menu-desc">这是描述</p> -->
             <template v-for="sub in item.children">
               <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
@@ -101,7 +104,6 @@ function getTime(item) {
     position: sticky;
     top: 60px;
     display: flex;
-    padding-top: 60px;
     height: 100vh;
     width: 100vw;
     overflow-y: auto;
@@ -110,6 +112,7 @@ function getTime(item) {
 }
 
 .el-aside {
+  padding-top: 60px;
 
   &.w280 {
     width: 280px;
@@ -126,9 +129,7 @@ function getTime(item) {
 
 .content {
   flex: 1;
-  padding-top: 0;
-  padding-left: 24px;
-  padding-right: 50px;
+  padding: 0;
   border-left: 1px solid #dcdddf;
   scroll-behavior: smooth;
 }
@@ -149,11 +150,24 @@ function getTime(item) {
 .list-box {
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px;
+  padding-top: 60px;
+  padding-left: 24px;
+  padding-right: 50px;
+
+  &:first-of-type {
+    padding-top: 60px;
+  }
+
+  &.module {
+    padding: 0;
+    background-color: #ffffff;
+
+    // &+.list-box {
+    //   padding-top: 30px;
+    // }
+  }
 
   .box-title {
-    margin-bottom: 20px;
-    padding-left: 14px;
     @include setFont(40px, 56px, 500);
   }
 
@@ -162,10 +176,8 @@ function getTime(item) {
   }
 
   .sub-title {
-    margin: 16px 0;
-    padding-left: 14px;
+    margin: 30px 0 10px;
     @include setFont(24px, 32px);
-    color: #0071E3;
   }
 
   .list {
@@ -205,6 +217,10 @@ function getTime(item) {
         aspect-ratio: 1;
         margin-bottom: 12px;
         overflow: hidden;
+
+        img {
+          border: none;
+        }
       }
 
 

@@ -59,14 +59,14 @@
           </div>
           <div class="right-box1">
             <div class="img-box">
-              <img src="../assets/images/home-yygs.png">
+              <img src="../assets/images/home-yygs.webp">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box">
-              <img src="../assets/images/home-jyhl.png">
+              <img src="../assets/images/home-jyhl.webp">
             </div>
           </div>
           <div class="right-box2">
@@ -84,7 +84,7 @@
           </div>
           <div class="right-box1">
             <div class="img-box">
-              <img src="../assets/images/home-mxqd.png">
+              <img src="../assets/images/home-mxqd.webp">
             </div>
           </div>
         </div>
@@ -168,7 +168,6 @@ onMounted(() => {
 
   .content {
     margin-left: 220px;
-    // @include position(absolute, $top: 200px, $left: 220px);
     @include setBox(1400px, 600px);
     color: #ffffff;
     z-index: 1;
@@ -247,7 +246,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     &:hover {
       cursor: pointer;
-      transform: scale(1.05);
+      // transform: scale(1.05);
       box-shadow: 0 0 10px #2f446f;
     }
 
@@ -333,16 +332,6 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     display: flex;
     @include setBox($padding: 60px 0);
 
-    &.left30 {
-      position: relative;
-      left: -30px;
-    }
-
-    &.right30 {
-      position: relative;
-      right: -30px;
-    }
-
     .white {
       color: #ffffff !important;
     }
@@ -366,8 +355,8 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     .img-box {
       position: relative;
-      width: 1033px;
-      height: 584px;
+      width: 994px;
+      height: 560px;
       border-radius: 30px;
 
       overflow: hidden;
@@ -385,10 +374,6 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
         background-size: 100% 100%;
       }
 
-      // img {
-      //   @include setBox(auto, auto);
-      // }
-
       .radius30 {
         border-radius: 30px;
       }
@@ -404,6 +389,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
   .right-box1 {
     width: 54%;
+    padding-right: 38px;
   }
 
   .right-box2 {
@@ -415,6 +401,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
   .left-box2 {
     width: 54%;
+    padding-left: 38px;
   }
 }
 
