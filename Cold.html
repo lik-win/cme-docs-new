@@ -39,7 +39,7 @@
             geojson.features.map((item)=>{
                item.properties['level-value']=item.properties.level
             })
-            // addLayer(geojson)
+            addLayer(geojson)
             if(sysGeojson){
               let features=JSON.parse(sysGeojson).features
               features.map((item)=>{
@@ -75,8 +75,8 @@
           ],
           view: new View({
             //地图视图
-            center: proj.transform([125, 45], 'EPSG:4326', 'EPSG:3857'),
-            projection: 'EPSG:3857',
+            center: [125, 45],
+            projection: 'EPSG:4326',
             zoom: 4,
             wrapX: true,
           }), //地图设置
@@ -109,6 +109,8 @@
             [570, 'rgba(100, 0, 140, 1)'], // 深紫
             [590, 'rgba(255, 105, 180, 1)'], // 熏衣草粉
           ],
+          minZoom:6,
+          maxZoom:20,
           // 设置等值线样式
           lineStyle: {
             // 是否使用图例
@@ -133,9 +135,18 @@
             //等值线值对应的颜色
             fontColor: '#ffffff',
             //等值线值对应的大小
-            fontSize: 35,
+            fontSize: 16,
             // 是否显示标签
             showLabel: true,
+          },
+            // 设置等值线标签样式
+          lineLabelStyle: {
+            useColorRamp: false,//是否使用渐变颜色的渲染文字的背景框
+            //等值线值对应的颜色
+            fontColor: 'rgba(0,0,0,255)',
+            //等值线值对应的大小
+            fontSize: 24, // 标签背景颜色
+            fontBackColor: 'transparent',//文字的背景框颜色
           },
           // 设置极值点样式
           extremeStyle: {

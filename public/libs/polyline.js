@@ -56,7 +56,25 @@ let polylineStyleJson={
           "coefficient":0.8,//曲线的系数  值越小，越接近真实绘制的曲线，值越大，曲率越大
         }
   },
-  
+  "LINES_20": {//暖锋
+    "glyph" : "LINES_19", //根据这个名字查找对应的样式
+      "lineStyle": {
+        "Style": {
+          "stroke": {//线条的样式
+            "Stroke": {
+              "color": "rgb(255,0,0)", //颜色 也可以是rgba 
+              "width": 2  //线条的宽度
+            }
+          }
+        }
+      },
+      "options": {
+        "color": "rgb(255,0,0)",
+        "radius":10,//绘制的半圆的半径
+        "distance":60,//绘制图形的间隔 贴合线的半圆的距离间隔
+        "coefficient":0.8,//曲线的系数  值越小，越接近真实绘制的曲线，值越大，曲率越大
+      }
+},
   "LINES_41": {//  //静止锋
     "glyph" : "LINES_41", //根据这个名字查找对应的样式
     "lineStyle": {
