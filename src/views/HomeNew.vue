@@ -1,6 +1,6 @@
 <template>
   <div class="home-view">
-    <div class="slide-box">
+    <div v-scroll class="slide-box">
       <div class="panel1">
         <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
         <div class="content">
@@ -54,7 +54,7 @@
           <div class="left-box1">
             <h4 class="block-title">因云而生，与云共生</h4>
             <p class="block-desc">
-              天气业务一体化平台致力于云原生生态，已微服形式打造运行稳定、技术可靠的组件共享、平台共享、应用共享，可持续交的平台，天气业务一体化平台依托天擎云环境已气象智脑为核心，数字服务平台为支撑构建气象业务多场景应用。
+              天气业务一体化平台（CME）致力于云原生生态，已微服形式打造运行稳定、技术可靠的组件共享、平台共享、应用共享，可持续交的平台，天气业务一体化平台依托天擎云环境已气象智脑为核心，数字服务平台为支撑构建气象业务多场景应用。
             </p>
           </div>
           <div class="right-box1">
@@ -72,7 +72,7 @@
           <div class="right-box2">
             <h4 class="block-title">集约互联，协同共享</h4>
             <p class="block-desc">
-              天气业务一体化平台集成各类气象数据要素，支撑国省市县四级业务数据上下协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
+              天气业务一体化平台（CME）集成各类气象数据要素，支撑国省市县四级业务数据上下协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
           <div class="left-box1">
             <h4 class="block-title white">模型驱动，数字智能</h4>
             <p class="block-desc white">
-              基于大模型驱动，融合多源气象数据、专业气象算法，构建从算法调用数据全链条流程进行对外提供，算法方面提供智能感知、智能研判、智能诊断、智能加工等气象算法，结合数据调用最终形成“数算一体”融合。气象智脑方面引入最前沿的人工智能技术“AI
+              基于大模型驱动，融合多源气象数据、专业气象算法，构建从算法调用数据全流程对外提供服务。算法提供智能感知、智能研判、智能诊断、智能加工等，结合数据调用最终形成“数算一体”融合。气象智脑方面引入最前沿的人工智能技术“AI
               Agent”，采用深度学习，基于“数算一体”结果进行训练，实现天气业务平台自动化、智能化的跨越，从而支撑观测、预报等多业务场景发展。</p>
           </div>
           <div class="right-box1">
@@ -99,7 +99,7 @@
           <div class="right-box2">
             <h4 class="block-title  white">弹性开放、复用扩展</h4>
             <p class="block-desc white">
-              天气业务一体化平台框架由开放式应用框架与组件库组成，为场景开发提供基础编码环境，其中开放式应用框架实现天气监测、预报、预警和服务业务流程中的整体框架和核心功能抽象和泛化，组件库提供包含气象图层组件集、交互制作组件集、智能产品加工组件集、业务协同组件集、统计查询组件集、智能支撑组件集等各类具体处理逻辑和交互功能组件，支撑多元化业务场景应用。
+              天气业务一体化平台（CME）框架由开放式应用框架与组件库组成，为场景开发提供基础编码环境，其中开放式应用框架实现天气监测、预报、预警和服务业务流程中的整体框架和核心功能抽象和泛化，组件库提供包含气象图层组件集、交互制作组件集、智能产品加工组件集、业务协同组件集、统计查询组件集、智能支撑组件集等各类具体处理逻辑和交互功能组件，支撑多元化业务场景应用。
             </p>
           </div>
         </div>
@@ -109,7 +109,7 @@
           <div class="left-box1">
             <h4 class="block-title">拖弋定制、快速构建</h4>
             <p class="block-desc">
-              依托功能完备的组件库以及灵活高效的平台集成规则，能够迅速根据场景需要拖拽出界面友好、简洁直观的低代码应用场景；系统提供丰富多样的自定义气象业务功能组件，既可以从预设的多套业务（数据）主题模板中选择应用，也可进行深度定制；气象服务人员无需编写代码，仅用鼠标拖拽，就能轻松变更功能模块与数据展示区域的位置、大小与顺序，满足不同应用场景，极大提升服务效率与便捷性。
+              依托功能天气业务一体化组件以及一体化低代码平台集成规则，能够迅速根据场景需要拖拽出界面友好、简洁直观的低代码应用场景；从而支撑实况、预报、短临等业务平台快速搭建；气象服务人员无需编写代码，仅用鼠标拖拽，就能轻松变更功能模块与数据展示区域的位置、大小与顺序，满足不同应用场景，极大提升服务效率与便捷性。
             </p>
           </div>
           <div class="right-box1">
@@ -127,7 +127,7 @@
           <div class="right-box2">
             <h4 class="block-title">自主可控，持续迭代</h4>
             <p class="block-desc">
-              天气业务一体化平台致力于构建一个自主可控、持续迭代的技术生态系统。平台严格遵守信创原则。依照中国气象局的业务组件开发规范，确保业务组件的开发遵循开源、自主原则，保障技术透明度和可控性。同时对外提供框架开发手册、二次开发手册、多场景应用开发手册、应用场景开发规范等一系列开发标准，确保平台组件可以达到持续优化以及安全可控，以适应业务和技术的迭代。
+              天气业务一体化平台（CME）致力于构建一个自主可控、持续迭代的技术生态系统。平台严格遵守信创原则。依照中国气象局的业务组件开发规范，确保业务组件的开发遵循开源、自主原则，保障技术透明度和可控性。同时对外提供框架开发手册、二次开发手册、多场景应用开发手册、应用场景开发规范等一系列开发标准，确保平台组件可以达到持续优化以及安全可控，以适应业务和技术的迭代。
             </p>
           </div>
         </div>
@@ -146,8 +146,45 @@ const videoUrl = '/videos/3dearth.mp4';
 const videoEl = useTemplateRef('videoRef');
 onMounted(() => {
   videoEl.value.playbackRate += 1;
-
 });
+
+const vScroll = {
+  mounted(el) {
+    const children = el.children;
+    console.log('children ==>', children);
+    const parentEl = document.querySelector('.cme-layout');
+    let scrolling = false;
+    let animateId = null;
+    let currentTop = 0;
+    let start = 0;
+    function scrollFn(time, height) {
+      const progress = (time - start) / 1000;
+      parentEl.scrollTop = currentTop + progress * height;
+      console.log('scrollTop =>', time, currentTop + progress);
+      if (progress >= 1) {
+        scrolling = false;
+        cancelAnimationFrame(animateId);
+        return;
+      }
+      animateId = requestAnimationFrame(time => scrollFn(time, height));
+    }
+    parentEl.addEventListener('wheel', e => {
+      if (scrolling) return;
+      const sign = Math.sign(e.deltaY);
+      const height = window.innerHeight;
+      const dy = parentEl.scrollTop % height;
+      if (dy < 100) return;
+      currentTop = parentEl.scrollTop;
+      scrolling = true;
+      const _height = (height - dy) * sign;
+      parentEl.scrollTop += _height;
+      // animateId = requestAnimationFrame(time => {
+      //   start = time;
+      //   scrollFn(time, _height);
+      // });
+    });
+  }
+}
 
 </script>
 

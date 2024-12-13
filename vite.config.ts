@@ -3,6 +3,7 @@ import base from './vite.preview.config'
 
 export default mergeConfig(base, {
   server: {
+    host: '0.0.0.0',
     port: 8090,
     proxy: {
       '/echartUrl': {
