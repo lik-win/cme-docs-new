@@ -80,3 +80,10 @@ dl {
   background-color: #cccccc;
   border-radius: 2px;
 }
+.localDataImport{
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background-color: #dbe1e1!important;
+  z-index: 9;
+}
