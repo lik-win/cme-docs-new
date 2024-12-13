@@ -10,7 +10,7 @@
     <div class="head-info">
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
-        <p class="desc-text">这是一段服务描述</p>
+        <p class="desc-text">{{ docInfo.describe || '暂无描述' }}</p>
       </div>
       <p class="src-path">
         <label>版本列表：</label>
@@ -196,6 +196,8 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
 
   .header {
     @include position(absolute, $left: 0, $top: 20px);

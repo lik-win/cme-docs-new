@@ -58,14 +58,14 @@
             </p>
           </div>
           <div class="right-box1">
-            <div class="img-box">
+            <div class="img-box shadow1">
               <img src="../assets/images/home-yygs.png">
             </div>
           </div>
         </div>
         <div class="block left30">
           <div class="left-box2">
-            <div class="img-box">
+            <div class="img-box shadow2">
               <img src="../assets/images/home-jyhl.png">
             </div>
           </div>
@@ -80,7 +80,9 @@
         <div class="block right30">
           <div class="left-box1">
             <h4 class="block-title white">模型驱动，数字智能</h4>
-            <p class="block-desc white">基于大模型驱动，融合多源气象数据、专业气象算法，构建从数据处理、模型分析到场景应用的全链条智能化气象解决方案，助力气象业务的数字化与精准化发展。</p>
+            <p class="block-desc white">
+              基于大模型驱动，融合多源气象数据、专业气象算法，构建从算法调用数据全链条流程进行对外提供，算法方面提供智能感知、智能研判、智能诊断、智能加工等气象算法，结合数据调用最终形成“数算一体”融合。气象智脑方面引入最前沿的人工智能技术“AI
+              Agent”，采用深度学习，基于“数算一体”结果进行训练，实现天气业务平台自动化、智能化的跨越，从而支撑观测、预报等多业务场景发展。</p>
           </div>
           <div class="right-box1">
             <div class="img-box">
@@ -91,7 +93,7 @@
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
-              <img src="../assets/images/home-txkf.png">
+              <img src="../assets/images/home-txkf.webp">
             </div>
           </div>
           <div class="right-box2">
@@ -168,7 +170,6 @@ onMounted(() => {
 
   .content {
     margin-left: 220px;
-    // @include position(absolute, $top: 200px, $left: 220px);
     @include setBox(1400px, 600px);
     color: #ffffff;
     z-index: 1;
@@ -247,7 +248,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     &:hover {
       cursor: pointer;
-      transform: scale(1.05);
+      // transform: scale(1.05);
       box-shadow: 0 0 10px #2f446f;
     }
 
@@ -333,16 +334,6 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     display: flex;
     @include setBox($padding: 60px 0);
 
-    &.left30 {
-      position: relative;
-      left: -30px;
-    }
-
-    &.right30 {
-      position: relative;
-      right: -30px;
-    }
-
     .white {
       color: #ffffff !important;
     }
@@ -366,8 +357,8 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     .img-box {
       position: relative;
-      width: 1033px;
-      height: 584px;
+      width: 994px;
+      height: 560px;
       border-radius: 30px;
 
       overflow: hidden;
@@ -385,9 +376,13 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
         background-size: 100% 100%;
       }
 
-      // img {
-      //   @include setBox(auto, auto);
-      // }
+      &.shadow1 {
+        box-shadow: -2px 2px 8px #e4e4e4;
+      }
+
+      &.shadow2 {
+        box-shadow: 2px -2px 8px #e4e4e4;
+      }
 
       .radius30 {
         border-radius: 30px;
@@ -404,6 +399,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
   .right-box1 {
     width: 54%;
+    padding-right: 38px;
   }
 
   .right-box2 {
@@ -415,6 +411,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
   .left-box2 {
     width: 54%;
+    padding-left: 38px;
   }
 }
 

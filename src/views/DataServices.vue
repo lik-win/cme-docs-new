@@ -3,7 +3,7 @@
     <template #page-head>
       <h3 class="page-title">数据服务 <span class="bubble">930种</span></h3>
       <p class="page-desc">
-        针对业务前端应用特点，定制针对业务应用的数据存储结构和存储类型，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的节约报销的汇集、处理、管理和服务，解决数据规范、存储集约、应用效率等问题。
+        针对业务应用特点，对各类数据进行结构和存储的差异化设计，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的汇集、加工和管理，推出COGTIF瓦片服务以及基于IOTDB的查询服务。解决数据规范、存储集约、应用效率等问题。
       </p>
       <div class="info-list">
         <a href="#modeData" class="info-item">

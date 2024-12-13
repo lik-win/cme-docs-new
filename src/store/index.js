@@ -72,6 +72,16 @@ const useGlobal = defineStore('global', () => {
     return root;
   }
 
+  const cMenus = {
+    path: 'quickStart',
+    name: '快速上手',
+    level: 1,
+    ignore: true,
+    children: [
+      { path: 'npm', name: 'npm安装', level: 2 },
+      { path: 'cdn', name: 'CDN', level: 2 }
+    ]
+  };
   function updateMenus(cate) {
     if (currentCate === cate) return;
     currentCate = cate;
@@ -91,9 +101,20 @@ const useGlobal = defineStore('global', () => {
       const m2Item = m2.find(m => m.id === item.appMenuId);
       m2Item.children.push({ id, name: title, level: 3 });
     });
+    menus.value.forEach(menu => {
+      menu.children.forEach(m2 => {
+        if (!(samples[m2.id] && samples[m2.id].length)) return;
+        m2.children = samples[m2.id].map(s => {
+          const { id, title } = s;
+          return { id, name: title };
+        });
+      });
+    });
+    // if (cate === 'components') {
+    //   menus.value.unshift(copy(cMenus));
+    // }
     menus3.value = m2.filter(m => m.children.length);
   }
-
   return { menus, menus3, samples, updateMenus };
 });
 

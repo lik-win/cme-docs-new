@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+// @ts-ignore
 import windy from '../assets/images/scene/windy.jpg'
+// @ts-ignore
 import d3 from '../assets/images/scene/scenes-3d.png'
+// @ts-ignore
 import defaultJpg from '../assets/images/scene/default.jpg'
 const { push } = useRouter()
 interface Item {
@@ -33,14 +36,12 @@ const list = ref(<Array<Item>>[
     type: 'default',
     image: defaultJpg,
     desc: '在默认风格下，气象信息的显示较为简洁，主要展示基本的天气数据，如温度和降水量，并以静态图层呈现。与Windy风格的动态风场和多样化气象层相比，默认风格更注重地图的可读性和易用性，减少了视觉干扰，适合于需要清晰地图呈现的场景。',
-  },
+  }
 ])
 
 function handleClick(item: Item) {
   return
-  push({
-    path: `/scenes/${item.type}`,
-  })
+  push({ path: `/scenes/${item.type}` })
 }
 function download(item: Item) { }
 </script>
@@ -169,7 +170,7 @@ function download(item: Item) { }
         flex: 1;
         height: 464px;
         background: linear-gradient(315deg, #ebf8ff 0%, #e6ecff 100%);
-        padding: 20px;
+        padding: 10px;
         backdrop-filter: blur(10px);
         box-sizing: border-box;
         border: 1px solid #e3e3e3;
@@ -185,9 +186,6 @@ function download(item: Item) { }
 
         .title {
           position: relative;
-          font-family:
-            PingFangSC,
-            PingFang SC;
           font-size: 36px;
           color: #323439;
           line-height: 50px;
@@ -212,33 +210,22 @@ function download(item: Item) { }
         .content {
           font-size: 18px;
           color: #323439;
-          // overflow: hidden; // 隐藏溢出的内容
-          // display: -webkit-box; // 使用弹性盒子布局
-          // -webkit-box-orient: vertical; // 设置盒子的子元素排列方式为垂直
-          // -webkit-line-clamp: 3; // 限制在一个块元素显示的文本的行数
         }
 
         .button {
-          width: 100px;
+          width: 126px;
+          height: 40px;
           text-align: center;
-          background-color: #3498db;
+          line-height: 30px;
+          background-color: #0071E3;
           color: white;
           padding: 5px 20px;
           text-decoration: none;
-          border-radius: 5px;
-          transition:
-            box-shadow 0.3s,
-            background-color 0.3s,
-            transform 0.3s,
-            color 0.3s;
+          border-radius: 20px;
+          transition: 0.2s;
 
           &:hover {
-            transform: rotate(2deg);
-            box-shadow:
-              0 12px 16px 0 rgba(0, 0, 0, 0.24),
-              0 17px 50px 0 rgba(0, 0, 0, 0.19);
-            background-color: #2980b9;
-            color: #ecf0f1;
+            transform: scale(1.05);
           }
         }
       }

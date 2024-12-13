@@ -10,7 +10,7 @@
     <div class="head-info">
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
-        <p class="desc-text">这是一段服务描述</p>
+        <p class="desc-text">{{ docInfo.describe || '暂无描述' }}</p>
       </div>
       <p class="src-path">
         <label>版本列表：</label>
@@ -27,16 +27,11 @@
       <!-- <div class="info-block" v-html="docInfo.useIntroduce"></div> -->
     </div>
     <div class="sample-box">
-      <p class="title">使用方式</p>
-      <p class="line">从 npm 获取</p>
-      <code>
-    npm install --save cme2d cme-core;
-  </code>
-      <p class="line">从 cdn 获取</p>
-      <code>
-    &lt;script src="/libs/cme2d.js"&gt;&lt;/script&gt;<br />
-    &lt;script src="/libs/cme-core.js"&gt;&lt;/script&gt;
-  </code>
+      <p class="title">接口参数</p>
+      <p class="line">入参列表</p>
+      <p>暂无</p>
+      <p class="line">出参列表</p>
+      <p>暂无</p>
     </div>
   </el-main>
 </template>
@@ -141,6 +136,8 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
+  height: 100vh;
+  overflow-y: auto;
 
   .header {
     @include position(absolute, $left: 0, $top: 20px);
