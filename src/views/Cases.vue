@@ -3,10 +3,15 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 // @ts-ignore
 import img_taihai from './../assets/images/cases/cases-taihai.png';
+// @ts-ignore
 import img_dalian from './../assets/images/cases/cases-dalian.png';
+// @ts-ignore
 import img_yydh from './../assets/images/cases/cases-yydh.png';
+// @ts-ignore
 import img_dmx from './../assets/images/cases/cases-dmx.png';
+// @ts-ignore
 import img_cztl from './../assets/images/cases/cases-cztl.png';
+// @ts-ignore
 import img_3d from './../assets/images/cases/cases-3d.png';
 const { push } = useRouter()
 interface Item {
@@ -132,21 +137,19 @@ const list = ref(<Array<Item>>[
     width: 100%;
     height: auto;
     padding: 42px 80px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 40px;
 
     .card {
-      // margin-bottom: 40px;
-      width: calc(100% / 3 - 20px);
       box-shadow:
         10px -10px 20px 0px rgba(255, 255, 255, 0.3),
         -10px 10px 20px 0px rgba(217, 217, 217, 0.5);
       border-radius: 8px;
+      overflow: hidden;
       border: 1px solid #e4e4e4;
       transition: scale 0.3s linear;
-      padding: 0;
       cursor: pointer;
 
       &:hover {

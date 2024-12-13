@@ -7,12 +7,12 @@
       <el-aside :class="menuClass">
         <TreeMenu :menus="store.menus"></TreeMenu>
       </el-aside>
-      <el-main class="content">
+      <el-main ref="contentRef" class="content">
         <div v-if="$slots.module" class="list-box module">
           <slot name="module"></slot>
         </div>
         <template v-for="item in store.menus">
-          <div :id="item.path" class="list-box">
+          <div v-if="!item.ignore" :id="item.path" class="list-box">
             <h3 class="box-title">{{ item.name }}</h3>
             <!-- <p class="menu-desc">这是描述</p> -->
             <template v-for="sub in item.children">
@@ -21,14 +21,10 @@
                 <template v-for="eg in store.samples[sub.id]">
                   <template v-if="eg.id === '1867136462803275778'">
                     <div class="item" :title="eg.title" @click="handleOpen">
-                      <router-link class="img-box">
-                        <img :src="eg.cover" />
-                      </router-link>
+                      <a class="img-box"><img :src="eg.cover" /></a>
                       <p class="name-box">
                         <span class="name">{{ eg.title }}</span>
-                        <span v-if="eg.latestVersion" class="version"
-                          >v{{ eg.latestVersion }}</span
-                        >
+                        <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
                       </p>
                       <p class="pub-date">发布 {{ getTime(eg) }}</p>
                     </div>
@@ -41,9 +37,7 @@
                       </router-link>
                       <p class="name-box">
                         <span class="name">{{ eg.title }}</span>
-                        <span v-if="eg.latestVersion" class="version"
-                          >v{{ eg.latestVersion }}</span
-                        >
+                        <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
                       </p>
                       <p class="pub-date">发布 {{ getTime(eg) }}</p>
                     </div>
@@ -61,9 +55,12 @@
 <script setup>
 import TreeMenu from './../components/TreeMenu.vue'
 import { useGlobal } from '../store/index.js'
-import { computed, watch } from 'vue'
-const store = useGlobal()
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { useRouter } from 'vue-router';
+const store = useGlobal();
+const router = useRouter();
 
+const contentEl = useTemplateRef('contentRef');
 const props = defineProps({
   type: { type: String, required: true },
 })
@@ -79,12 +76,13 @@ watch(
     store.updateMenus(props.type)
   },
   { immediate: true },
-)
+);
+
 
 const classMap = {
   components: 'w280',
   algorithms: 'w320',
-  dataServices: 'w360',
+  dataServices: 'w400'
 }
 const menuClass = computed(() => classMap[props.type])
 
@@ -92,6 +90,22 @@ function getTime(item) {
   const { updateTime, createTime } = item
   return (updateTime || createTime || '').split(/\s/)[0]
 }
+
+function skipToAnchor() {
+  //router.currentRoute
+  console.log('currentRoute =>', router.currentRoute)
+  const { hash } = router.currentRoute.value;
+  if (!hash) return;
+  const targetEl = contentEl.value.$el.querySelector(hash);
+  console.log('targetEl =>', contentEl.value.$el, hash, targetEl);
+  if (!targetEl) return;
+  const page = document.querySelector('.page-sample');
+  console.log('scrollHeight =>', page.scrollHeight)
+  // const { top }  =targetEl.getBoundingClientRect();
+
+}
+
+defineExpose({ skipToAnchor });
 
 // const vTop = {
 //   mounted(el) {
@@ -106,7 +120,7 @@ function getTime(item) {
 //   }
 // }
 
-function handleOpen(){
+function handleOpen() {
   window.open('http://10.40.88.119:12009/#/', '_blank');
 }
 </script>
@@ -143,15 +157,15 @@ function handleOpen(){
   padding-top: 60px;
 
   &.w280 {
-    width: 280px;
+    width: 300px;
   }
 
   &.w320 {
-    width: 320px;
+    width: 360px;
   }
 
-  &.w360 {
-    width: 360px;
+  &.w400 {
+    width: 400px;
   }
 }
 
@@ -273,18 +287,12 @@ function handleOpen(){
         }
 
         .version {
-          @include setTheme(
-            'background-color',
-            (
-              dark: var(--text-color-active),
-            )
-          );
-          @include setTheme(
-            'border',
-            (
-              light: 1px solid var(--text-color2),
-            )
-          );
+          @include setTheme('background-color',
+            (dark: var(--text-color-active),
+            ));
+          @include setTheme('border',
+            (light: 1px solid var(--text-color2),
+            ));
           font-size: 12px;
           background-color: var(--background-color5);
           border-radius: 20px;
