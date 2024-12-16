@@ -3,11 +3,11 @@
     <div class="page-head">
       <slot name="page-head"></slot>
     </div>
-    <div class="page-body">
+    <div class="page-body" ref="contentRef">
       <el-aside :class="menuClass">
         <TreeMenu :menus="store.menus"></TreeMenu>
       </el-aside>
-      <el-main ref="contentRef" class="content">
+      <el-main class="content">
         <div v-if="$slots.module" class="list-box module">
           <slot name="module"></slot>
         </div>
@@ -19,29 +19,19 @@
               <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
               <div class="list">
                 <template v-for="eg in store.samples[sub.id]">
-                  <template v-if="eg.id === '1867136462803275778'">
-                    <div class="item" :title="eg.title" @click="handleOpen">
-                      <a class="img-box"><img :src="eg.cover" /></a>
-                      <p class="name-box">
-                        <span class="name">{{ eg.title }}</span>
-                        <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
-                      </p>
-                      <p class="pub-date">发布 {{ getTime(eg) }}</p>
-                    </div>
-                  </template>
-
-                  <template v-else>
-                    <div class="item" :title="eg.title">
-                      <router-link class="img-box" :to="`/${path}/${eg.id}`">
-                        <img :src="eg.cover" />
-                      </router-link>
-                      <p class="name-box">
-                        <span class="name">{{ eg.title }}</span>
-                        <span v-if="eg.latestVersion" class="version">v{{ eg.latestVersion }}</span>
-                      </p>
-                      <p class="pub-date">发布 {{ getTime(eg) }}</p>
-                    </div>
-                  </template>
+                  <div class="item" :title="eg.title">
+                    <a v-if="eg.id === openId" class="img-box" @click="handleOpen">
+                      <img v-lazy :data-src="eg.cover" />
+                    </a>
+                    <router-link v-else class="img-box" :to="`/${path}/${eg.id}`">
+                      <img v-lazy :data-src="eg.cover" />
+                    </router-link>
+                    <p class="name-box">
+                      <span class="name">{{ eg.title }}</span>
+                      <span v-if="eg.latestVersion" class="version">{{ eg.latestVersion }}</span>
+                    </p>
+                    <p class="pub-date">发布 {{ getTime(eg) }}</p>
+                  </div>
                 </template>
               </div>
             </template>
@@ -55,10 +45,8 @@
 <script setup>
 import TreeMenu from './../components/TreeMenu.vue'
 import { useGlobal } from '../store/index.js'
-import { computed, onMounted, ref, useTemplateRef, watch } from 'vue'
-import { useRouter } from 'vue-router';
+import { ref, computed, onMounted, useTemplateRef, watch } from 'vue'
 const store = useGlobal();
-const router = useRouter();
 
 const contentEl = useTemplateRef('contentRef');
 const props = defineProps({
@@ -78,6 +66,22 @@ watch(
   { immediate: true },
 );
 
+// const imgList = ref(null);
+// watch(() => store.menus3, () => {
+//   Promise.resolve().then(() => {
+//     const target = contentEl.value;
+//     if (!target) return
+//     const images = target.querySelectorAll('.img-box img');
+//     if (!images.length) return;
+//     imgList.value = images;
+//     for (let idx = 0; idx < 15; idx++) {
+//       const img = imgList.value[idx];
+//       if (!img.dataset.src) return;
+//       img.src = img.dataset.src;
+//       img.removeAttribute('data-src');
+//     }
+//   });
+// });
 
 const classMap = {
   components: 'w280',
@@ -91,35 +95,39 @@ function getTime(item) {
   return (updateTime || createTime || '').split(/\s/)[0]
 }
 
-function skipToAnchor() {
-  //router.currentRoute
-  console.log('currentRoute =>', router.currentRoute)
-  const { hash } = router.currentRoute.value;
-  if (!hash) return;
-  const targetEl = contentEl.value.$el.querySelector(hash);
-  console.log('targetEl =>', contentEl.value.$el, hash, targetEl);
-  if (!targetEl) return;
-  const page = document.querySelector('.page-sample');
-  console.log('scrollHeight =>', page.scrollHeight)
-  // const { top }  =targetEl.getBoundingClientRect();
+onMounted(() => {
+  const pageEl = document.querySelector('.cme-layout');
+  const targetEl = contentEl.value;
+  pageEl.addEventListener('scroll', e => {
+    const topGap = 70 * window.innerWidth / 1920;
+    const { top } = targetEl.getBoundingClientRect();
+    if (top < topGap) {
+      if (targetEl.classList.contains('sticky')) return;
+      targetEl.classList.add('sticky');
+      return targetEl.click();
+    }
+    targetEl.classList.remove('sticky');
+    pageEl.click();
+  });
+});
 
-}
+const vLazy = {
+  mounted(el) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          observer.unobserve(lazyImage);
+        }
+      });
+    });
+    observer.observe(el);
+  }
+};
 
-defineExpose({ skipToAnchor });
-
-// const vTop = {
-//   mounted(el) {
-//     const targetNode = document.querySelector('.cme-layout');
-//     const headH = document.querySelector('.page-head').offsetHeight;
-//     const { top } = el.getBoundingClientRect();
-//     targetNode.addEventListener('scroll', e => {
-//       const dy = Math.max(e.target.scrollTop - top + 60, 0) * 10 / window.innerWidth;
-//       console.log('dy ===>', e.target.scrollTop, top, headH);
-//       el.style.transform = `translateY(${dy}rem)`;
-//     });
-//   }
-// }
-
+// AI算法，单独打开窗口
+const openId = '1867136462803275778';
 function handleOpen() {
   window.open('http://10.40.88.119:12009/#/', '_blank');
 }
@@ -144,17 +152,20 @@ function handleOpen() {
   }
 
   .page-body {
-    position: sticky;
-    top: 60px;
     display: flex;
-    height: 100vh;
     width: 100vw;
-    overflow-y: auto;
+
+    &.sticky {
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
   }
 }
 
 .el-aside {
-  padding-top: 60px;
+  padding-top: 30px;
 
   &.w280 {
     width: 300px;

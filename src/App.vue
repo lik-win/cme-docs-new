@@ -23,9 +23,9 @@ import NavHead from './components/NavHead.vue';
 .cme-layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
   background-color: var(--background-color);
   color: var(--text-color);
+  height: 100vh;
   overflow: auto;
   scroll-behavior: smooth;
 }
