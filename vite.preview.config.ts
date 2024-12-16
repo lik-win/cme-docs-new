@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import replace from '@rollup/plugin-replace'
 
 export default defineConfig({
+  base: '/cme/',
   plugins: [vue()],
   resolve: {
     alias: {

@@ -61,6 +61,7 @@ import { useRouter } from 'vue-router'
 import { Repl, useStore, File } from './../../repl/index.ts';
 import { getSampleInfo } from './../apis/index.js';
 import { useGlobal } from './../store/index.js';
+import { routeBase } from './../router/index.js';
 
 const store = useGlobal();
 store.updateMenus('components');
@@ -70,6 +71,8 @@ const editStore = useStore();
 editStore.deleteAllFiles();
 editStore.mainFile = 'demo.html';
 editStore.addFile(new File('demo.html', ''));
+
+const base = routeBase.replace(/\//g, '');
 
 const docInfo = ref({
   title: null,
@@ -93,8 +96,12 @@ function showCode(fileList) {
   editStore.mainFile = fileName;
   editStore.addFile(new File(fileName, ''));
   fetch(url).then(res => res.text()).then(code => {
-    editStore.activeFile.setRaw(code);
-    replRef.value.onCodeChange(code);
+    const reg = new RegExp(`href="\\/\(?!${base}\)`, 'ig');
+    let _code = code.replace(reg, `href="/${base}/`);
+    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|icon|tiffs)/ig, `$1/${base}/$2`);
+    _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
+    editStore.activeFile.setRaw(_code);
+    replRef.value.onCodeChange(_code);
   });
 }
 

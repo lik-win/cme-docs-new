@@ -7,7 +7,7 @@
       </p>
       <div class="info-list">
         <a href="#modeData" class="info-item">
-          <label class="lbl1">18家模式</label>
+          <label class="lbl1">18类</label>
           <label class="lbl2">815种模式资料</label>
           <p class="desc">MESO_1KM、EC、NCEP等模式</p>
         </a>
@@ -25,7 +25,7 @@
         </a>
         <span class="splitor"></span>
         <a href="#largeModel" class="info-item">
-          <label class="lbl1">6家模式</label>
+          <label class="lbl1">6类</label>
           <label class="lbl2">54种大模型资料</label>
           <p class="desc">风清、风乌、风雷、盘古等大模型</p>
         </a>
