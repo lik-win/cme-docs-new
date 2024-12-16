@@ -1,14 +1,14 @@
 <template>
   <div class="home-view">
-    <el-carousel :auto-play="false" trigger="click" arrow="always">
-      <el-carousel-item class="swiper-slide panel1">
+    <div class="slide-box">
+      <div class="panel1">
         <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
         <div class="content">
+          <div class="line1">
+            <span class="intro">简介</span>
+          </div>
           <p class="line2">
-            <span><i class="first-letter">C</i>loud</span>
-            <span><i class="first-letter">M</i>ICAPS</span>
-            <span><i class="first-letter">E</i>ngine</span>
-            是依托“云+端”技术体系开发的一种组件化、可插拔的轻量级WEB支撑框架。
+            以预报服务应用功能为基础，依托“云+端”技术体系开发的一种组件化、可插拔的轻量级WEB支撑框架。
           </p>
           <p class="line3">
             使命：CME身负技术引领与创新、满足多样化需求、提升预报服务能力、保障安全与可靠性、促进气象业务发展等多项使命
@@ -17,8 +17,9 @@
             愿景：CME框架旨在提供一个灵活、高效且易于扩展的平台，以支持多场景气象业务的发展。通过采用组件化和可插拔的设计思想，CME能够方便地集成各种气象预报、监测和服务功能，满足不同地区和领域对气象信息的多样化需求
           </p>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel2">
+      </div>
+      <div class="panel2"></div>
+      <div class="panel4">
         <div class="card-box">
           <router-link to="/algorithms" class="card2 radius8">
             <span class="count">95</span>
@@ -41,8 +42,14 @@
             <span class="desc">提供多种经典场景和3D等场景开发能力</span>
           </router-link>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3">
+      </div>
+    </div>
+    <div class="panel5">
+      <h3 class="panel-title">
+        <img class="title-prefix" src="./../assets/images/icons/title-prefix.webp">
+        技术特点
+      </h3>
+      <div class="block-box box1">
         <div class="block">
           <div class="left-box1">
             <h4 class="block-title">因云而生，与云共生</h4>
@@ -56,9 +63,7 @@
             </div>
           </div>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box1">
-        <div class="block">
+        <div class="block left30">
           <div class="left-box2">
             <div class="img-box shadow2">
               <img src="../assets/images/home-jyhl.png">
@@ -70,8 +75,8 @@
               天气业务一体化平台（CME）集成各类气象数据要素，支撑国省市县四级业务数据上下协同，与国家级业务单位左右贯通，实现预报服务内外打通，构建共织预报预警风险一张网业务流程 </p>
           </div>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box2">
+      </div>
+      <div class="block-box box2">
         <div class="block right30">
           <div class="left-box1">
             <h4 class="block-title white">模型驱动，数字智能</h4>
@@ -85,8 +90,6 @@
             </div>
           </div>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box2">
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
@@ -94,14 +97,14 @@
             </div>
           </div>
           <div class="right-box2">
-            <h4 class="block-title white">弹性开放、复用扩展</h4>
+            <h4 class="block-title  white">弹性开放、复用扩展</h4>
             <p class="block-desc white">
               天气业务一体化平台（CME）框架由开放式应用框架与组件库组成，为场景开发提供基础编码环境，其中开放式应用框架实现天气监测、预报、预警和服务业务流程中的整体框架和核心功能抽象和泛化，组件库提供包含气象图层组件集、交互制作组件集、智能产品加工组件集、业务协同组件集、统计查询组件集、智能支撑组件集等各类具体处理逻辑和交互功能组件，支撑多元化业务场景应用。
             </p>
           </div>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box3">
+      </div>
+      <div class="block-box box3">
         <div class="block">
           <div class="left-box1">
             <h4 class="block-title">拖弋定制、快速构建</h4>
@@ -115,8 +118,6 @@
             </div>
           </div>
         </div>
-      </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box3">
         <div class="block">
           <div class="left-box2">
             <div class="img-box right bg">
@@ -130,16 +131,18 @@
             </p>
           </div>
         </div>
-      </el-carousel-item>
-    </el-carousel>
+      </div>
+    </div>
+    <el-footer>
+      <a class="logo"></a>
+      <p class="team">© 国家气象中心天气业务一体化平台团队</p>
+    </el-footer>
   </div>
 </template>
 
 <script setup>
 import { onMounted, useTemplateRef } from 'vue';
-
-
-const videoUrl = '/cme/videos/3dearth.mp4';
+const videoUrl = '/videos/3dearth.mp4';
 const videoEl = useTemplateRef('videoRef');
 onMounted(() => {
   videoEl.value.playbackRate += 1;
@@ -151,19 +154,13 @@ onMounted(() => {
 @import "./../assets/mixins.scss";
 
 .home-view {
-  @include setBox(100%, calc(100vh - 60px));
-  overflow: hidden;
-
-  .el-carousel,
-  .el-carousel-item,
-  :deep(.el-carousel__container) {
-    height: 100%;
-  }
+  @include setBox(100%, 100%);
+  overflow-y: auto;
 }
 
 .panel1 {
   position: relative;
-  height: 100%;
+  height: calc(100vh - 60px);
   display: flex;
   align-items: center;
   background: url("./../assets/images/sky1.webp") no-repeat center;
@@ -176,37 +173,32 @@ onMounted(() => {
     color: #ffffff;
     z-index: 1;
 
-    .line2 {
-      margin-top: 40px;
-      @include setFont(56px, 72px, 200);
-      transform: scaleX(0.85);
-      transform-origin: 0 0;
+    .line1 {
+      display: flex;
+      align-items: center;
 
-      span {
-        margin-right: 18px;
-        @include setFont(inherit, inherit, inherit);
-
-        &:last-child {
-          margin-right: 0;
-        }
-
-        .first-letter {
-          @include setFont(inherit, inherit, inherit);
-          color: #0671e6;
-        }
+      .intro {
+        @include setBox(116px, 40px);
+        @include setFont(28px, 40px, 600);
+        text-align: center;
+        background: linear-gradient(270deg, hsla(84, 100%, 50%, 0) 0%, #7DFF0033 52%, rgba(98, 255, 0, 0) 100%);
       }
+    }
+
+    .line2 {
+      @include setFont(56px, 78px, 600);
     }
 
     .line3 {
       @include setBox(810px);
-      margin-top: 80px;
-      @include setFont(24px, 30px, 100);
+      margin-top: 60px;
+      @include setFont(32px, 44px, 600);
     }
 
     .line4 {
       @include setBox(810px);
-      margin-top: 32px;
-      @include setFont(24px, 30px, 100);
+      margin-top: 20px;
+      @include setFont(32px, 44px, 600);
     }
   }
 
@@ -218,6 +210,12 @@ onMounted(() => {
   }
 }
 
+.panel2 {
+  @include setBox(100%, 100vh);
+  background: url('./../assets/images/panelbg2.webp') no-repeat center;
+  background-size: 100% 100%;
+}
+
 $bg_dark1: linear-gradient(135deg, #070D1B 0%, #203358 100%);
 $bg_dark2: linear-gradient(47deg, #203358 0%, #070D1B 100%);
 $bg_dark3: linear-gradient(225deg, #203358 0%, #070D1B 100%);
@@ -227,9 +225,8 @@ $bg_light2: linear-gradient(153deg, #F3FEFD 0%, #FFFFFF 100%);
 $bg_light3: linear-gradient(153deg, #FFF8F5 0%, #FFFFFF 100%);
 $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
-.panel2 {
-  @include setBox(100%, 100%);
-  @include flex(center, center);
+.panel4 {
+  @include setBox(100%, 100vh, 100px 0);
   background: url("./../assets/images/panelbg3.webp") no-repeat center;
   background-size: 100% 100%;
 
@@ -303,20 +300,20 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
   }
 }
 
-.panel3 {
-  @include flex(center, center);
+.panel5 {
+  overflow: hidden;
 
-  &.block-box1 {
+  .block-box.box1 {
     background: url("./../assets/images/homebg4.webp") no-repeat center;
-    background-size: 100% 100%;
+    background-size: cover;
   }
 
-  &.block-box2 {
+  .block-box.box2 {
     background: url("./../assets/images/homebg5.webp") no-repeat center;
     background-size: cover;
   }
 
-  &.block-box3 {
+  .block-box.box3 {
     background: url("./../assets/images/homebg6.webp") no-repeat center;
     background-size: cover;
   }
