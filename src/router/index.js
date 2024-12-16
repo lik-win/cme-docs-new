@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from '../views/HomeNew.vue';
 // import EditIndex from '../views/EditIndex.vue';
 // import ViewIndex from '../views/ViewIndex.vue';
@@ -75,9 +75,9 @@ const routes = [{
   meta: { cate: 'support' }
 }];
 
-const routeBase = 'cmedocs';
+const routeBase = '/cme/';
 const router = createRouter({
-  history: createWebHistory(routeBase),
+  history: createWebHashHistory(routeBase),
   routes,
   scrollBehavior() {
     return { x: 0, y: 0 };
