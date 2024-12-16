@@ -1,6 +1,6 @@
 <template>
   <div class="home-view">
-    <el-carousel trigger="click" arrow="always">
+    <el-carousel :auto-play="false" trigger="click" arrow="always">
       <el-carousel-item class="swiper-slide panel1">
         <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
         <div class="content">
@@ -138,7 +138,8 @@
 <script setup>
 import { onMounted, useTemplateRef } from 'vue';
 
-const videoUrl = '/videos/3dearth.mp4';
+
+const videoUrl = '/cme/videos/3dearth.mp4';
 const videoEl = useTemplateRef('videoRef');
 onMounted(() => {
   videoEl.value.playbackRate += 1;
