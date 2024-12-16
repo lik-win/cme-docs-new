@@ -1,6 +1,6 @@
 <template>
   <div class="home-view">
-    <el-carousel :auto-play="false" trigger="click" arrow="always">
+    <el-carousel :autoplay="false" trigger="click" arrow="always">
       <el-carousel-item class="swiper-slide panel1">
         <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
         <div class="content">
@@ -8,7 +8,7 @@
             <span><i class="first-letter">C</i>loud</span>
             <span><i class="first-letter">M</i>ICAPS</span>
             <span><i class="first-letter">E</i>ngine</span>
-            是依托“云+端”技术体系开发的一种组件化、可插拔的轻量级WEB支撑框架。
+            是依托“云+端”技术体系开发的组件化、可插拔的轻量级WEB支撑框架。
           </p>
           <p class="line3">
             使命：CME身负技术引领与创新、满足多样化需求、提升预报服务能力、保障安全与可靠性、促进气象业务发展等多项使命
