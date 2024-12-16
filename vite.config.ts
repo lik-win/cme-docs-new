@@ -2,6 +2,7 @@ import { mergeConfig } from 'vite'
 import base from './vite.preview.config'
 
 export default mergeConfig(base, {
+  base: 'cme/',
   server: {
     host: '0.0.0.0',
     port: 8090,
