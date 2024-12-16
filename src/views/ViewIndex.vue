@@ -98,7 +98,7 @@ function showCode(fileList) {
   fetch(url).then(res => res.text()).then(code => {
     const reg = new RegExp(`href="\\/\(?!${base}\)`, 'ig');
     let _code = code.replace(reg, `href="/${base}/`);
-    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|icon|tiffs)/ig, `$1/${base}/$2`);
+    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|tiffs)\//ig, `$1/${base}/$2/`);
     _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
     editStore.activeFile.setRaw(_code);
     replRef.value.onCodeChange(_code);
