@@ -8,7 +8,7 @@
       <div class="info-list">
         <a href="#meteoAlgorithms" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">50种气象基础算法</label>
+          <label class="lbl2">50种基础算法</label>
           <p class="desc">模式数据计算、穿透算法等</p>
         </a>
         <span class="splitor"></span>
@@ -32,13 +32,13 @@
         <span class="splitor"></span>
         <a href="#businessComponent" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">8种智能产品加工</label>
+          <label class="lbl2">8种智能加工</label>
           <p class="desc">全国及区域专题图生成等算法</p>
         </a>
         <span class="splitor"></span>
         <a href="#ai" class="info-item">
           <!-- <label class="lbl1 nodata"></label> -->
-          <label class="lbl2">1种AI算法集成</label>
+          <label class="lbl2">1种AI算法</label>
           <p class="desc">语音调用服务</p>
         </a>
       </div>
