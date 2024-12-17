@@ -6,25 +6,25 @@
         按照组件仓库要求封装平台底层地图渲染引擎，集成数据展示、数据交互、交互编辑、剖面分析、图表制作等组件，支撑二三维一体化的业务需求，解决算法集约、应用规范、服务统一等问题。
       </p>
       <div class="info-list">
-        <a href="#baseFns" class="info-item">
+        <a data-href="#baseFns" class="info-item">
           <label class="lbl1">4+类</label>
           <label class="lbl2">50+基础功能组件</label>
           <p class="desc">提供地图加载和基础交互及事件等功能</p>
         </a>
         <span class="splitor"></span>
-        <a href="#meteoLayer" class="info-item">
+        <a data-href="#meteoLayer" class="info-item">
           <label class="lbl1">4+类</label>
           <label class="lbl2">20+气象图层组件</label>
           <p class="desc">提供实况、预报、卫星和雷达等数据上图功能</p>
         </a>
         <span class="splitor"></span>
-        <a href="#observationData" class="info-item">
+        <a data-href="#observationData" class="info-item">
           <label class="lbl1">2+类</label>
           <label class="lbl2">20+新型观测资料组件</label>
           <p class="desc">提供多种要素廓线和时序图表等功能</p>
         </a>
         <span class="splitor"></span>
-        <a href="#businessComponent" class="info-item">
+        <a data-href="#businessComponent" class="info-item">
           <label class="lbl1">2+类</label>
           <label class="lbl2">8+业务组件</label>
           <p class="desc">提供格点编辑等功能</p>

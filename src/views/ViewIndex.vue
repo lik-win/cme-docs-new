@@ -124,6 +124,10 @@ function parseDocInfo(data) {
   };
 }
 
+function isObj(val) {
+  return Object.prototype.toString.call(val) === '[object Object]';
+}
+
 function parseArgs(data) {
   const { url, args } = data;
   if (url) {
@@ -132,6 +136,13 @@ function parseArgs(data) {
   if (args) {
     const list = [];
     Object.keys(args).forEach(key => {
+      const { value } = args[key];
+      if (isObj(value)) {
+        Object.assign(args[key], {
+          innerType: 'object',
+          value: JSON.stringify(value)
+        });
+      }
       list.push({ ...args[key], name: key });
     });
     apiArgs.value = list;

@@ -1,7 +1,7 @@
 <template>
   <div class="home-view">
     <el-carousel :autoplay="false" trigger="click" arrow="always">
-      <el-carousel-item class="swiper-slide panel1">
+      <el-carousel-item class="panel1">
         <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
         <div class="content">
           <p class="line2">
@@ -18,11 +18,11 @@
           </p>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel2">
+      <el-carousel-item class="panel2">
         <div class="card-box">
           <router-link to="/algorithms" class="card2 radius8">
             <span class="count">95</span>
-            <span class="msg">独家版权算法</span>
+            <span class="msg">专业算法</span>
             <span class="desc">智能感知、智能研判、智能诊断和智能服务生成</span>
           </router-link>
           <router-link to="/data-services" class="card2 radius8">
@@ -37,12 +37,12 @@
           </router-link>
           <router-link to="/scenes" class="card2 radius8">
             <span class="count">3</span>
-            <span class="msg">场景应用</span>
+            <span class="msg">应用风格</span>
             <span class="desc">提供多种经典场景和3D等场景开发能力</span>
           </router-link>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3">
+      <el-carousel-item class="panel3 block-box1">
         <div class="block">
           <div class="left-box1">
             <h4 class="block-title">因云而生，与云共生</h4>
@@ -57,7 +57,7 @@
           </div>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box1">
+      <el-carousel-item class="panel3 block-box1">
         <div class="block">
           <div class="left-box2">
             <div class="img-box shadow2">
@@ -71,7 +71,7 @@
           </div>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box2">
+      <el-carousel-item class="panel3 block-box2">
         <div class="block right30">
           <div class="left-box1">
             <h4 class="block-title white">模型驱动，数字智能</h4>
@@ -86,7 +86,7 @@
           </div>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box2">
+      <el-carousel-item class="panel3 block-box2">
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
@@ -101,7 +101,7 @@
           </div>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box3">
+      <el-carousel-item class="panel3 block-box3">
         <div class="block">
           <div class="left-box1">
             <h4 class="block-title">拖弋定制、快速构建</h4>
@@ -116,7 +116,7 @@
           </div>
         </div>
       </el-carousel-item>
-      <el-carousel-item class="swiper-slide panel3 block-box3">
+      <el-carousel-item class="panel3 block-box3">
         <div class="block">
           <div class="left-box2">
             <div class="img-box right bg">
@@ -307,7 +307,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
   @include flex(center, center);
 
   &.block-box1 {
-    background: url("./../assets/images/homebg4.webp") no-repeat center;
+    background: url("./../assets/images/homebg4.jpg") no-repeat center;
     background-size: 100% 100%;
   }
 
@@ -317,7 +317,7 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
   }
 
   &.block-box3 {
-    background: url("./../assets/images/homebg6.webp") no-repeat center;
+    background: url("./../assets/images/homebg6.jpg") no-repeat center;
     background-size: cover;
   }
 
@@ -348,13 +348,15 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     .block-title {
       @include setFont(50px, 70px);
       margin-bottom: 20px;
-      color: #1C1D1F;
+      // color: #1C1D1F;
+      color: #ffffff;
     }
 
     .block-desc {
       margin-top: 20px;
       @include setFont(28px, 40px);
-      color: #424349;
+      // color: #424349;
+      color: #ffffff;
     }
 
     .img-box {

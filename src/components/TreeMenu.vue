@@ -1,10 +1,9 @@
 <template>
   <div class="cme-tree-menu">
-    <el-tree ref="treeRef" :data="props.menus" :defaultExpandedKeys="defaultExpand" @node-click="nodeCliked"
-      v-bind="configs">
+    <el-tree :data="props.menus" :defaultExpandedKeys="expandKeys" v-bind="configs">
       <template #default="{ data }">
-        <a v-if="isAnchor(data)" :href="`#${data.path}`">{{ data.name }}</a>
-        <span v-else @click="() => onNodeClick(data)">{{ data.name }}</span>
+        <a v-if="isAnchor(data)">{{ data.name }}</a>
+        <span v-else>{{ data.name }}</span>
       </template>
     </el-tree>
   </div>
@@ -18,15 +17,13 @@ const props = defineProps({
   anchor: { type: Boolean, default: true }
 });
 
-const defaultExpand = computed(() => {
+const expandKeys = computed(() => {
   if (!props.menus.length) return [];
-  return [props.menus[0].label];
+  return [props.menus[0].id];
 });
 
-const treeNode = useTemplateRef('treeRef');
-
 function nodeCliked(node) {
-  console.log('node ==>', treeNode.value, node);
+  console.log('node ==>', node);
 }
 
 function isAnchor(data) {
@@ -38,6 +35,7 @@ const configs = {
   defaultExpandAll: false,
   expandOnClickNode: false,
   accordion: true,
+  nodeKey: 'id',
   indent: 0,
   icon: () => ''
 };
