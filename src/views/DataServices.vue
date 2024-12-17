@@ -1,7 +1,7 @@
 <template>
   <SampleLayout type="dataServices">
     <template #page-head>
-      <h3 class="page-title">数据服务 <span class="bubble">930种</span></h3>
+      <h3 class="page-title">数据服务 <span class="bubble">994种</span></h3>
       <p class="page-desc">
         针对业务应用特点，对各类数据进行结构和存储的差异化设计，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的汇集、加工和管理，推出COGTIF瓦片服务以及基于IOTDB的查询服务。解决数据规范、存储集约、应用效率等问题。
       </p>
@@ -35,12 +35,12 @@
           <label class="lbl2">11种高空资料</label>
           <p class="desc">风廓线、微波辐射计等资料</p>
         </a>
-        <!-- <span class="splitor"></span>
+        <span class="splitor"></span>
         <a data-href="#businessComponent" class="info-item">
-          <label class="lbl1">6类</label>
-          <label class="lbl2">11种地面资料</label>
-          <p class="desc">风廓线、微波辐射计等资料</p>
-        </a> -->
+          <label class="lbl1">14类</label>
+          <label class="lbl2">64种地面资料</label>
+          <p class="desc">地面站、公路交通等资料</p>
+        </a>
       </div>
     </template>
   </SampleLayout>
