@@ -42,7 +42,6 @@ function download(item: Item) { }
 
 <template>
   <div class="cases">
-    <!-- <iframe src="/scenes/windy/index.html" frameborder="0"></iframe> -->
     <!-- banner区域 -->
     <div class="banner">
       <div class="text-container">
