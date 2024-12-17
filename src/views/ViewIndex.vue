@@ -98,7 +98,7 @@ function showCode(fileList) {
   fetch(url).then(res => res.text()).then(code => {
     const reg = new RegExp(`href="\\/\(?!${base}\)`, 'ig');
     let _code = code.replace(reg, `href="/${base}/`);
-    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|icon|tiffs)/ig, `$1/${base}/$2`);
+    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|tiffs)\//ig, `$1/${base}/$2/`);
     _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
     editStore.activeFile.setRaw(_code);
     replRef.value.onCodeChange(_code);
@@ -124,6 +124,10 @@ function parseDocInfo(data) {
   };
 }
 
+function isObj(val) {
+  return Object.prototype.toString.call(val) === '[object Object]';
+}
+
 function parseArgs(data) {
   const { url, args } = data;
   if (url) {
@@ -132,6 +136,13 @@ function parseArgs(data) {
   if (args) {
     const list = [];
     Object.keys(args).forEach(key => {
+      const { value } = args[key];
+      if (isObj(value)) {
+        Object.assign(args[key], {
+          innerType: 'object',
+          value: JSON.stringify(value)
+        });
+      }
       list.push({ ...args[key], name: key });
     });
     apiArgs.value = list;

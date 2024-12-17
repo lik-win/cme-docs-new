@@ -6,35 +6,41 @@
         针对业务应用特点，对各类数据进行结构和存储的差异化设计，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的汇集、加工和管理，推出COGTIF瓦片服务以及基于IOTDB的查询服务。解决数据规范、存储集约、应用效率等问题。
       </p>
       <div class="info-list">
-        <a href="#modeData" class="info-item">
+        <a data-href="#modeData" class="info-item">
           <label class="lbl1">18类</label>
           <label class="lbl2">815种模式资料</label>
           <p class="desc">MESO_1KM、EC、NCEP等模式</p>
         </a>
         <span class="splitor"></span>
-        <a href="#radar" class="info-item">
+        <a data-href="#radar" class="info-item">
           <label class="lbl1">5类</label>
           <label class="lbl2">20种雷达资料</label>
-          <p class="desc">组合反射率、X波段雷达等雷达资料</p>
+          <p class="desc">组合反射率、X波段雷达等资料</p>
         </a>
         <span class="splitor"></span>
-        <a href="#satellite" class="info-item">
+        <a data-href="#satellite" class="info-item">
           <label class="lbl1">7类</label>
           <label class="lbl2">30种卫星资料</label>
           <p class="desc">FY4B、FY3G、HIMAWARI-9等资料</p>
         </a>
         <span class="splitor"></span>
-        <a href="#largeModel" class="info-item">
+        <a data-href="#largeModel" class="info-item">
           <label class="lbl1">6类</label>
           <label class="lbl2">54种大模型资料</label>
           <p class="desc">风清、风乌、风雷、盘古等大模型</p>
         </a>
         <span class="splitor"></span>
-        <a href="#businessComponent" class="info-item">
+        <a data-href="#businessComponent" class="info-item">
           <label class="lbl1">6类</label>
           <label class="lbl2">11种高空资料</label>
           <p class="desc">风廓线、微波辐射计等资料</p>
         </a>
+        <!-- <span class="splitor"></span>
+        <a data-href="#businessComponent" class="info-item">
+          <label class="lbl1">6类</label>
+          <label class="lbl2">11种地面资料</label>
+          <p class="desc">风廓线、微波辐射计等资料</p>
+        </a> -->
       </div>
     </template>
   </SampleLayout>
@@ -84,7 +90,7 @@ import SampleLayout from '../components/SampleLayout.vue';
   width: 100%;
   height: 206px;
   margin-top: 40px;
-  padding: 32px 40px;
+  padding: 32px 20px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 10px -10px 20px 0px #ffffff4d, -10px 10px 20px 0px #d9d9d980;
@@ -148,7 +154,7 @@ import SampleLayout from '../components/SampleLayout.vue';
   .splitor {
     max-width: 0;
     height: 100%;
-    margin: 0 26px;
+    margin: 0 16px;
     border: 1px dashed #d3e6e7;
   }
 }

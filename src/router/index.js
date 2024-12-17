@@ -78,10 +78,7 @@ const routes = [{
 const routeBase = '/cme/';
 const router = createRouter({
   history: createWebHashHistory(routeBase),
-  routes,
-  scrollBehavior() {
-    return { x: 0, y: 0 };
-  }
+  routes
 });
 
 

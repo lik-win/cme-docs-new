@@ -168,15 +168,15 @@ function handleOpen() {
   padding-top: 30px;
 
   &.w280 {
-    width: 300px;
+    width: 260px;
   }
 
   &.w320 {
-    width: 360px;
+    width: 280px;
   }
 
   &.w400 {
-    width: 400px;
+    width: 360px;
   }
 }
 
