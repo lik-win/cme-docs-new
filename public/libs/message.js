@@ -17,7 +17,10 @@
       case 'double':
         return Number(value);
       case 'array':
+        if (Array.isArray(value)) return value;
         return value.split(',');
+      case 'object':
+        return JSON.parse(value);
       default:
         return value;
     }
@@ -26,8 +29,6 @@
   function isEmpty(val) {
     return val === null || val === undefined || val === '';
   }
-
-  const numTypes = ['number', 'float', 'int', 'integer', 'double'];
 
   function parseArgsAndRun(params) {
     const args = {};
@@ -39,7 +40,7 @@
         errMsg = `参数"${item.name}"为必传参数!`;
         return;
       }
-      const _type = item.type.toLowerCase();
+      const _type = (item.innerType || item.type).toLowerCase();
       const value = parseData(val, _type);
       if (value !== value) {
         errMsg = `参数"${item.name}"类型错误，应传${item.type}类型!`;

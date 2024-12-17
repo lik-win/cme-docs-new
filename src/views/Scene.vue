@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 // @ts-ignore
 import windy from '../assets/images/scene/windy.jpg'
 // @ts-ignore
 import d3 from '../assets/images/scene/scenes-3d.png'
 // @ts-ignore
 import defaultJpg from '../assets/images/scene/default.jpg'
-const { push } = useRouter()
 interface Item {
   id: number
   image: string
@@ -17,11 +15,18 @@ interface Item {
 }
 const list = ref(<Array<Item>>[
   {
+    id: 3,
+    title: '默认风格',
+    type: 'default',
+    image: defaultJpg,
+    desc: '在默认风格下，气象信息的显示较为简洁，主要展示基本的天气数据，如温度和降水量，并以静态图层呈现。与简约风格的动态风场和多样化气象层相比，默认风格更注重地图的可读性和易用性，减少了视觉干扰，适合于需要清晰地图呈现的场景。',
+  },
+  {
     id: 1,
-    title: 'Windy风格',
+    title: '简约风格',
     type: 'windy',
     image: windy,
-    desc: 'Windy风格的地图是一种专注于气象数据可视化的地图展示方式，主要特点是通过动态风场、气象层和高分辨率数据呈现全球天气状况。该风格地图采用实时更新的气象信息，支持风速、风向、气温、降水量、气压等多种气象要素的显示，并以流动的箭头和渐变色表示，直观反映天气变化。用户可以根据需求自由切换不同的气象图层、调整显示参数，甚至查看历史和未来天气数据。此外，Windy风格地图通过精确的动画和交互设计，增强了用户对气象信息的理解和应用，提供了极具实用性的气象预警与分析工具。',
+    desc: '简约风格的地图是一种专注于气象数据可视化的地图展示方式，主要特点是通过动态风场、气象层和高分辨率数据呈现全球天气状况。该风格地图采用实时更新的气象信息，支持风速、风向、气温、降水量、气压等多种气象要素的显示，并以流动的箭头和渐变色表示，直观反映天气变化。用户可以根据需求自由切换不同的气象图层、调整显示参数，甚至查看历史和未来天气数据。此外，简约风格地图通过精确的动画和交互设计，增强了用户对气象信息的理解和应用，提供了极具实用性的气象预警与分析工具。',
   },
   {
     id: 2,
@@ -29,20 +34,9 @@ const list = ref(<Array<Item>>[
     type: '3d',
     image: d3,
     desc: '该风格通过三维渲染技术呈现气象数据和地形特征，增强了用户的空间感和视觉深度。与传统二维地图不同，使用户能够更直观地感知天气变化和气象数据的空间分布。该风格特别强调气象信息的立体化表现，展示了风速、降水量、气温等气象要素的色彩渐变与立体效果，并且可以在三维视角下实时查看不同天气层次的变化。用户可以自由旋转、缩放视角，精确观察特定区域的气象数据和地理特征，适用于需要气象分析和动态气象预测的场景。',
-  },
-  {
-    id: 3,
-    title: '默认风格',
-    type: 'default',
-    image: defaultJpg,
-    desc: '在默认风格下，气象信息的显示较为简洁，主要展示基本的天气数据，如温度和降水量，并以静态图层呈现。与Windy风格的动态风场和多样化气象层相比，默认风格更注重地图的可读性和易用性，减少了视觉干扰，适合于需要清晰地图呈现的场景。',
   }
-])
+]);
 
-function handleClick(item: Item) {
-  return
-  push({ path: `/scenes/${item.type}` })
-}
 function download(item: Item) { }
 </script>
 
@@ -52,16 +46,16 @@ function download(item: Item) { }
     <!-- banner区域 -->
     <div class="banner">
       <div class="text-container">
-        <p class="top-title">引领行业创新发展，塑造未来气象服务新高度</p>
-        <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
+        <!-- <p class="top-title">引领行业创新发展，塑造未来气象服务新高度</p> -->
+        <p class="center-title">解锁多种应用风格，满足多场景业务开发</p>
         <p class="bottom-title">
-          从科技创新到服务升级，树立行业新标准；以精准气象助力发展，开创未来新篇章
+          基于开放式框架，满足从数据到算法到组件全流程全场景开发
         </p>
       </div>
     </div>
     <!-- 列表区域 -->
     <div class="list-container">
-      <div class="card" v-for="(item, index) in list" @click="handleClick(item)">
+      <div class="card" v-for="(item, index) in list">
         <template v-if="index % 2 == 0">
           <div class="img">
             <img :src="item.image" alt="" />
