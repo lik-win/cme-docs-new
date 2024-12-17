@@ -73,10 +73,8 @@ const list = ref(<Array<Item>>[
     <!-- banner区域 -->
     <div class="banner">
       <div class="text-container">
-        <p class="top-title">
-          引领行业创新发展，塑造未来气象服务新高度
-        </p>
-        <p class="center-title">树立气象领域新标杆，开启行业新征程</p>
+        <!-- <p class="top-title">引领行业创新发展，塑造未来气象服务新高度</p> -->
+        <p class="center-title">开放共享，共铸经典</p>
         <p class="bottom-title">
           从科技创新到服务升级，树立行业新标准；以精准气象助力发展，开创未来新篇章
         </p>
@@ -160,9 +158,9 @@ const list = ref(<Array<Item>>[
       transition: scale 0.3s linear;
       cursor: pointer;
 
-      // &:hover {
-      //   scale: 1.05;
-      // }
+      &:hover {
+        scale: 1.05;
+      }
 
       .img {
         position: relative;
@@ -175,7 +173,7 @@ const list = ref(<Array<Item>>[
         }
 
         .title {
-          @include setBox($height: 44px, $padding: 0 10px);
+          @include setBox($height: 44px, $padding: 0 16px);
           @include setFont(20px, 44px, 600);
           background-color: #ffffff;
           border-radius: 30px;

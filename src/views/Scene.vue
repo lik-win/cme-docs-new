@@ -6,14 +6,35 @@ import windy from '../assets/images/scene/windy.jpg'
 import d3 from '../assets/images/scene/scenes-3d.png'
 // @ts-ignore
 import defaultJpg from '../assets/images/scene/default.jpg'
+// @ts-ignore
+import algorithm from './../assets/images/scene/alogrithm.png';
+
 interface Item {
   id: number
   image: string
   type: string
   title: string
   desc: string
+  link?: string
+  download?: string
 }
 const list = ref(<Array<Item>>[
+  {
+    id: 1,
+    title: '算法',
+    type: 'alogrithm',
+    image: algorithm,
+    download: '/cme/docs/一体化平台算法开发文档.pdf',
+    desc: '我们的算法服务平台，基于数据体协议设计，提供全面的算法生命周期管理。通过算法镜像对算法集中管理和版本控制，还具备强大的调度能力，可处理实时与定时任务。平台实现了结果集的系统化管理，并记录详细的调度历史以供审查。此外，其模块化的架构确保了算法的易扩展性和维护性，为用户提供了一个高效、灵活且可靠的算法运行环境。',
+  },
+  {
+    id: 2,
+    title: '接口',
+    type: 'interface',
+    image: algorithm,
+    link: 'http://10.40.88.119:11015/#/home',
+    desc: '一体化开发框架整合了配置中心、注册中心、日志收集与监控等核心功能，同时提供丰富的SDK工具包。旨在简化开发流程，使开发者能够迅速融入平台并充分利用其提供的各种基础服务和能力，从而加速应用的开发与部署，提高开发效率和产品质量，确保应用程序在复杂环境下依然稳定可靠。',
+  },
   {
     id: 3,
     title: '默认风格',
@@ -22,14 +43,14 @@ const list = ref(<Array<Item>>[
     desc: '在默认风格下，气象信息的显示较为简洁，主要展示基本的天气数据，如温度和降水量，并以静态图层呈现。与简约风格的动态风场和多样化气象层相比，默认风格更注重地图的可读性和易用性，减少了视觉干扰，适合于需要清晰地图呈现的场景。',
   },
   {
-    id: 1,
+    id: 4,
     title: '简约风格',
     type: 'windy',
     image: windy,
     desc: '简约风格的地图是一种专注于气象数据可视化的地图展示方式，主要特点是通过动态风场、气象层和高分辨率数据呈现全球天气状况。该风格地图采用实时更新的气象信息，支持风速、风向、气温、降水量、气压等多种气象要素的显示，并以流动的箭头和渐变色表示，直观反映天气变化。用户可以根据需求自由切换不同的气象图层、调整显示参数，甚至查看历史和未来天气数据。此外，简约风格地图通过精确的动画和交互设计，增强了用户对气象信息的理解和应用，提供了极具实用性的气象预警与分析工具。',
   },
   {
-    id: 2,
+    id: 5,
     title: '3D风格',
     type: '3d',
     image: d3,
@@ -37,7 +58,14 @@ const list = ref(<Array<Item>>[
   }
 ]);
 
-function download(item: Item) { }
+function download(item: Item) {
+  if (!item.download) return;
+  const aLink = document.createElement('a');
+  const name = item.download.split(/[\/\\]/g).pop() || 'download';
+  aLink.download = decodeURIComponent(name);
+  aLink.href = item.download;
+  aLink.click();
+}
 </script>
 
 <template>
@@ -66,7 +94,8 @@ function download(item: Item) { }
             <div class="content">
               {{ item.desc }}
             </div>
-            <div class="button" @click="download(item)">下载</div>
+            <a v-if="item.link" :href="item.link" target="_blank" class="button">跳转</a>
+            <div v-else class="button" @click="download(item)">下载</div>
           </div>
         </template>
         <template v-else>
@@ -77,7 +106,8 @@ function download(item: Item) { }
             <div class="content">
               {{ item.desc }}
             </div>
-            <div class="button" @click="download(item)">下载</div>
+            <a v-if="item.link" :href="item.link" target="_blank" class="button">跳转</a>
+            <div v-else class="button" @click="download(item)">下载</div>
           </div>
           <div class="img">
             <img :src="item.image" alt="" />

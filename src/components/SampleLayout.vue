@@ -45,7 +45,7 @@
 <script setup>
 import TreeMenu from './../components/TreeMenu.vue'
 import { useGlobal } from '../store/index.js'
-import { ref, computed, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, onMounted, useTemplateRef, watch } from 'vue'
 const store = useGlobal();
 
 const contentEl = useTemplateRef('contentRef');
@@ -66,22 +66,6 @@ watch(
   { immediate: true },
 );
 
-// const imgList = ref(null);
-// watch(() => store.menus3, () => {
-//   Promise.resolve().then(() => {
-//     const target = contentEl.value;
-//     if (!target) return
-//     const images = target.querySelectorAll('.img-box img');
-//     if (!images.length) return;
-//     imgList.value = images;
-//     for (let idx = 0; idx < 15; idx++) {
-//       const img = imgList.value[idx];
-//       if (!img.dataset.src) return;
-//       img.src = img.dataset.src;
-//       img.removeAttribute('data-src');
-//     }
-//   });
-// });
 
 const classMap = {
   components: 'w280',

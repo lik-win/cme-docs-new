@@ -71,7 +71,7 @@
         @include position(absolute);
         left: 11px;
         height: 100%;
-        border-left: 1px solid #bec1c8;
+        border-left: 1px solid #d5d7dd;
       }
 
       .el-icon {
@@ -123,6 +123,14 @@
 
     span {
       opacity: 1.0;
+    }
+  }
+
+  .el-carousel__arrow {
+    transform: scale(1.6);
+
+    &:hover {
+      border: 1px solid #B8C2C2;
     }
   }
 }
