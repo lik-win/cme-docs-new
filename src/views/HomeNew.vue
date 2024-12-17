@@ -1,6 +1,6 @@
 <template>
-  <div class="home-view">
-    <el-carousel :autoplay="false" trigger="click" arrow="always">
+  <div v-wheel class="home-view">
+    <el-carousel ref="scrollRef" :autoplay="false" trigger="click" arrow="always">
       <el-carousel-item class="panel1">
         <video class="globe" ref="videoRef" muted loop autoplay :src="videoUrl"></video>
         <div class="content">
@@ -141,9 +141,36 @@ import { onMounted, useTemplateRef } from 'vue';
 
 const videoUrl = '/cme/videos/3dearth.mp4';
 const videoEl = useTemplateRef('videoRef');
+const scrollEl = useTemplateRef('scrollRef');
 onMounted(() => {
   videoEl.value.playbackRate += 1;
 });
+
+function onKeydown(e) {
+  if (e.keyCode === 37) {
+    scrollEl.value.prev();
+  } else if (e.keyCode === 39) {
+    scrollEl.value.next();
+  }
+}
+
+const vWheel = {
+  mounted(el) {
+    let deltaY = 0;
+    let pending = false;
+    el.addEventListener('wheel', e => {
+      if (pending) return;
+      deltaY += Math.sign(e.deltaY) * 1;
+      if (Math.abs(deltaY) < 3) return;
+      const method = deltaY < 0 ? 'prev' : 'next';
+      deltaY = 0;
+      pending = true;
+      scrollEl.value[method]();
+      setTimeout(() => pending = false, 1000);
+    });
+    window.addEventListener('keydown', onKeydown);
+  }
+};
 
 </script>
 
@@ -251,8 +278,6 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
     grid-template-rows: repeat(2, 360px);
     grid-gap: 30px;
   }
-
-
 
   .card2 {
     position: relative;

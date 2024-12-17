@@ -1,8 +1,8 @@
 <template>
   <div class="cme-tree-menu">
-    <el-tree :data="props.menus" :defaultExpandedKeys="expandKeys" v-bind="configs">
+    <el-tree :data="props.menus" :defaultExpandedKeys="expandKeys" v-bind="configs" @node-click="onNodeClick">
       <template #default="{ data }">
-        <a v-if="isAnchor(data)">{{ data.name }}</a>
+        <a v-if="isAnchor(data)" :class="`label${data.level}`" @click="() => nodeClicked(data)">{{ data.name }}</a>
         <span v-else>{{ data.name }}</span>
       </template>
     </el-tree>
@@ -10,20 +10,26 @@
 </template>
 
 <script setup>
-import { computed, useTemplateRef } from 'vue';
+import { watch, ref } from 'vue';
 
 const props = defineProps({
   menus: { type: [Object, Array], default: [] },
   anchor: { type: Boolean, default: true }
 });
 
-const expandKeys = computed(() => {
-  if (!props.menus.length) return [];
-  return [props.menus[0].id];
-});
+const expandKeys = ref([0]);
+watch(() => props.menus, list => {
+  if (!list.length) return [];
+  expandKeys.value = [list[0].id];
+}, { immediate: true });
 
-function nodeCliked(node) {
-  console.log('node ==>', node);
+
+function nodeClicked(node) {
+  const { path } = node;
+  if (!path) return;
+  const target = document.querySelector(`#${path}`);
+  if (!target) return;
+  target.scrollIntoView({ behavior: 'smooth' });
 }
 
 function isAnchor(data) {
@@ -33,18 +39,18 @@ function isAnchor(data) {
 const configs = {
   props: { label: 'title' },
   defaultExpandAll: false,
-  expandOnClickNode: false,
+  expandOnClickNode: true,
   accordion: true,
+  highlightCurrent: true,
   nodeKey: 'id',
   indent: 0,
+  props: {
+    class: data => `node-level${data.level}`,
+  },
   icon: () => ''
 };
 
-// const router = useRouter();
-// const paths = router.currentRoute.value.path.split('/');
-// const defaultPath = ref(paths.pop());
-
-const emitter = defineEmits(['nodeClick'])
+const emitter = defineEmits(['nodeClick']);
 function onNodeClick(nodeData) {
   emitter('nodeClick', nodeData);
 }
@@ -56,5 +62,14 @@ function onNodeClick(nodeData) {
 
 .cme-tree-menu {
   @include position(relative);
+
+  :deep(.node-level1 .label1) {
+    color: #424349;
+    font-weight: 600;
+  }
+
+  :deep(.node-level2 .label2) {
+    color: #424349;
+  }
 }
 </style>

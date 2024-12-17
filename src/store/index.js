@@ -101,15 +101,17 @@ const useGlobal = defineStore('global', () => {
       const m2Item = m2.find(m => m.id === item.appMenuId);
       m2Item.children.push({ id, name: title, level: 3 });
     });
-    menus.value.forEach(menu => {
-      menu.children.forEach(m2 => {
-        if (!(samples[m2.id] && samples[m2.id].length)) return;
-        m2.children = samples[m2.id].map(s => {
-          const { id, title } = s;
-          return { id, name: title };
-        });
-      });
-    });
+    // 添加三级菜单
+    // menus.value.forEach(menu => {
+    //   menu.children.forEach(m2 => {
+    //     if (!(samples[m2.id] && samples[m2.id].length)) return;
+    //     m2.children = samples[m2.id].map(s => {
+    //       const { id, title } = s;
+    //       return { id, name: title, level: 3 };
+    //     });
+    //   });
+    // });
+    // 组件服务添加快速上手菜单
     // if (cate === 'components') {
     //   menus.value.unshift(copy(cMenus));
     // }
