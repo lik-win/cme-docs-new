@@ -1,46 +1,22 @@
 <template>
   <SampleLayout type="dataServices">
     <template #page-head>
-      <h3 class="page-title">数据服务 <span class="bubble">930种</span></h3>
+      <h3 class="page-title">数据服务
+        <span class="bubble">994种</span>
+        <img class="new-icon" src="./../assets/images/icons/icon-new.webp">
+      </h3>
       <p class="page-desc">
         针对业务应用特点，对各类数据进行结构和存储的差异化设计，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的汇集、加工和管理，推出COGTIF瓦片服务以及基于IOTDB的查询服务。解决数据规范、存储集约、应用效率等问题。
       </p>
       <div class="info-list">
-        <a data-href="#modeData" class="info-item">
-          <label class="lbl1">18类</label>
-          <label class="lbl2">815种模式资料</label>
-          <p class="desc">MESO_1KM、EC、NCEP等模式</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#radar" class="info-item">
-          <label class="lbl1">5类</label>
-          <label class="lbl2">20种雷达资料</label>
-          <p class="desc">组合反射率、X波段雷达等资料</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#satellite" class="info-item">
-          <label class="lbl1">7类</label>
-          <label class="lbl2">30种卫星资料</label>
-          <p class="desc">FY4B、FY3G、HIMAWARI-9等资料</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#largeModel" class="info-item">
-          <label class="lbl1">6类</label>
-          <label class="lbl2">54种大模型资料</label>
-          <p class="desc">风清、风乌、风雷、盘古等大模型</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#businessComponent" class="info-item">
-          <label class="lbl1">6类</label>
-          <label class="lbl2">11种高空资料</label>
-          <p class="desc">风廓线、微波辐射计等资料</p>
-        </a>
-        <!-- <span class="splitor"></span>
-        <a data-href="#businessComponent" class="info-item">
-          <label class="lbl1">6类</label>
-          <label class="lbl2">11种地面资料</label>
-          <p class="desc">风廓线、微波辐射计等资料</p>
-        </a> -->
+        <template v-for="(item, idx) in dataInfo">
+          <a v-clickLink :data-href="item.href" class="info-item">
+            <label class="lbl1">{{ item.cate }}</label>
+            <label class="lbl2">{{ item.label }}</label>
+            <p class="desc">{{ item.desc }}</p>
+          </a>
+          <span v-if="idx < dataInfo.length - 1" class="splitor"></span>
+        </template>
       </div>
     </template>
   </SampleLayout>
@@ -48,6 +24,40 @@
 
 <script setup>
 import SampleLayout from '../components/SampleLayout.vue';
+import { vClickLink } from './../directives/vClickLink';
+
+const dataInfo = [{
+  cate: '18类',
+  label: '815种模式资料',
+  desc: 'MESO_1KM、EC、NCEP等模式',
+  href: '#modeData'
+},
+{
+  cate: '5类',
+  label: '20种雷达资料',
+  desc: '组合反射率、X波段雷达等资料',
+  href: '#radar'
+}, {
+  cate: '7类',
+  label: '30种卫星资料',
+  desc: 'FY4B、FY3G、HIMAWARI-9等资料',
+  href: '#satellite'
+}, {
+  cate: '6类',
+  label: '54种大模型资料',
+  desc: '风清、风乌、风雷、盘古等大模型',
+  href: '#largeModel'
+}, {
+  cate: '6类',
+  label: '11种高空资料',
+  desc: '风廓线、微波辐射计等资料',
+  href: '#businessComponent'
+}, {
+  cate: '14类',
+  label: '64种地面资料',
+  desc: '地面站、公路交通等资料',
+  href: ''
+}];
 </script>
 
 <style lang="scss" scoped>
@@ -77,6 +87,12 @@ import SampleLayout from '../components/SampleLayout.vue';
     text-align: center;
     @extend .labelStyle;
     border-radius: 0px 27px 27px 27px;
+  }
+
+  .new-icon {
+    position: relative;
+    top: 4px;
+    @include setBox(76px, 32px);
   }
 }
 

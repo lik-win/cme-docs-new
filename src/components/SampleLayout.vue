@@ -39,13 +39,19 @@
         </template>
       </el-main>
     </div>
+    <a v-if="show2Top" class="to-top" @click="toTop">
+      <svg width="24" height="12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-width="2" stroke="currentColor" fill="transparent" d="m0 12 L12 2 L24 12"></path>
+      </svg>
+      TOP
+    </a>
   </div>
 </template>
 
 <script setup>
 import TreeMenu from './../components/TreeMenu.vue'
 import { useGlobal } from '../store/index.js'
-import { ref, computed, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, onMounted, useTemplateRef, watch, ref } from 'vue'
 const store = useGlobal();
 
 const contentEl = useTemplateRef('contentRef');
@@ -66,35 +72,20 @@ watch(
   { immediate: true },
 );
 
-// const imgList = ref(null);
-// watch(() => store.menus3, () => {
-//   Promise.resolve().then(() => {
-//     const target = contentEl.value;
-//     if (!target) return
-//     const images = target.querySelectorAll('.img-box img');
-//     if (!images.length) return;
-//     imgList.value = images;
-//     for (let idx = 0; idx < 15; idx++) {
-//       const img = imgList.value[idx];
-//       if (!img.dataset.src) return;
-//       img.src = img.dataset.src;
-//       img.removeAttribute('data-src');
-//     }
-//   });
-// });
 
 const classMap = {
-  components: 'w280',
-  algorithms: 'w320',
-  dataServices: 'w400'
+  components: 'w260',
+  algorithms: 'w280',
+  dataServices: 'w320'
 }
-const menuClass = computed(() => classMap[props.type])
+const menuClass = computed(() => classMap[props.type]);
 
 function getTime(item) {
-  const { updateTime, createTime } = item
-  return (updateTime || createTime || '').split(/\s/)[0]
+  const { updateTime, createTime } = item;
+  return (updateTime || createTime || '').split(/\s/)[0];
 }
 
+const show2Top = ref(false);
 onMounted(() => {
   const pageEl = document.querySelector('.cme-layout');
   const targetEl = contentEl.value;
@@ -104,8 +95,10 @@ onMounted(() => {
     if (top < topGap) {
       if (targetEl.classList.contains('sticky')) return;
       targetEl.classList.add('sticky');
+      show2Top.value = true;
       return targetEl.click();
     }
+    show2Top.value = false;
     targetEl.classList.remove('sticky');
     pageEl.click();
   });
@@ -125,6 +118,11 @@ const vLazy = {
     observer.observe(el);
   }
 };
+
+function toTop() {
+  const page = document.querySelector('.cme-layout');
+  page.scrollTop = 0;
+}
 
 // AI算法，单独打开窗口
 const openId = '1867136462803275778';
@@ -167,22 +165,23 @@ function handleOpen() {
 .el-aside {
   padding-top: 30px;
 
-  &.w280 {
+  &.w260 {
     width: 260px;
   }
 
-  &.w320 {
+  &.w280 {
     width: 280px;
   }
 
-  &.w400 {
-    width: 360px;
+  &.w320 {
+    width: 320px;
   }
 }
 
 .content {
   flex: 1;
   padding: 0;
+  padding-right: 48px;
   border-left: 1px solid #dcdddf;
   scroll-behavior: smooth;
 }
@@ -214,10 +213,6 @@ function handleOpen() {
   &.module {
     padding: 0;
     background-color: #ffffff;
-
-    // &+.list-box {
-    //   padding-top: 30px;
-    // }
   }
 
   .box-title {
@@ -317,6 +312,21 @@ function handleOpen() {
         @include setFont(14px, 16px);
       }
     }
+  }
+}
+
+.to-top {
+  @include position(fixed, $bottom: 160px, $right: 40px);
+  @include flex(center, center, column);
+  @include setBox(48px, 48px);
+  border-radius: 50%;
+  background-color: #0071E3;
+  @include setFont(14px, 24px);
+  color: #ffffff;
+  transition: 0.1s;
+
+  &:hover {
+    transform: scale(1.1);
   }
 }
 </style>

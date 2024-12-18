@@ -5,7 +5,7 @@
 <script setup>
 import { ref } from 'vue';
 
-const pdfUrl = ref('/cme/cme-support.pdf');
+const pdfUrl = ref('/cme/docs/cme-support.pdf');
 </script>
 
 <style scoped>

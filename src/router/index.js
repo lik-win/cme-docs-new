@@ -81,6 +81,12 @@ const router = createRouter({
   routes
 });
 
+router.afterEach(() => {
+  const pageEl = document.querySelector('.cme-layout');
+  if (!pageEl) return;
+  pageEl.scrollTop = 0;
+});
+
 
 export { routeBase };
 export default router;
