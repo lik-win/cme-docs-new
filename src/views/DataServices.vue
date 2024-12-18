@@ -1,7 +1,10 @@
 <template>
   <SampleLayout type="dataServices">
     <template #page-head>
-      <h3 class="page-title">数据服务 <span class="bubble">994种</span></h3>
+      <h3 class="page-title">数据服务
+        <span class="bubble">994种</span>
+        <img class="new-icon" src="./../assets/images/icons/icon-new.webp">
+      </h3>
       <p class="page-desc">
         针对业务应用特点，对各类数据进行结构和存储的差异化设计，提供模式资料、雷达资料、卫星资料等基础数据访问，实现各类数据的汇集、加工和管理，推出COGTIF瓦片服务以及基于IOTDB的查询服务。解决数据规范、存储集约、应用效率等问题。
       </p>
@@ -12,7 +15,7 @@
             <label class="lbl2">{{ item.label }}</label>
             <p class="desc">{{ item.desc }}</p>
           </a>
-          <span v-if="idx !== dataInfo.length - 1" class="splitor"></span>
+          <span v-if="idx < dataInfo.length - 1" class="splitor"></span>
         </template>
       </div>
     </template>
@@ -84,6 +87,12 @@ const dataInfo = [{
     text-align: center;
     @extend .labelStyle;
     border-radius: 0px 27px 27px 27px;
+  }
+
+  .new-icon {
+    position: relative;
+    top: 4px;
+    @include setBox(76px, 32px);
   }
 }
 

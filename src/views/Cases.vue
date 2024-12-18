@@ -168,6 +168,13 @@ const list = ref(<Array<Item>>[
         width: 100%;
         aspect-ratio: 16 / 10;
 
+        // &:hover::after {
+        //   content: "";
+        //   @include position(absolute, $left: 0, $top: 0);
+        //   @include setBox(100%, 100%);
+        //   backdrop-filter: blur(3px);
+        // }
+
         img {
           @include position(absolute, $top: 0, $left: 0);
         }

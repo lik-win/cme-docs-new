@@ -23,7 +23,10 @@
     </div>
     <div class="sample-box">
       <p class="box-title">运行效果</p>
-      <Repl ref="repl" v-bind="replOptions"></Repl>
+      <!-- <Repl ref="repl" v-bind="replOptions"></Repl> -->
+      <div class="cme-repl2">
+        <iframe :srcdoc="codeText" frameborder="0"></iframe>
+      </div>
     </div>
     <hr class="s-line" v-if="apiUrl">
     <div class="args-box" v-if="apiUrl">
@@ -72,6 +75,7 @@ editStore.deleteAllFiles();
 editStore.mainFile = 'demo.html';
 editStore.addFile(new File('demo.html', ''));
 
+const codeText = ref('');
 const base = routeBase.replace(/\//g, '');
 
 const docInfo = ref({
@@ -100,8 +104,9 @@ function showCode(fileList) {
     let _code = code.replace(reg, `href="/${base}/`);
     _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|tiffs)\//ig, `$1/${base}/$2/`);
     _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
-    editStore.activeFile.setRaw(_code);
-    replRef.value.onCodeChange(_code);
+    codeText.value = _code;
+    // editStore.activeFile.setRaw(_code);
+    // replRef.value.onCodeChange(_code);
   });
 }
 
@@ -302,6 +307,11 @@ $border: 1px solid #FFFFFF19;
     background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
     border: 1px solid #B8C2C2;
     border-radius: 8px;
+  }
+
+  .cme-repl2 {
+    @extend .cme-repl;
+    height: 450px;
   }
 
   .info-block {
