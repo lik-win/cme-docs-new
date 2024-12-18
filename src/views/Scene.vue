@@ -8,6 +8,8 @@ import d3 from '../assets/images/scene/scenes-3d.png'
 import defaultJpg from '../assets/images/scene/default.jpg'
 // @ts-ignore
 import algorithm from './../assets/images/scene/alogrithm.png';
+// @ts-ignore
+import apiPng from './../assets/images/scene/scenes-api.png';
 
 interface Item {
   id: number
@@ -21,17 +23,17 @@ interface Item {
 const list = ref(<Array<Item>>[
   {
     id: 1,
-    title: '算法',
+    title: '算法开发',
     type: 'alogrithm',
     image: algorithm,
     download: '/cme/docs/一体化平台算法开发文档.pdf',
-    desc: '我们的算法服务平台，基于数据体协议设计，提供全面的算法生命周期管理。通过算法镜像对算法集中管理和版本控制，还具备强大的调度能力，可处理实时与定时任务。平台实现了结果集的系统化管理，并记录详细的调度历史以供审查。此外，其模块化的架构确保了算法的易扩展性和维护性，为用户提供了一个高效、灵活且可靠的算法运行环境。',
+    desc: '算法服务平台，基于数据体协议设计，提供全面的算法生命周期管理。通过算法镜像对算法集中管理和版本控制，还具备强大的调度能力，可处理实时与定时任务。平台实现了结果集的系统化管理，并记录详细的调度历史以供审查。此外，其模块化的架构确保了算法的易扩展性和维护性，为用户提供了一个高效、灵活且可靠的算法运行环境。',
   },
   {
     id: 2,
-    title: '接口',
+    title: '接口开发',
     type: 'interface',
-    image: algorithm,
+    image: apiPng,
     link: 'http://10.40.88.119:11015/#/home',
     desc: '一体化开发框架整合了配置中心、注册中心、日志收集与监控等核心功能，同时提供丰富的SDK工具包。旨在简化开发流程，使开发者能够迅速融入平台并充分利用其提供的各种基础服务和能力，从而加速应用的开发与部署，提高开发效率和产品质量，确保应用程序在复杂环境下依然稳定可靠。',
   },
@@ -82,10 +84,13 @@ function download(item: Item) {
     </div>
     <!-- 列表区域 -->
     <div class="list-container">
+      <div class="list-head">
+        <img src="./../assets/images/scene/scene-head.webp">
+      </div>
       <div class="card" v-for="(item, index) in list">
         <template v-if="index % 2 == 0">
           <div class="img">
-            <img :src="item.image" alt="" />
+            <img :src="item.image" />
           </div>
           <div class="text-container">
             <div class="title">
@@ -162,6 +167,11 @@ function download(item: Item) {
     height: auto;
     display: flex;
     flex-direction: column;
+
+    .list-head {
+      width: 100%;
+      height: 900px;
+    }
 
     .card {
       width: 100%;

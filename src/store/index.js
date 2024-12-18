@@ -41,9 +41,8 @@ const useGlobal = defineStore('global', () => {
   };
   let currentCate = null;
   let sampleList = [];
-  // let treeMenus = [];
-  let menus = ref([]);
-  let menus3 = ref([]);
+  const menus = ref([]);
+  const expandKey = ref(null);
   const samples = reactive({});
 
   // 获取菜单树和示例列表
@@ -87,6 +86,7 @@ const useGlobal = defineStore('global', () => {
     currentCate = cate;
     const mList = menuList[cate] || [];
     menus.value = getMenus2(mList);
+    expandKey.value = menus.value[0]?.id;
     const m2 = copy(mList.filter(m => m.level === 2));
     const m2Ids = m2.map(m => m.id);
     m2.forEach(m => m.children = []);
@@ -115,9 +115,22 @@ const useGlobal = defineStore('global', () => {
     // if (cate === 'components') {
     //   menus.value.unshift(copy(cMenus));
     // }
-    menus3.value = m2.filter(m => m.children.length);
   }
-  return { menus, menus3, samples, updateMenus };
+
+  function setCurrentKey(hash) {
+    if (!(hash && typeof hash === 'string')) return;
+    let id = hash;
+    if (hash.startsWith('#')) {
+      const p = hash.slice(1);
+      id = menus.value.find(m => m.path === p)?.id;
+      if (!id) return;
+    }
+    console.log('设置expandKey =>', id);
+    expandKey.value = id;
+  }
+
+
+  return { menus, expandKey, samples, updateMenus, setCurrentKey };
 });
 
 export { useGlobal };

@@ -147,9 +147,10 @@ onMounted(() => {
 });
 
 function onKeydown(e) {
-  if (e.keyCode === 37) {
+  console.log(e.keyCode);
+  if (e.keyCode === 37 || e.keyCode === 38) {
     scrollEl.value.prev();
-  } else if (e.keyCode === 39) {
+  } else if (e.keyCode === 39 || e.keyCode === 40) {
     scrollEl.value.next();
   }
 }
@@ -169,6 +170,9 @@ const vWheel = {
       setTimeout(() => pending = false, 1000);
     });
     window.addEventListener('keydown', onKeydown);
+  },
+  beforeMount() {
+    window.removeEventListener('keydown', onkeydown);
   }
 };
 
