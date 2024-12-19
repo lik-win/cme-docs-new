@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { watch, computed, ref } from 'vue';
+import { watch, computed, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -33,6 +33,18 @@ watch(router.currentRoute, route => {
   menu.value = route.meta.cate;
 });
 
+onMounted(() => {
+  const logoEl = document.querySelector('.cme-nav .logo');
+  let pageEl = document.querySelector('.cme-layout');
+  let scale = 1.0;
+  pageEl.addEventListener('scroll', e => {
+    const sTop = pageEl.scrollTop;
+    const _scale = sTop / (300 * window.innerWidth / 1920) + 1;
+    scale = Math.max(Math.min(2, _scale), 1);
+    logoEl.style.transform = `scale(${scale})`;
+  });
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -40,13 +52,15 @@ watch(router.currentRoute, route => {
 
 .cme-nav {
   @include flex(space-between, center);
-  @include setBox(100%, 60px, 0 200px);
+  @include setBox(100%, 70px, 0 200px);
   user-select: none;
 
   .logo {
     @include setBox(100px, 30px);
-    background: url("./../assets/images/logo1.webp") no-repeat center;
+    margin-left: 100px;
+    background: url("./../assets/images/logo2x.webp") no-repeat center;
     background-size: 100% 100%;
+    transform-origin: 50% 50%;
   }
 
   .link {
@@ -55,6 +69,7 @@ watch(router.currentRoute, route => {
     line-height: 28px;
     opacity: 0.7;
     transition: 0.2s;
+    font-size: 18px;
     color: #ffffff;
 
     &.btn-login {

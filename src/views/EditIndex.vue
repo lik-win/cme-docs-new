@@ -26,13 +26,13 @@
       <Repl ref="repl" v-bind="replOptions"></Repl>
       <!-- <div class="info-block" v-html="docInfo.useIntroduce"></div> -->
     </div>
-    <div class="sample-box">
+    <!-- <div class="sample-box">
       <p class="title">接口参数</p>
       <p class="line">入参列表</p>
       <p>暂无</p>
       <p class="line">出参列表</p>
       <p>暂无</p>
-    </div>
+    </div> -->
   </el-main>
 </template>
 <script setup>
