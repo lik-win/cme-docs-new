@@ -1,0 +1,143 @@
+/* 船舶状态 */
+
+.box {
+  height: 500px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ffffff;
+}
+
+.cur {
+  width: 400px;
+  height: 400px;
+  background-image: url("/cme/images/icon-status/cs.webp");
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.cur .cur_wspd {
+  position: absolute;
+  left: 83px;
+  top: 35%;
+  transform: rotate(321deg);
+  background-image: url("/cme/images/icon-status/cur_wspd.webp");
+  background-repeat: no-repeat;
+  width: 90px;
+  height: 25px;
+}
+
+.cur .wspd_text {
+  position: absolute;
+  left: 90px;
+  top: 46%;
+  color: rgb(135, 255, 231);
+}
+
+.cur .cur_course {
+  position: absolute;
+  left: 200px;
+  top: 25%;
+  transform: rotate(-9.9deg);
+  background-image: url("/cme/images/icon-status/course.webp");
+  background-repeat: no-repeat;
+  width: 90px;
+  height: 25px;
+}
+
+.cur .cur_shww {
+  position: absolute;
+  left: 247px;
+  top: 40%;
+  transform: rotate(281deg);
+  background-repeat: no-repeat;
+  width: 93px;
+  height: 34px;
+  background-image: url("/cme/images/icon-status/shww.webp");
+}
+
+.cur .shww_text {
+  position: absolute;
+  left: 260px;
+  top: 55%;
+  color: rgb(110, 202, 255);
+}
+
+.cur .cur_wdir {
+  position: absolute;
+  left: 168px;
+  top: 65%;
+  background-repeat: no-repeat;
+  width: 36px;
+  height: 20px;
+  background-image: url("/cme/images/icon-status/wdir.webp");
+}
+
+.cur .wdir_text {
+  position: absolute;
+  left: 168px;
+  top: 70%;
+  color: rgb(255, 255, 255);
+}
+
+.cur .cur_heading {
+  width: 82px;
+  height: 20px;
+  position: absolute;
+  left: 110px;
+  top: 50%;
+  transform: rotate(79deg);
+  background-repeat: no-repeat;
+  background-image: url("/cme/images/icon-status/heading.webp");
+  width: 170px;
+  height: 81px;
+}
+
+.item {
+  color: #8a95a2;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
+  width: 35%;
+  text-align: center;
+}
+
+.item>div {
+  background-repeat: no-repeat;
+}
+
+.heading {
+  background-image: url("/cme/images/icon-status/heading.webp");
+  width: 80px;
+  height: 30px;
+}
+
+.heading-sm {
+  background-image: url("/cme/images/icon-status/heading-sm.webp");
+  width: 100px;
+  height: 29px;
+}
+
+.cur_wspd {
+  background-image: url("/cme/images/icon-status/cur_wspd.webp");
+  width: 70px;
+  height: 25px;
+}
+
+.course {
+  background-image: url("/cme/images/icon-status/course.webp");
+  width: 80px;
+  height: 30px;
+}
+
+.shww {
+  background-image: url("/cme/images/icon-status/shww.webp");
+  width: 80px;
+  height: 30px;
+}
+
+/*# sourceMappingURL=aa.css.map */
