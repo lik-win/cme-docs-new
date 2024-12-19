@@ -1,5 +1,6 @@
 @import "./mixins.scss";
 
+// 树形菜单
 .el-tree {
   padding-left: 40px;
   background-color: var(--background-color);
@@ -35,7 +36,8 @@
     display: none !important;
 
     &+span {
-      padding-left: 36px;
+      padding-left: 20px;
+      font-size: 14px;
     }
   }
 
@@ -69,7 +71,11 @@
         @include position(absolute);
         left: 11px;
         height: 100%;
-        border-left: 1px solid #bec1c8;
+        border-left: 1px solid #d5d7dd;
+      }
+
+      .el-icon {
+        display: none !important;
       }
     }
 
@@ -85,25 +91,46 @@
     .el-icon:not(.is-leaf) {
       background: url("./images/icons/icon-collapsed.webp") no-repeat center;
     }
+
+    .el-tree-node__children .el-icon {
+      display: none !important;
+    }
   }
 }
 
-.el-tabs {
-  .el-tabs__item {
-    color: var(--text-color2);
+.el-carousel {
+  .el-carousel__indicators {
+    @include flex(center, center);
+    margin-bottom: 20px;
+  }
 
-    &.is-active {
-      color: var(--text-color);
+  .el-carousel__button {
+    @include setBox(12px, 12px, 0);
+    border-radius: 20px;
+    overflow: hidden;
+
+    span {
+      @include setFont(14px, 20px, 600);
+      color: #0071E3;
+      opacity: 0;
+      transition: 0.2s;
     }
   }
 
-  .el-tabs__nav-wrap::after {
-    height: 1px !important;
-    background-color: var(--background-color3) !important;
+  .is-active .el-carousel__button {
+    @include setBox(24px, 24px);
+    box-shadow: 0 0 10px #ffffff;
+
+    span {
+      opacity: 1.0;
+    }
   }
 
+  .el-carousel__arrow {
+    transform: scale(1.6);
 
-  .el-tabs__active-bar {
-    height: 1px !important;
+    &:hover {
+      border: 1px solid #B8C2C2;
+    }
   }
 }

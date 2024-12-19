@@ -10,7 +10,7 @@
     <div class="head-info">
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
-        <p class="desc-text">这是一段服务描述</p>
+        <p class="desc-text">{{ docInfo.describe || '暂无描述' }}</p>
       </div>
       <p class="src-path">
         <label>版本列表：</label>
@@ -23,7 +23,10 @@
     </div>
     <div class="sample-box">
       <p class="box-title">运行效果</p>
-      <Repl ref="repl" v-bind="replOptions"></Repl>
+      <!-- <Repl ref="repl" v-bind="replOptions"></Repl> -->
+      <div class="cme-repl2">
+        <iframe :srcdoc="codeText" frameborder="0"></iframe>
+      </div>
     </div>
     <hr class="s-line" v-if="apiUrl">
     <div class="args-box" v-if="apiUrl">
@@ -61,6 +64,7 @@ import { useRouter } from 'vue-router'
 import { Repl, useStore, File } from './../../repl/index.ts';
 import { getSampleInfo } from './../apis/index.js';
 import { useGlobal } from './../store/index.js';
+import { routeBase } from './../router/index.js';
 
 const store = useGlobal();
 store.updateMenus('components');
@@ -70,6 +74,9 @@ const editStore = useStore();
 editStore.deleteAllFiles();
 editStore.mainFile = 'demo.html';
 editStore.addFile(new File('demo.html', ''));
+
+const codeText = ref('');
+const base = routeBase.replace(/\//g, '');
 
 const docInfo = ref({
   title: null,
@@ -93,8 +100,13 @@ function showCode(fileList) {
   editStore.mainFile = fileName;
   editStore.addFile(new File(fileName, ''));
   fetch(url).then(res => res.text()).then(code => {
-    editStore.activeFile.setRaw(code);
-    replRef.value.onCodeChange(code);
+    const reg = new RegExp(`href="\\/\(?!${base}\)`, 'ig');
+    let _code = code.replace(reg, `href="/${base}/`);
+    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|tiffs)\//ig, `$1/${base}/$2/`);
+    _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
+    codeText.value = _code;
+    // editStore.activeFile.setRaw(_code);
+    // replRef.value.onCodeChange(_code);
   });
 }
 
@@ -117,6 +129,10 @@ function parseDocInfo(data) {
   };
 }
 
+function isObj(val) {
+  return Object.prototype.toString.call(val) === '[object Object]';
+}
+
 function parseArgs(data) {
   const { url, args } = data;
   if (url) {
@@ -125,6 +141,13 @@ function parseArgs(data) {
   if (args) {
     const list = [];
     Object.keys(args).forEach(key => {
+      const { value } = args[key];
+      if (isObj(value)) {
+        Object.assign(args[key], {
+          innerType: 'object',
+          value: JSON.stringify(value)
+        });
+      }
       list.push({ ...args[key], name: key });
     });
     apiArgs.value = list;
@@ -196,6 +219,8 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
 
   .header {
     @include position(absolute, $left: 0, $top: 20px);
@@ -282,6 +307,11 @@ $border: 1px solid #FFFFFF19;
     background: linear-gradient(315deg, #EBF8FF 0%, #E6ECFF 100%);
     border: 1px solid #B8C2C2;
     border-radius: 8px;
+  }
+
+  .cme-repl2 {
+    @extend .cme-repl;
+    height: 450px;
   }
 
   .info-block {

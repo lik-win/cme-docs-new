@@ -80,3 +80,23 @@ dl {
   background-color: #cccccc;
   border-radius: 2px;
 }
+
+.localDataImport {
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background-color: #dbe1e1 !important;
+  z-index: 9;
+}
+
+#img_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#img_box img {
+  width: unset !important;
+  height: 100% !important;
+}

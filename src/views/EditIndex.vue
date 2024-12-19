@@ -10,7 +10,7 @@
     <div class="head-info">
       <div class="desc-box">
         <p class="desc-title">服务描述</p>
-        <p class="desc-text">这是一段服务描述</p>
+        <p class="desc-text">{{ docInfo.describe || '暂无描述' }}</p>
       </div>
       <p class="src-path">
         <label>版本列表：</label>
@@ -41,6 +41,7 @@ import { useRouter } from 'vue-router'
 import { Repl, useStore, File } from './../../repl/index.ts';
 import { getSampleInfo } from './../apis/index.js';
 import { useGlobal } from './../store/index.js';
+import { routeBase } from './../router/index.js';
 
 const store = useGlobal();
 store.updateMenus('components');
@@ -50,6 +51,8 @@ const editStore = useStore();
 editStore.deleteAllFiles();
 editStore.mainFile = 'demo.html';
 editStore.addFile(new File('demo.html', ''));
+
+const base = routeBase.replace(/\//g, '');
 
 const docInfo = ref({
   title: null,
@@ -70,8 +73,12 @@ function showCode(fileList) {
   editStore.mainFile = fileName;
   editStore.addFile(new File(fileName, ''));
   fetch(url).then(res => res.text()).then(code => {
-    editStore.activeFile.setRaw(code);
-    replRef.value.onCodeChange(code);
+    const reg = new RegExp(`href="\\/\(?!${base}\)`, 'ig');
+    let _code = code.replace(reg, `href="/${base}/`);
+    _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|tiffs)\//ig, `$1/${base}/$2/`);
+    _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
+    editStore.activeFile.setRaw(_code);
+    replRef.value.onCodeChange(_code);
   });
 }
 
@@ -136,6 +143,8 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
+  height: 100vh;
+  overflow-y: auto;
 
   .header {
     @include position(absolute, $left: 0, $top: 20px);

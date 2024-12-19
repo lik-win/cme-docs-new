@@ -3,7 +3,7 @@
     <div class="page-head">
       <slot name="page-head"></slot>
     </div>
-    <div class="page-body">
+    <div class="page-body" ref="contentRef">
       <el-aside :class="menuClass">
         <TreeMenu :menus="store.menus"></TreeMenu>
       </el-aside>
@@ -12,42 +12,26 @@
           <slot name="module"></slot>
         </div>
         <template v-for="item in store.menus">
-          <div :id="item.path" class="list-box">
+          <div v-if="!item.ignore" :id="item.path" class="list-box">
             <h3 class="box-title">{{ item.name }}</h3>
             <!-- <p class="menu-desc">这是描述</p> -->
             <template v-for="sub in item.children">
               <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
               <div class="list">
                 <template v-for="eg in store.samples[sub.id]">
-                  <template v-if="eg.id === '1867136462803275778'">
-                    <div class="item" :title="eg.title" @click="handleOpen">
-                      <router-link class="img-box">
-                        <img :src="eg.cover" />
-                      </router-link>
-                      <p class="name-box">
-                        <span class="name">{{ eg.title }}</span>
-                        <span v-if="eg.latestVersion" class="version"
-                          >v{{ eg.latestVersion }}</span
-                        >
-                      </p>
-                      <p class="pub-date">发布 {{ getTime(eg) }}</p>
-                    </div>
-                  </template>
-
-                  <template v-else>
-                    <div class="item" :title="eg.title">
-                      <router-link class="img-box" :to="`/${path}/${eg.id}`">
-                        <img :src="eg.cover" />
-                      </router-link>
-                      <p class="name-box">
-                        <span class="name">{{ eg.title }}</span>
-                        <span v-if="eg.latestVersion" class="version"
-                          >v{{ eg.latestVersion }}</span
-                        >
-                      </p>
-                      <p class="pub-date">发布 {{ getTime(eg) }}</p>
-                    </div>
-                  </template>
+                  <div class="item" :title="eg.title">
+                    <a v-if="eg.id === openId" class="img-box" @click="handleOpen">
+                      <img v-lazy :data-src="eg.cover" />
+                    </a>
+                    <router-link v-else class="img-box" :to="`/${path}/${eg.id}`">
+                      <img v-lazy :data-src="eg.cover" />
+                    </router-link>
+                    <p class="name-box">
+                      <span class="name">{{ eg.title }}</span>
+                      <span v-if="eg.latestVersion" class="version">{{ eg.latestVersion }}</span>
+                    </p>
+                    <p class="pub-date">发布 {{ getTime(eg) }}</p>
+                  </div>
                 </template>
               </div>
             </template>
@@ -55,15 +39,22 @@
         </template>
       </el-main>
     </div>
+    <a v-if="show2Top" class="to-top" @click="toTop">
+      <svg width="24" height="12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-width="2" stroke="currentColor" fill="transparent" d="m0 12 L12 2 L24 12"></path>
+      </svg>
+      TOP
+    </a>
   </div>
 </template>
 
 <script setup>
 import TreeMenu from './../components/TreeMenu.vue'
 import { useGlobal } from '../store/index.js'
-import { computed, watch } from 'vue'
-const store = useGlobal()
+import { computed, onMounted, useTemplateRef, watch, ref } from 'vue'
+const store = useGlobal();
 
+const contentEl = useTemplateRef('contentRef');
 const props = defineProps({
   type: { type: String, required: true },
 })
@@ -79,34 +70,63 @@ watch(
     store.updateMenus(props.type)
   },
   { immediate: true },
-)
+);
+
 
 const classMap = {
-  components: 'w280',
-  algorithms: 'w320',
-  dataServices: 'w360',
+  components: 'w260',
+  algorithms: 'w280',
+  dataServices: 'w320'
 }
-const menuClass = computed(() => classMap[props.type])
+const menuClass = computed(() => classMap[props.type]);
 
 function getTime(item) {
-  const { updateTime, createTime } = item
-  return (updateTime || createTime || '').split(/\s/)[0]
+  const { updateTime, createTime } = item;
+  return (updateTime || createTime || '').split(/\s/)[0];
 }
 
-// const vTop = {
-//   mounted(el) {
-//     const targetNode = document.querySelector('.cme-layout');
-//     const headH = document.querySelector('.page-head').offsetHeight;
-//     const { top } = el.getBoundingClientRect();
-//     targetNode.addEventListener('scroll', e => {
-//       const dy = Math.max(e.target.scrollTop - top + 60, 0) * 10 / window.innerWidth;
-//       console.log('dy ===>', e.target.scrollTop, top, headH);
-//       el.style.transform = `translateY(${dy}rem)`;
-//     });
-//   }
-// }
+const show2Top = ref(false);
+onMounted(() => {
+  const pageEl = document.querySelector('.cme-layout');
+  const targetEl = contentEl.value;
+  pageEl.addEventListener('scroll', e => {
+    const topGap = 70 * window.innerWidth / 1920;
+    const { top } = targetEl.getBoundingClientRect();
+    if (top < topGap) {
+      if (targetEl.classList.contains('sticky')) return;
+      targetEl.classList.add('sticky');
+      show2Top.value = true;
+      return targetEl.click();
+    }
+    show2Top.value = false;
+    targetEl.classList.remove('sticky');
+    pageEl.click();
+  });
+});
 
-function handleOpen(){
+const vLazy = {
+  mounted(el) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          observer.unobserve(lazyImage);
+        }
+      });
+    });
+    observer.observe(el);
+  }
+};
+
+function toTop() {
+  const page = document.querySelector('.cme-layout');
+  page.scrollTop = 0;
+}
+
+// AI算法，单独打开窗口
+const openId = '1867136462803275778';
+function handleOpen() {
   window.open('http://10.40.88.119:12009/#/', '_blank');
 }
 </script>
@@ -130,17 +150,24 @@ function handleOpen(){
   }
 
   .page-body {
-    position: sticky;
-    top: 60px;
     display: flex;
-    height: 100vh;
     width: 100vw;
-    overflow-y: auto;
+
+    &.sticky {
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
   }
 }
 
 .el-aside {
-  padding-top: 60px;
+  padding-top: 30px;
+
+  &.w260 {
+    width: 260px;
+  }
 
   &.w280 {
     width: 280px;
@@ -149,15 +176,12 @@ function handleOpen(){
   &.w320 {
     width: 320px;
   }
-
-  &.w360 {
-    width: 360px;
-  }
 }
 
 .content {
   flex: 1;
   padding: 0;
+  padding-right: 48px;
   border-left: 1px solid #dcdddf;
   scroll-behavior: smooth;
 }
@@ -189,10 +213,6 @@ function handleOpen(){
   &.module {
     padding: 0;
     background-color: #ffffff;
-
-    // &+.list-box {
-    //   padding-top: 30px;
-    // }
   }
 
   .box-title {
@@ -273,18 +293,12 @@ function handleOpen(){
         }
 
         .version {
-          @include setTheme(
-            'background-color',
-            (
-              dark: var(--text-color-active),
-            )
-          );
-          @include setTheme(
-            'border',
-            (
-              light: 1px solid var(--text-color2),
-            )
-          );
+          @include setTheme('background-color',
+            (dark: var(--text-color-active),
+            ));
+          @include setTheme('border',
+            (light: 1px solid var(--text-color2),
+            ));
           font-size: 12px;
           background-color: var(--background-color5);
           border-radius: 20px;
@@ -298,6 +312,21 @@ function handleOpen(){
         @include setFont(14px, 16px);
       }
     }
+  }
+}
+
+.to-top {
+  @include position(fixed, $bottom: 160px, $right: 40px);
+  @include flex(center, center, column);
+  @include setBox(48px, 48px);
+  border-radius: 50%;
+  background-color: #0071E3;
+  @include setFont(14px, 24px);
+  color: #ffffff;
+  transition: 0.1s;
+
+  &:hover {
+    transform: scale(1.1);
   }
 }
 </style>

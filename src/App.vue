@@ -5,7 +5,9 @@
         <NavHead></NavHead>
       </el-header>
       <div class="content-view">
-        <router-view />
+        <KeepAlive :includes="cacheList">
+          <router-view />
+        </KeepAlive>
       </div>
     </div>
   </el-config-provider>
@@ -15,6 +17,7 @@
 import { ElConfigProvider } from 'element-plus';
 import NavHead from './components/NavHead.vue';
 
+const cacheList = ['DataServices', 'Algorithms', 'Samples'];
 </script>
 
 <style lang="scss" scoped>
@@ -23,9 +26,9 @@ import NavHead from './components/NavHead.vue';
 .cme-layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
   background-color: var(--background-color);
   color: var(--text-color);
+  height: 100vh;
   overflow: auto;
   scroll-behavior: smooth;
 }
