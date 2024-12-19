@@ -219,7 +219,7 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 70px);
   overflow-y: auto;
 
   .header {
