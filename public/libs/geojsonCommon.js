@@ -25,21 +25,21 @@ export const  addGeojsonLayer=(map,featuresARR,colorCollection)=>{
             fill: new Fill({
               color: fullColor,
             }),
-            stroke: new Stroke({
-              // color: "rgba(255,0,0)",
-              width: 1,
-            }),
-            text: new Text({
-              text: String(valueLabel),
-              font: "24px Calibri,sans-serif",
-              fill: new Fill({
-                color: String(valueLabel) == 0 ? "#ccc" : "#000",
-              }),
-              stroke: new Stroke({
-                color: "#fff",
-                width: 5,
-              }),
-            }),
+            // stroke: new Stroke({
+            //   // color: "rgba(255,0,0)",
+            //   width: 1,
+            // }),
+            // text: new Text({
+            //   text: String(valueLabel),
+            //   font: "24px Calibri,sans-serif",
+            //   fill: new Fill({
+            //     color: String(valueLabel) == 0 ? "#ccc" : "#000",
+            //   }),
+            //   stroke: new Stroke({
+            //     color: "#fff",
+            //     width: 5,
+            //   }),
+            // }),
           });
         },
       });

@@ -78,10 +78,13 @@ const routes = [{
 const routeBase = '/cme/';
 const router = createRouter({
   history: createWebHashHistory(routeBase),
-  routes,
-  scrollBehavior() {
-    return { x: 0, y: 0 };
-  }
+  routes
+});
+
+router.afterEach(() => {
+  const pageEl = document.querySelector('.cme-layout');
+  if (!pageEl) return;
+  pageEl.scrollTop = 0;
 });
 
 

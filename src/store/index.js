@@ -41,9 +41,8 @@ const useGlobal = defineStore('global', () => {
   };
   let currentCate = null;
   let sampleList = [];
-  // let treeMenus = [];
-  let menus = ref([]);
-  let menus3 = ref([]);
+  const menus = ref([]);
+  const expandKey = ref(null);
   const samples = reactive({});
 
   // 获取菜单树和示例列表
@@ -87,6 +86,7 @@ const useGlobal = defineStore('global', () => {
     currentCate = cate;
     const mList = menuList[cate] || [];
     menus.value = getMenus2(mList);
+    expandKey.value = menus.value[0]?.id;
     const m2 = copy(mList.filter(m => m.level === 2));
     const m2Ids = m2.map(m => m.id);
     m2.forEach(m => m.children = []);
@@ -101,21 +101,36 @@ const useGlobal = defineStore('global', () => {
       const m2Item = m2.find(m => m.id === item.appMenuId);
       m2Item.children.push({ id, name: title, level: 3 });
     });
-    menus.value.forEach(menu => {
-      menu.children.forEach(m2 => {
-        if (!(samples[m2.id] && samples[m2.id].length)) return;
-        m2.children = samples[m2.id].map(s => {
-          const { id, title } = s;
-          return { id, name: title };
-        });
-      });
-    });
+    // 添加三级菜单
+    // menus.value.forEach(menu => {
+    //   menu.children.forEach(m2 => {
+    //     if (!(samples[m2.id] && samples[m2.id].length)) return;
+    //     m2.children = samples[m2.id].map(s => {
+    //       const { id, title } = s;
+    //       return { id, name: title, level: 3 };
+    //     });
+    //   });
+    // });
+    // 组件服务添加快速上手菜单
     // if (cate === 'components') {
     //   menus.value.unshift(copy(cMenus));
     // }
-    menus3.value = m2.filter(m => m.children.length);
   }
-  return { menus, menus3, samples, updateMenus };
+
+  function setCurrentKey(hash) {
+    if (!(hash && typeof hash === 'string')) return;
+    let id = hash;
+    if (hash.startsWith('#')) {
+      const p = hash.slice(1);
+      id = menus.value.find(m => m.path === p)?.id;
+      if (!id) return;
+    }
+    console.log('设置expandKey =>', id);
+    expandKey.value = id;
+  }
+
+
+  return { menus, expandKey, samples, updateMenus, setCurrentKey };
 });
 
 export { useGlobal };
