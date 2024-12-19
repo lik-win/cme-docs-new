@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>全国模板</title>
+    <link rel="stylesheet" href="/demo.css" />
+  </head>
+  <body>
+    <div id="img_box" style="width: 100%;height: 100%;"></div>
+    <script type="text/javascript" src="/libs/cme2d.js"></script>
+    <script type="text/javascript" src="/libs/cme-core.umd.cjs"></script>
+    <script src="/libs/axios.js"></script>
+    <script type="text/javascript">
+      const { Map: olmap, View, source, layer, Feature  } = window.CME2D
+      let map,vectorS
+      let mapObj = null
+      let contourLayers=null
+      const { blendLayers, style,contourLayer } = window.CMECore
+      const { Point, LineString, Polygon, Circle: GeomCircle } = window.CME2D.geom
+      const { Circle, Fill, Stroke, Style, Text, Icon } = window.CME2D.style
+      const {
+        Vector: VectorLayer,
+      } = window.CME2D.layer
+      const {
+        Vector: VectorSource,
+      } = window.CME2D.source
+
+      const apiInfo = {
+        url: 'http://10.40.88.119:11000/cmes-base-qgis/cmes-qgis/product/indexPicture',
+        args: {
+          dataPath: {
+            value: 'http://10.40.88.119:18097/qgis/test/2024061708_24.tif',
+            type: 'string',
+            required: true,
+            desc: 'tif路径',
+          },
+          type: {
+            value: 'tif',
+            type: 'string',
+            required: true,
+            desc: '类型',
+          },
+          legendType: {
+            value: '',
+            type: 'string',
+            required: false,
+            desc: '图例类型',
+          },
+          style: {
+            value: 'std',
+            type: 'string',
+            required: true,
+            desc: '样式',
+          },
+          backName: {
+            value: '降水量实况图',
+            type: 'string',
+            required: true,
+            desc: '背景名称',
+          },
+          titleTime: {
+            value: '06月17日',
+            type: 'string',
+            required: true,
+            desc: '标题时间',
+          },
+          region: {
+            value: 'zhuj',
+            type: 'string',
+            required: true,
+            desc: '区域编码',
+          },
+          legendName: {
+            value: 'pre24h',
+            type: 'string',
+            required: true,
+            desc: '图例名称',
+          },
+          legendTitle: {
+            value: '图例(毫米)',
+            type: 'string',
+            required: true,
+            desc: '图例标题',
+          },
+          makeTime: {
+            value: '2024年12月18日08时',
+            type: 'string',
+            required: true,
+            desc: '制作时间',
+          },
+        },
+      }
+      function handleQueryString(params) {
+        let str = ''
+        for (let key in params) {
+          str += `${key}=${params[key]}&`
+        }
+        return str.slice(0, -1)
+      }
+
+     function init(params){
+      axios.post(apiInfo.url, params).then((res) => {
+          if (window.postResult) {
+            window.postResult(res.data)
+          }
+           var img = new Image();
+            img.src = res.data.data;
+          img.onload = function () {    
+             console.log(this);  
+             let img_box=document.getElementById('img_box')
+             while (img_box.firstChild) {
+              img_box.removeChild(img_box.firstChild);
+             }
+             document.getElementById('img_box').appendChild(this)                
+          }
+    })
+     }
+      window.onload = function () {
+        let params={
+          dataPath: apiInfo.args.dataPath.value,
+          type: apiInfo.args.type.value,
+          legendType: apiInfo.args.legendType.value,
+          style: apiInfo.args.style.value,
+          backName: apiInfo.args.backName.value,
+          region: apiInfo.args.region.value,
+          legendName: apiInfo.args.legendName.value,
+          titleTime: apiInfo.args.titleTime.value,
+          legendTitle: apiInfo.args.legendTitle.value,
+          makeTime: apiInfo.args.makeTime.value
+        }
+        init(params)
+       }
+
+      function onRun(params) {
+        init(params)
+      } 
+    </script>
+      <script src="/libs/message.js"></script>
+  </body>
+</html>

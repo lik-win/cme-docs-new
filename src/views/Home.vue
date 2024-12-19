@@ -160,7 +160,7 @@ onMounted(() => {
 
 .panel1 {
   position: relative;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   background: url("./../assets/images/sky1.webp") no-repeat center;

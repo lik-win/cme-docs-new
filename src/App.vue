@@ -41,6 +41,7 @@ const cacheList = ['DataServices', 'Algorithms', 'Samples'];
 .el-header {
   position: sticky;
   top: 0;
+  height: 70px;
   @include flex(center, center);
   @extend .dark-theme;
   padding: 0;

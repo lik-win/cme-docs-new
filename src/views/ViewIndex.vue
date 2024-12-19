@@ -23,10 +23,10 @@
     </div>
     <div class="sample-box">
       <p class="box-title">运行效果</p>
-      <!-- <Repl ref="repl" v-bind="replOptions"></Repl> -->
-      <div class="cme-repl2">
+      <Repl ref="repl" v-bind="replOptions"></Repl>
+      <!-- <div class="cme-repl2">
         <iframe :srcdoc="codeText" frameborder="0"></iframe>
-      </div>
+      </div> -->
     </div>
     <hr class="s-line" v-if="apiUrl">
     <div class="args-box" v-if="apiUrl">
@@ -105,8 +105,8 @@ function showCode(fileList) {
     _code = _code.replace(/(['"])\/(?:public\/)?(libs|data|font|images|tiffs)\//ig, `$1/${base}/$2/`);
     _code = _code.replace(/\bolmap\b/ig, 'CMEMap');
     codeText.value = _code;
-    // editStore.activeFile.setRaw(_code);
-    // replRef.value.onCodeChange(_code);
+    editStore.activeFile.setRaw(_code);
+    replRef.value.onCodeChange(_code);
   });
 }
 
@@ -219,7 +219,7 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 70px);
   overflow-y: auto;
 
   .header {

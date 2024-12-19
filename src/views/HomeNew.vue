@@ -183,7 +183,7 @@ const vWheel = {
 
 .home-view {
   position: relative;
-  @include setBox(100%, calc(100vh - 60px));
+  @include setBox(100%, calc(100vh - 70px));
   overflow: hidden;
 
   .el-carousel,
@@ -194,7 +194,7 @@ const vWheel = {
 
   &::after {
     content: "";
-    @include position(absolute, $left: 20px, $bottom: 20px);
+    @include position(absolute, $left: 140px, $top: 20px);
     @include setBox(320px, 170px);
     background: url("./../assets/images/cme.webp") no-repeat center;
     background-size: 100% 100%;

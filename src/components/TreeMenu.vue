@@ -3,8 +3,8 @@
     <el-tree ref="treeRef" :data="props.menus" :defaultExpandedKeys="expandKeys" v-bind="configs"
       @node-click="onNodeClick">
       <template #default="{ data }">
-        <a v-if="isAnchor(data)" :class="`label${data.level}`" @click="() => nodeClicked(data)">{{ data.name }}</a>
-        <span v-else>{{ data.name }}</span>
+        <span v-if="isLeaf(data)">{{ data.name }}</span>
+        <a v-else :class="`label${data.level}`">{{ data.name }}</a>
       </template>
     </el-tree>
   </div>
@@ -34,17 +34,8 @@ watch(() => store.expandKey, val => {
   treeEl.value.setCurrentKey(val);
 });
 
-
-function nodeClicked(node) {
-  const { path } = node;
-  if (!path) return;
-  const target = document.querySelector(`#${path}`);
-  if (!target) return;
-  target.scrollIntoView({ behavior: 'smooth' });
-}
-
-function isAnchor(data) {
-  return props.anchor && data.level <= 2;
+function isLeaf(data) {
+  return data.level === 3;
 }
 
 const configs = {
@@ -62,8 +53,13 @@ const configs = {
 };
 
 const emitter = defineEmits(['nodeClick']);
-function onNodeClick(nodeData) {
-  emitter('nodeClick', nodeData);
+function onNodeClick(node) {
+  emitter('nodeClick', node);
+  const targetId = node.path;
+  if (!targetId) return;
+  const target = document.querySelector(`#${targetId}`);
+  if (!target) return;
+  target.scrollIntoView({ behavior: 'smooth' });
 }
 
 </script>
