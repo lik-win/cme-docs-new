@@ -1,8 +1,8 @@
 import { useGlobal } from "../store";
-const store = useGlobal();
 
 const vClickLink = {
   mounted(el) {
+    const store = useGlobal();
     const outerEL = document.querySelector('.cme-layout');
     const headEl = document.querySelector('.page-head');
     el.addEventListener('click', e => {

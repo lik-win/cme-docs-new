@@ -5,7 +5,7 @@
     </div>
     <div class="page-body" ref="contentRef">
       <el-aside :class="menuClass">
-        <TreeMenu :menus="store.menus"></TreeMenu>
+        <TreeMenu :menus="store.menus" @node-click="onMenuClick"></TreeMenu>
       </el-aside>
       <el-main class="content">
         <div v-if="$slots.module" class="list-box module">
@@ -19,7 +19,7 @@
               <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
               <div class="list">
                 <template v-for="eg in store.samples[sub.id]">
-                  <div class="item" :title="eg.title">
+                  <div class="item" :class="{ on: onKey === item.id }" :id="eg.path" :title="eg.title">
                     <a v-if="eg.id === openId" class="img-box" @click="handleOpen">
                       <img v-lazy :data-src="eg.cover" />
                     </a>
@@ -59,6 +59,7 @@ const props = defineProps({
   type: { type: String, required: true },
 })
 
+const onKey = ref(null);
 const path = computed(() =>
   props.type.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`),
 )
@@ -90,7 +91,7 @@ onMounted(() => {
   const pageEl = document.querySelector('.cme-layout');
   const targetEl = contentEl.value;
   pageEl.addEventListener('scroll', e => {
-    const topGap = 70 * window.innerWidth / 1920;
+    const topGap = 80 * window.innerWidth / 1920;
     const { top } = targetEl.getBoundingClientRect();
     if (top < topGap) {
       if (targetEl.classList.contains('sticky')) return;
@@ -103,6 +104,13 @@ onMounted(() => {
     pageEl.click();
   });
 });
+
+function onMenuClick(data) {
+  const { id } = data;
+  console.log('path ==>', id);
+  if (!id) return;
+  onKey.value = id;
+}
 
 const vLazy = {
   mounted(el) {
@@ -155,8 +163,8 @@ function handleOpen() {
 
     &.sticky {
       position: sticky;
-      top: 60px;
-      height: calc(100vh - 60px);
+      top: 70px;
+      height: calc(100vh - 70px);
       overflow-y: auto;
     }
   }
@@ -166,7 +174,7 @@ function handleOpen() {
   padding-top: 30px;
 
   &.w260 {
-    width: 260px;
+    width: 300px;
   }
 
   &.w280 {
@@ -245,6 +253,7 @@ function handleOpen() {
       overflow: hidden;
       background-color: #ffffff;
 
+      &.on,
       &:hover {
         background: linear-gradient(315deg, #ebf8ff 1%, #c9d5ff 100%);
         border-color: #0071e3;

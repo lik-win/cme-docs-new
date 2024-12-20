@@ -4,7 +4,7 @@
       <h3 class="page-title">
         算法服务
         <span class="bubble">95种</span>
-        <img class="new-icon" src="./../assets/images/icons/icon-new.webp">
+        <!-- <img class="new-icon" src="./../assets/images/icons/icon-new.webp"> -->
       </h3>
       <p class="page-desc">
         按照微服务框架进行算法服务集的建设，以实现数字预报员为目标，结合气象客观分析算法与大预报模型产品，利用人工智能与大数据应用技术实现面向智能感知、智能诊断、智能研判、智能生成等服务，为各类前端应用场景提供统一的算法服务支撑。
