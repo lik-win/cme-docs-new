@@ -87,7 +87,19 @@ function download(item: Item) {
       <div class="list-head">
         <img src="./../assets/images/scene/scene-head.webp">
         <div class="item-box box1">
-          <a class="link"></a>
+          <a class="link">开发文档</a>
+          <a class="link">SDK</a>
+          <a class="link">样例</a>
+        </div>
+        <div class="item-box box2">
+          <a class="link">开发文档</a>
+          <a class="link">SDK</a>
+          <a class="link">样例</a>
+        </div>
+        <div class="item-box box3">
+          <a class="link">开发文档</a>
+          <a class="link">SDK</a>
+          <a class="link">样例</a>
         </div>
       </div>
     </div>
