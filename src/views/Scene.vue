@@ -86,6 +86,9 @@ function download(item: Item) {
     <div class="list-container">
       <div class="list-head">
         <img src="./../assets/images/scene/scene-head.webp">
+        <div class="item-box box1">
+          <a class="link"></a>
+        </div>
       </div>
     </div>
   </div>
