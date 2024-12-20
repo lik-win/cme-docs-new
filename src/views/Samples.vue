@@ -4,7 +4,7 @@
       <h3 class="page-title">
         组件服务
         <span class="bubble">116种</span>
-        <img class="new-icon" src="./../assets/images/icons/icon-new.webp">
+        <!-- <img class="new-icon" src="./../assets/images/icons/icon-new.webp"> -->
       </h3>
       <p class="page-desc">
         按照组件仓库要求封装平台底层地图渲染引擎，集成数据展示、数据交互、交互编辑、剖面分析、图表制作等组件，支撑二三维一体化的业务需求，解决算法集约、应用规范、服务统一等问题。
@@ -18,29 +18,6 @@
           </a>
           <span v-if="idx < dataInfo.length - 1" class="splitor"></span>
         </template>
-        <!-- <a data-href="#baseFns" class="info-item">
-          <label class="lbl1">4+类</label>
-          <label class="lbl2">50+基础功能组件</label>
-          <p class="desc">提供地图加载和基础交互及事件等功能</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#meteoLayer" class="info-item">
-          <label class="lbl1">4+类</label>
-          <label class="lbl2">20+气象图层组件</label>
-          <p class="desc">提供实况、预报、卫星和雷达等数据上图功能</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#observationData" class="info-item">
-          <label class="lbl1">2+类</label>
-          <label class="lbl2">20+新型观测资料组件</label>
-          <p class="desc">提供多种要素廓线和时序图表等功能</p>
-        </a>
-        <span class="splitor"></span>
-        <a data-href="#businessComponent" class="info-item">
-          <label class="lbl1">2+类</label>
-          <label class="lbl2">8+业务组件</label>
-          <p class="desc">提供格点编辑等功能</p>
-        </a> -->
       </div>
     </template>
     <!-- <template #module>
@@ -72,24 +49,24 @@ import SampleLayout from '../components/SampleLayout.vue';
 import { vClickLink } from './../directives/vClickLink';
 
 const dataInfo = [{
-  cate: '4+类',
-  label: '50+基础功能组件',
+  cate: '4类',
+  label: '50种基础功能组件',
   desc: '提供地图加载和基础交互及事件等功能',
   href: '#baseFns'
 }, {
-  cate: '4+类',
-  label: '20+气象图层组件',
+  cate: '4类',
+  label: '20种数据显示组件',
   desc: '提供实况、预报、卫星和雷达等数据上图功能',
   href: '#meteoLayer'
 }, {
-  cate: '2+类',
-  label: '20+新型观测资料组件',
+  cate: '4类',
+  label: '20种数据分析组件',
   desc: '提供多种要素廓线和时序图表等功能',
   href: '#observationData'
 }, {
-  cate: '2+类',
-  label: '8+业务组件',
-  desc: '提供格点编辑等功能',
+  cate: '9类',
+  label: '50种业务组件',
+  desc: '提供格点编辑、MICAPS工具箱等功能',
   href: '#businessComponent'
 }];
 </script>

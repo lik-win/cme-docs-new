@@ -1,94 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>编辑标注</title>
-  <link rel="stylesheet" href="/cme/demo.css" />
+  <link rel="stylesheet" href="/demo.css" />
+  <link rel="stylesheet" href="/libs/tlogp/cme-tlogp.css">
+  <script type="text/javascript" src="/libs/vue3.js"></script>
+  <script type="text/javascript" src="/libs/tlogp/cme-tlogp.js"></script>
+  <style type="text/css">
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="map"></div>
-  <div class="panel">
-    <p class="line">
-      <button id="startDraw">开始编辑</button>
-      <button id="endDraw">结束编辑</button>
-    </p>
+  <div id="app">
+    <cme-tlogp station-id="54511" time="20241128000000"></cme-tlogp>
   </div>
-  <script type="text/javascript" src="/cme/libs/cme2d.js"></script>
   <script type="text/javascript">
-    const { Map, View, source, layer, format, interaction } = window.CME2D;
-
-    const geojson = {
-      type: 'FeatureCollection',
-      features: [
-        { type: 'Feature', geometry: { type: 'Point', coordinates: [110.23, 32.124] } },
-        { type: 'Feature', geometry: { type: 'Point', coordinates: [108.92, 30.854] } },
-        { type: 'Feature', geometry: { type: 'Point', coordinates: [111.53, 35.634] } },
-        { type: 'Feature', geometry: { type: 'Point', coordinates: [101.45, 26.724] } },
-        { type: 'Feature', geometry: { type: 'Point', coordinates: [96.64, 31.356] } }
+    const { createApp } = Vue;
+    const app = createApp();
+    // 注册TlogP组件
+    app.use(TlogP.TlogP);
+    // 配置 tlogp 组件
+    TlogP.setConfig({
+      // 观测资料接口
+      dataUrl: 'http://10.40.88.119:11000/cmes-base-upar/cmeapi/v1/operate/getSingleBeiDouSond',
+      // 物理量接口
+      algorithmUrl: 'http://10.40.88.119:11000/cmes-algorithm/algorithm/tlogp',
+      // 站点列表
+      stationList: [
+        { id: '54511', name: '北京' },
+        { id: '57245', name: '安康' },
+        { id: '56651', name: '丽江' }
       ]
-    };
-    const sourceV = new source.Vector({
-      features: new format.GeoJSON().readFeatures(geojson)
     });
-    const layerV = new layer.Vector({
-      source: sourceV,
-      style: {
-        'icon-src': '/cme/images/icons/marker.png',
-        'icon-width': 32,
-        'icon-height': 32,
-        'icon-displacement': [0, 15]
-      }
-    });
-
-    let mapObj = null;
-    function initMap(mapEl) {
-      const map = new Map({
-        target: mapEl,//挂载实例
-        layers: [
-          new layer.Tile({
-            source: new source.XYZ({
-              url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
-              // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
-            })
-          })
-        ],
-        view: new View({ //地图视图
-          center: [106.6, 32.2],
-          projection: "EPSG:4326",
-          zoom: 5,
-          wrapX: true,
-        }),//地图设置
-        controls: [],//取消地图操作
-      });
-      return map;
-    }
-
-    let modify;
-    document.querySelector('#startDraw').addEventListener('click', e => {
-      if (modify) {
-        mapObj.removeInteraction(modify);
-      }
-      modify = new interaction.Modify({
-        source: sourceV,
-        type: 'Point',
-      });
-      mapObj.addInteraction(modify);
-    });
-
-    document.querySelector('#endDraw').addEventListener('click', e => {
-      if (!modify) return;
-      mapObj.removeInteraction(modify);
-      modify = null;
-    });
-
-    window.onload = function () {
-      const mapEl = document.querySelector('#map');
-      mapObj = initMap(mapEl);
-      mapObj.addLayer(layerV);
-    }
+    app.mount('#app');
   </script>
 </body>
 

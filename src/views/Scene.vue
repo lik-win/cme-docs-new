@@ -86,38 +86,9 @@ function download(item: Item) {
     <div class="list-container">
       <div class="list-head">
         <img src="./../assets/images/scene/scene-head.webp">
-      </div>
-      <div class="card" v-for="(item, index) in list">
-        <template v-if="index % 2 == 0">
-          <div class="img">
-            <img :src="item.image" />
-          </div>
-          <div class="text-container">
-            <div class="title">
-              {{ item.title }}
-            </div>
-            <div class="content">
-              {{ item.desc }}
-            </div>
-            <a v-if="item.link" :href="item.link" target="_blank" class="button">跳转</a>
-            <div v-else class="button" @click="download(item)">下载</div>
-          </div>
-        </template>
-        <template v-else>
-          <div class="text-container">
-            <div class="title">
-              {{ item.title }}
-            </div>
-            <div class="content">
-              {{ item.desc }}
-            </div>
-            <a v-if="item.link" :href="item.link" target="_blank" class="button">跳转</a>
-            <div v-else class="button" @click="download(item)">下载</div>
-          </div>
-          <div class="img">
-            <img :src="item.image" alt="" />
-          </div>
-        </template>
+        <div class="item-box box1">
+          <a class="link"></a>
+        </div>
       </div>
     </div>
   </div>
