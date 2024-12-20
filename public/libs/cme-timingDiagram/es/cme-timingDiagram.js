@@ -8576,9 +8576,9 @@ function HR(F, C, u, J, ht, St) {
     ])
   ]);
 }
-const A0 = /* @__PURE__ */ vR(TR, [["render", HR], ["__scopeId", "data-v-edc0d84f"]]);
+const A0 = /* @__PURE__ */ vR(TR, [["render", HR], ["__scopeId", "data-v-5beac4b4"]]);
 A0.install = function(F) {
-  F.component("cmetimingdiagram", A0);
+  F.component("cme-timing-diagram", A0);
 };
 export {
   A0 as TimingDiagram
