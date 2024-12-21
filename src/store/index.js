@@ -86,7 +86,11 @@ const useGlobal = defineStore('global', () => {
     currentCate = cate;
     const mList = menuList[cate] || [];
     menus.value = getMenus2(mList);
-    expandKey.value = menus.value[0]?.id;
+    if (menus.value.length) {
+      const expanedMenu = menus.value[0].children[0] || menus.value[0];
+      expandKey.value = expanedMenu.id;
+      console.log(expandKey.value, menus.value[0].id);
+    }
     const m2 = copy(mList.filter(m => m.level === 2));
     const m2Ids = m2.map(m => m.id);
     m2.forEach(m => m.children = []);
@@ -123,12 +127,12 @@ const useGlobal = defineStore('global', () => {
     let id = hash;
     if (hash.startsWith('#')) {
       const p = hash.slice(1);
-      id = menus.value.find(m => m.path === p)?.id;
-      if (!id) return;
+      const menu = menus.value.find(m => m.path === p);
+      if (!menu) return;
+      id = menu.children[0].id || menu.id;
     }
     expandKey.value = id;
   }
-
 
   return { menus, expandKey, samples, updateMenus, setCurrentKey };
 });
