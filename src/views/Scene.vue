@@ -87,19 +87,24 @@ function download(item: Item) {
       <div class="list-head">
         <img src="./../assets/images/scene/scene-head.webp">
         <div class="item-box box1">
-          <a class="link">开发文档</a>
+          <a class="link linkable" target="_blank" href="/cme/docs/一体化平台算法开发文档.pdf">开发文档</a>
           <a class="link">SDK</a>
           <a class="link">样例</a>
         </div>
         <div class="item-box box2">
-          <a class="link">开发文档</a>
+          <a class="link linkable" target="_blank" href="/cme/docs/一体化平台算法开发文档.pdf">开发文档</a>
           <a class="link">SDK</a>
           <a class="link">样例</a>
         </div>
         <div class="item-box box3">
           <a class="link">开发文档</a>
           <a class="link">SDK</a>
-          <a class="link">样例</a>
+          <a class="link linkable" target="_blank" href="/cme/zips/cme-component.zip">样例</a>
+        </div>
+        <div class="item-box box4">
+          <a class="link linkable">默认风格</a>
+          <a class="link linkable">简约风格</a>
+          <a class="link linkable">3D风格</a>
         </div>
       </div>
     </div>
@@ -146,6 +151,7 @@ function download(item: Item) {
   }
 
   .list-container {
+    position: relative;
     width: 100%;
     height: auto;
     display: flex;
@@ -154,6 +160,57 @@ function download(item: Item) {
     .list-head {
       width: 100%;
       height: 900px;
+
+      .item-box {
+        position: absolute;
+        top: 494px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 220px;
+        height: 280px;
+        padding: 40px 0;
+        background-color: rgb(255, 252, 209);
+        user-select: none;
+
+        &.box1 {
+          left: 286px;
+        }
+
+        &.box2 {
+          left: 680px;
+        }
+
+        &.box3 {
+          left: 1014px;
+        }
+
+        &.box4 {
+          left: 1404px;
+        }
+
+        .link {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 132px;
+          padding: 0 8px;
+          font-size: 24px;
+          font-weight: 500;
+          border-bottom: 2px solid #f8e71c;
+          cursor: default;
+
+          &:last-of-type {
+            border-bottom: none;
+          }
+        }
+
+        .linkable:hover {
+          cursor: pointer;
+          color: #0071E3;
+        }
+      }
     }
 
     .card {
