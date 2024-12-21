@@ -5,9 +5,7 @@
         <NavHead></NavHead>
       </el-header>
       <div class="content-view">
-        <KeepAlive :includes="cacheList">
-          <router-view />
-        </KeepAlive>
+        <router-view />
       </div>
     </div>
   </el-config-provider>
@@ -16,8 +14,6 @@
 <script setup>
 import { ElConfigProvider } from 'element-plus';
 import NavHead from './components/NavHead.vue';
-
-const cacheList = ['DataServices', 'Algorithms', 'Samples'];
 </script>
 
 <style lang="scss" scoped>

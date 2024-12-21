@@ -1,44 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>逐小时预报</title>
+  <title>时间轴组件</title>
   <link rel="stylesheet" href="/demo.css" />
-  <link rel="stylesheet" href="/libs/hour-forecast/cme-hour-forecast.css">
+  <link rel="stylesheet" href="/libs/timeline/cme-timeline.css">
+  <script type="text/javascript" src="/libs/cme2d.js"></script>
   <script type="text/javascript" src="/libs/vue3.js"></script>
-  <script type="text/javascript" src="/libs/echarts.min.js"></script>
-  <script type="text/javascript" src="/libs/hour-forecast/cme-hour-forecast.js"></script>
+  <script type="text/javascript" src="/libs/timeline/cme-timeline.js"></script>
+  <style type="text/css">
+    #app {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body>
+  <div id="map"></div>
   <div id="app">
-    <cme-hour-forecast :data="data" />
+    <cme-timeline :theme="theme" />
   </div>
   <script type="text/javascript">
-    const data = {
-      times: ["2024052108", "2024052109", "2024052110", "2024052111", "2024052112", "2024052113", "2024052114", "2024052115", "2024052116", "2024052117", "2024052118", "2024052119"],
-      data: [
-        ["18.47", "18.34", "17.84", "16.41", "15.60", "14.40", "14.71", "15.82", "16.05", "16.85", "15.74", "14.96"],
-        ["2.80", "2.62", "2.67", "2.39", "2.33", "2.44", "2.25", "2.16", "1.86", "1.70", "1.68", "1.52"],
-        ["93.14", "82.01", "76.13", "71.52", "74.06", "79.29", "74.07", "54.082", "48.09", "60.25", "53.30", "70.81"],
-        [45, 46, 57, 48, 48, 58, 50, 48, 46, 56, 52, 55],
-        ["6.84", "6.82", "6.86", "6.13", "5.90", "5.70", "5.42", "5.13", "4.80", "4.65", "4.48", "4.27"],
-        ["晴", "阴", "阴", "阴", "阴", "阴", "阴", "多云", "多云", "多云", "多云", "晴"],
-        [0.2, 10, 30, 0.4, 5, 5, 5, 12, 10, 25, 30, 30]
-      ],
-      fields: ["w2m", "tem", "win_d", "rhu", "wmax", "vis", "WP1", "Vis"],
-      fieldchName: ["温度", "风速", "风向", "湿度", "阵风", "天气现象", "能见度"]
-    };
+    const { Map: CMEMap, View, source, layer } = window.CME2D;
+    function initMap(mapEl) {
+      const map = new CMEMap({
+        target: mapEl,//挂载实例
+        layers: [
+          new layer.Tile({
+            preload: Infinity, //开启预加载模式
+            source: new source.XYZ({
+              url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png '   // 内网地址
+              // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
+            })
+          })
+        ],
+        view: new View({ //地图视图
+          center: [106, 35],
+          projection: "EPSG:4326",
+          zoom: 5,
+          wrapX: true,
+        }),//地图设置
+        controls: [],//取消地图操作
+      });
+      return map;
+    }
+    initMap(document.querySelector('#map'));
 
     const { createApp, ref } = Vue;
+    const { Timeline, useTimeline } = CMETimeline;
     const app = createApp({
       setup() {
-        return { data }
+        // 主题，时间轴组件支持 dark 和 light 两种主题
+        const theme = ref('light');
+        const timeline = useTimeline();
+        console.log('timeline ==>', timeline, timeline.getOptions());
+        // 添加时间轴任务，时间轴刻度变化时执行的方法，每个任务都有对应的taskId
+        timeline.addTask('testTask', function (params, flag) {
+          // 如果状态为停止，则不应该继续执行
+          if (!flag.value) return;
+          // 时间轴更新刻度时执行的代码
+          console.log('时间轴播放任务:', params);
+        });
+        // 时间轴任务id，任务函数的参数，是否立即触发
+        const params = {
+          // 时间轴调用任务时传递给任务函数的参数
+          params: { taskId: 'testTask' },
+          // 时间字段，默认为 time
+          timeField: 'myTime'
+        };
+        // 设置当前任务（可用于时间轴在多个任务之间切换）
+        timeline.setCurrentTask('testTask', params, true);
+        return { theme }
       }
     });
-    app.use(HourForecast);
+    app.use(Timeline);
     app.mount('#app');
   </script>
 </body>
