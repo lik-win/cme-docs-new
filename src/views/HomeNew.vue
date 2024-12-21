@@ -8,32 +8,33 @@
             <span><i class="first-letter">C</i>loud</span>
             <span><i class="first-letter">M</i>ICAPS</span>
             <span><i class="first-letter">E</i>ngine</span>
-            是依托“云+端”技术体系开发的组件化、可插拔的轻量级WEB支撑框架。
+            是基于“云+端”组件化的新一代气象信息综合应用分析处理应用开发框架。
           </p>
           <p class="line3">
-            使命：CME身负技术引领与创新、满足多样化需求、提升预报服务能力、保障安全与可靠性、促进气象业务发展等多项使命
+            使命：CME打造先进智能、集约高效的气象业务开发底座，支撑数字精准、业务协同的预报预警业务场景，增强智慧精细、开放融合的气象业务服务能力，构建协同众创、组件共享的国省应用发展生态。
           </p>
           <p class="line4">
-            愿景：CME框架旨在提供一个灵活、高效且易于扩展的平台，以支持多场景气象业务的发展。通过采用组件化和可插拔的设计思想，CME能够方便地集成各种气象预报、监测和服务功能，满足不同地区和领域对气象信息的多样化需求
+            愿景：CME致力于连接预报员、气象信息和服务用户。
           </p>
         </div>
       </el-carousel-item>
       <el-carousel-item class="panel2">
         <div class="card-box">
           <router-link to="/algorithms" class="card2 radius8">
-            <span class="count">95</span>
+            <span class="count">300</span>
             <span class="msg">专业算法</span>
-            <span class="desc">智能感知、智能研判、智能诊断和智能服务生成</span>
+            <span class="desc">基础气象算法、智能感知、智能研判、智能诊断和智能服务生成</span>
           </router-link>
           <router-link to="/data-services" class="card2 radius8">
             <span class="count">930</span>
             <span class="msg">数据服务</span>
-            <span class="desc">提供各类模式、雷达、卫星、高空和大模型等资料服务</span>
+            <span class="desc">各类模式、雷达、卫星、高空和大模型等资料服务</span>
           </router-link>
           <router-link to="/components" class="card2 radius8">
             <span class="count">116</span>
             <span class="msg">组件服务</span>
-            <span class="desc">集成数据上图和图表展示、交互、编辑、分析等能力</span>
+            <span class="desc">基础功能、数据显示组件、数据分析组件和业务组件
+            </span>
           </router-link>
           <router-link to="/scenes" class="card2 radius8">
             <span class="count">5</span>
