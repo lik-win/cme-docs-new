@@ -102,8 +102,8 @@ function download(item: Item) {
           <a class="link linkable" target="_blank" href="/cme/zips/cme-component.zip">样例</a>
         </div>
         <div class="item-box box4">
-          <a class="link linkable">默认风格</a>
-          <a class="link linkable">简约风格</a>
+          <a class="link linkable" target="_blank" href="/cme/zips/scene-default.zip">默认风格</a>
+          <a class="link linkable" target="_blank" href="/cme/zips/scene-simple.zip">简约风格</a>
           <a class="link linkable">3D风格</a>
         </div>
       </div>
