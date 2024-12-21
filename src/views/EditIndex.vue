@@ -143,8 +143,6 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
-  height: 100vh;
-  overflow-y: auto;
 
   .header {
     @include position(absolute, $left: 0, $top: 20px);

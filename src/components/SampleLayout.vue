@@ -19,7 +19,7 @@
               <p class="sub-title" :id="sub.path">{{ sub.name }}</p>
               <div class="list">
                 <template v-for="eg in store.samples[sub.id]">
-                  <div class="item" :class="{ on: onKey === item.id }" :id="eg.path" :title="eg.title">
+                  <div class="item" :class="{ on: onKey === eg.id }" :id="eg.path" :title="eg.title">
                     <a v-if="eg.id === openId" class="img-box" @click="handleOpen">
                       <img v-lazy :data-src="eg.cover" />
                     </a>
@@ -107,7 +107,6 @@ onMounted(() => {
 
 function onMenuClick(data) {
   const { id } = data;
-  console.log('path ==>', id);
   if (!id) return;
   onKey.value = id;
 }

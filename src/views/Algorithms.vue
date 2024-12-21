@@ -3,7 +3,7 @@
     <template #page-head>
       <h3 class="page-title">
         算法服务
-        <span class="bubble">95种</span>
+        <span class="bubble">300种</span>
         <!-- <img class="new-icon" src="./../assets/images/icons/icon-new.webp"> -->
       </h3>
       <p class="page-desc">
@@ -46,7 +46,7 @@ const dataInfo = [{
 }, {
   label: '8种智能加工',
   desc: '全国及区域专题图生成等算法',
-  href: '#businessComponent'
+  href: '#Intelligentmachining'
   // }, {
   //   label: '1种AI算法',
   //   desc: '语音调用服务',
