@@ -35,7 +35,7 @@ class DrawingTool {
       zIndex: 999,
       style: new Style({
         image: new Icon({
-          src: '/public/libs/GridEdit/shi.png',
+          src: '/cme/libs/GridEdit/shi.png',
           width: 24,
           height: 24,
           crossOrigin: 'anonymous',
@@ -110,7 +110,7 @@ class DrawingTool {
       feature.setStyle(
         new Style({
           image: new Icon({
-            src: '/public/libs/GridEdit/shi.png', // 图片路径
+            src: '/cme/libs/GridEdit/shi.png', // 图片路径
             width: 24,
             height: 24,
             crossOrigin: 'anonymous', // 如果图片服务器支持CORS，使用anonymous

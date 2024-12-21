@@ -3,7 +3,7 @@ const { WMTS: WMTSTileGrid } = window.CME2D.tilegrid
 const { get: getProj } = window.CME2D.proj
 const { getWidth } = window.CME2D.extent
 const { DataTile } = window.CME2D.source
-import WebglRenderTile from '/public/libs/GridEdit/utils/webglRender/webglRenderTile.js'
+import WebglRenderTile from '/cme/libs/GridEdit/utils/webglRender/webglRenderTile.js'
 const PORT_8882 = 'http://10.20.107.239:8886'
 const size = 256
 const canvas = document.createElement('canvas')

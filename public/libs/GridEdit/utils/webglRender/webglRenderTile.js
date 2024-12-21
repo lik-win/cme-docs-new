@@ -1,7 +1,7 @@
-import * as util from '/public/libs/GridEdit/utils/webglRender/useFill.js'
-import fillVert from '/public/libs/GridEdit/utils/webglRender/fill.vert.glsl.js'
-import fillFrag from '/public/libs/GridEdit/utils/webglRender/fill.frag.glsl.js'
-import { getWindBardIcon } from '/public/libs/GridEdit/utils/getWindIcon.js'
+import * as util from '/cme/libs/GridEdit/utils/webglRender/useFill.js'
+import fillVert from '/cme/libs/GridEdit/utils/webglRender/fill.vert.glsl.js'
+import fillFrag from '/cme/libs/GridEdit/utils/webglRender/fill.frag.glsl.js'
+import { getWindBardIcon } from '/cme/libs/GridEdit/utils/getWindIcon.js'
 export default class WebglRenderTile {
   constructor(options) {
     const { size } = options
