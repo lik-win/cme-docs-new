@@ -1,46 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>编辑标注</title>
+  <title>区域选择</title>
   <link rel="stylesheet" href="/cme/demo.css" />
-  <link rel="stylesheet" href="/cme/libs/tlogp/cme-tlogp.css">
-  <script type="text/javascript" src="/cme/libs/vue3.js"></script>
-  <script type="text/javascript" src="/cme/libs/tlogp/cme-tlogp.js"></script>
-  <style type="text/css">
-    #app {
-      width: 100%;
-      height: 100%;
-      overflow: auto !important;
-    }
-  </style>
 </head>
 
 <body>
-  <div id="app">
-    <cme-tlogp station-id="54511"></cme-tlogp>
+  <div id="map"></div>
+  <div class="panel">
+    <p class="line">选择区域：
+      <select id="switchEl">
+        <option value="beijing">北京</option>
+        <option value="sicuan">四川</option>
+        <option value="shanxi">陕西</option>
+      </select>
+    </p>
   </div>
+  <script type="text/javascript" src="/cme/libs/cme2d.js"></script>
   <script type="text/javascript">
-    const { createApp } = Vue;
-    const app = createApp();
-    // 注册TlogP组件
-    app.use(TlogP.TlogP);
-    // 配置 tlogp 组件
-    TlogP.setConfig({
-      // 观测资料接口
-      dataUrl: 'http://10.40.88.119:11000/cmes-base-upar/cmeapi/v1/operate/getSingleBeiDouSond',
-      // 物理量接口
-      algorithmUrl: 'http://10.40.88.119:11000/cmes-algorithm/algorithm/tlogp',
-      // 站点列表
-      stationList: [
-        { id: '54511', name: '北京' },
-        { id: '57245', name: '安康' },
-        { id: '56651', name: '丽江' }
-      ]
+    const { Map, View, source, layer, format } = window.CME2D;
+
+    let mapObj = null;
+    function initMap(mapEl) {
+      const map = new Map({
+        target: mapEl,//挂载实例
+        layers: [
+          new layer.Tile({
+            source: new source.XYZ({
+              url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png'   // 内网地址
+              // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
+            })
+          })
+        ],
+        view: new View({ //地图视图
+          center: [116.6, 40.2],
+          projection: "EPSG:4326",
+          zoom: 8,
+          wrapX: true,
+        }),//地图设置
+        controls: [],//取消地图操作
+      });
+      return map;
+    }
+
+    const confs = {
+      beijing: { center: [116.6, 40.2], zoom: 8 },
+      sicuan: { center: [104.03, 30.58], zoom: 5 },
+      shanxi: { center: [109.59, 35.48], zoom: 6 }
+    };
+    let vectorSource, vectorLayer;
+
+    function addAreaBounds(area) {
+      const url = `/cme/data/${area}.geojson`;
+      fetch(url).then(res => res.json()).then(data => {
+        if (vectorSource && vectorLayer) {
+          mapObj.removeLayer(vectorLayer);
+        }
+        vectorSource = new source.Vector({
+          features: new format.GeoJSON().readFeatures(data)
+        });
+        vectorLayer = new layer.Vector({
+          source: vectorSource,
+          style: {
+            'stroke-color': '#ff0000',
+            'stroke-width': 3
+          }
+        });
+        mapObj.addLayer(vectorLayer);
+        mapObj.getView().animate(confs[area]);
+      });
+    }
+    document.querySelector('#switchEl').addEventListener('change', e => {
+      const area = e.target.value;
+      addAreaBounds(area);
     });
-    app.mount('#app');
+
+    window.onload = function () {
+      const mapEl = document.querySelector('#map');
+      mapObj = initMap(mapEl);
+      addAreaBounds('beijing');
+    }
   </script>
 </body>
 
