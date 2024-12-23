@@ -46,7 +46,8 @@
       <el-carousel-item label="云" class="panel3 block-box1">
         <div class="block">
           <div class="left-box1">
-            <h4 class="block-title" data-feat="云">因云而生，与云共生</h4>
+            <h4 class="block-title"><img src="./../assets/images/title/titlebg-yun.webp"></h4>
+            <h4 class="hide-title">因云而生，与云共生</h4>
             <p class="block-desc">
               CME致力于打造云原生应用生态，以微服务形式构建云端发布的组件、算法和服务，形成运行稳定、技术可靠的组件共享、算法共享、服务共享的可持续迭代升级的应用框架，CME依托天擎云环境为基础，以气象智脑为核心、数字服务平台为支撑打造气象业务多场景应用。
             </p>
@@ -66,7 +67,8 @@
             </div>
           </div>
           <div class="right-box2">
-            <h4 class="block-title" data-feat="网">集约互联，协同共享</h4>
+            <h4 class="block-title"><img src="./../assets/images/title/titlebg-wang.webp"></h4>
+            <h4 class="hide-title">网格互联，协同共享</h4>
             <p class="block-desc">
               CME采用敏感分析、误差追踪等技术，实现与“四大支柱”之间的左右贯通；通过实时协同、快速交互、会商研判、自动制作发布等功能，实现国家级业务、国省业务间实时协同共建一张网。 </p>
           </div>
@@ -75,9 +77,11 @@
       <el-carousel-item label="智" class="panel3 block-box2">
         <div class="block right30">
           <div class="left-box1">
-            <h4 class="block-title white" data-feat="智">模型驱动，数字智能</h4>
+            <h4 class="block-title"><img src="./../assets/images/title/titlebg-zhi.webp"></h4>
+            <h4 class="hide-title">模型驱动，数字智能</h4>
             <p class="block-desc white">
-              CME以气象智脑为核心，引入大语言模型技术实现“AI Agent”的构建，围绕智能数字预报服务业务主线构建数字化业务流程，实现观测、预报、加工和服务无缝隙衔接，通过“智能核心”掌控全流程，通过模型驱动全方位数字智能。</p>
+              CME以气象智脑为核心，引入大语言模型技术实现“AI
+              Agent”的构建，围绕智能数字预报服务业务主线构建数字化业务流程，实现观测、预报、加工和服务无缝隙衔接，通过“智能核心”掌控全流程，通过模型驱动全方位数字智能。</p>
           </div>
           <div class="right-box1">
             <div class="img-box">
@@ -86,7 +90,7 @@
           </div>
         </div>
       </el-carousel-item>
-      <el-carousel-item label="富" class="panel3 block-box2">
+      <el-carousel-item label="复" class="panel3 block-box2">
         <div class="block left30">
           <div class="left-box2">
             <div class="img-box offset30">
@@ -94,7 +98,8 @@
             </div>
           </div>
           <div class="right-box2">
-            <h4 class="block-title white" data-feat="富">弹性开放、复用扩展</h4>
+            <h4 class="block-title white"><img src="./../assets/images/title/titlebg-fu.webp"></h4>
+            <h4 class="hide-title">弹性开放、复用扩展</h4>
             <p class="block-desc white">
               CME由开放式应用框架与组件库组成，其中开放式应用框架实现天气监测、预报、预警和服务业务流程中整体框架和核心功能的抽象和泛化，组件库提供包含气象图层、交互制作、智能产品加工、业务协同、统计查询、智能支撑等各类具体处理逻辑和交互功能组件，支撑多元化业务场景应用。
             </p>
@@ -104,7 +109,8 @@
       <el-carousel-item label="捷" class="panel3 block-box3">
         <div class="block">
           <div class="left-box1">
-            <h4 class="block-title" data-feat="捷">敏捷开发、快速构建</h4>
+            <h4 class="block-title"><img src="./../assets/images/title/titlebg-jie.webp"></h4>
+            <h4 class="hide-title">敏捷开发、快速构建</h4>
             <p class="block-desc">
               CME制定组件、算法及服务注册发布规则，提供根据场景需要拖拽应用场景的框架，支撑实况、预报、短临、决策等业务平台快速搭建，满足不同应用场景，极大提升服务效率与便捷性。
             </p>
@@ -124,7 +130,8 @@
             </div>
           </div>
           <div class="right-box2">
-            <h4 class="block-title" data-feat="安">自主可控，持续迭代</h4>
+            <h4 class="block-title"><img src="./../assets/images/title/titlebg-an.webp"></h4>
+            <h4 class="hide-title">安全可控，持续迭代</h4>
             <p class="block-desc">
               CME完全遵循遵循国家信息技术相关标准、中国局业务软件统筹发展要求、大数据云平台规范，实行软件工程项目全过程规范化管理；围绕平台建设需求制定组件、算法、服务及应用场景等一系列开发规范，确保平台可持续优化及安全可控。
             </p>
@@ -388,30 +395,13 @@ $bg_light4: linear-gradient(153deg, #F8F5FF 0%, #FFFFFF 100%);
 
     .block-title {
       position: relative;
-      @include setFont(50px, 70px);
       margin-bottom: 20px;
       color: #ffffff;
+    }
 
-      &::before {
-        content: attr(data-feat);
-        @include position(absolute, $top: -44px);
-        @include setBox(44px, 44px);
-        @include setFont(24px, 42px, 600);
-        color: #ffffff;
-        text-align: center;
-        background: linear-gradient(135deg, #369AFF 0%, #0052E3 100%);
-        border-radius: 25px;
-        z-index: 1;
-      }
-
-      &::after {
-        content: "";
-        @include position(absolute, $top: -44px, $left: 0);
-        @include setBox(50px, 50px);
-        background: linear-gradient(135deg, #369AFF 0%, #0052E3 100%);
-        border-radius: 25px;
-        opacity: 0.25;
-      }
+    .hide-title {
+      display: none;
+      visibility: hidden;
     }
 
     .block-desc {
