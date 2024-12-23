@@ -64,7 +64,7 @@ const dataInfo = [{
   desc: '提供多种要素廓线和时序图表等功能',
   href: '#observationData'
 }, {
-  cate: '9类',
+  cate: '11类',
   label: '50种业务组件',
   desc: '提供格点编辑、MICAPS工具箱等功能',
   href: '#businessComponent'

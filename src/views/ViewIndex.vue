@@ -168,8 +168,12 @@ watch(router.currentRoute, route => {
 }, { immediate: true });
 
 function goBack() {
-  const { meta } = router.currentRoute.value;
-  console.log('meta =>', meta);
+  const { meta, params, path } = router.currentRoute.value;
+  if (params.id && path) {
+    const _path = path.replace(/\/\w+$/, '');
+    router.replace({ path: _path });
+    return;
+  }
   if (meta.from) {
     router.replace({ path: meta.from });
     return;
