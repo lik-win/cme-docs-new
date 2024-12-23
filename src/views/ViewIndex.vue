@@ -22,31 +22,29 @@
       </p>
     </div>
     <div class="sample-box">
-      <p class="box-title">运行效果</p>
+      <p class="box-title">参数与运行效果</p>
       <!-- <Repl ref="repl" v-bind="replOptions"></Repl> -->
       <div class="cme-repl2">
+        <div class="table-box">
+          <p class="api-url">
+            <label>URL：</label>
+            {{ apiUrl }}
+            <button class="btn-run" @click="toRun">运行</button>
+          </p>
+          <el-table :data="apiArgs" border class="args-table">
+            <el-table-column type="index" label="序号" align="center" :min-width="40" />
+            <el-table-column label="参数名" prop="name" :min-width="90" />
+            <el-table-column label="描述" prop="desc" :min-width="100" />
+            <el-table-column label="数据类型" prop="type" :min-width="80" />
+            <el-table-column label="参数值" :min-width="120">
+              <template #default="{ row }">
+                <el-input type="text" v-model="row.value" />
+              </template>
+            </el-table-column>
+            <el-table-column label="是否必传" prop="required" :min-width="50" />
+          </el-table>
+        </div>
         <iframe :srcdoc="codeText" frameborder="0"></iframe>
-      </div>
-    </div>
-    <hr class="s-line" v-if="apiUrl">
-    <div class="args-box" v-if="apiUrl">
-      <p class="box-title">参数列表</p>
-      <button class="btn-run" @click="toRun">运行</button>
-      <div class="table-box">
-        <p class="api-url"><label>接口地址：</label>{{ apiUrl }}</p>
-        <el-table :data="apiArgs" border class="args-table">
-          <el-table-column type="index" label="序号" align="center" :min-width="50" />
-          <el-table-column label="参数名" prop="name" :min-width="80" />
-          <el-table-column label="描述" prop="desc" :min-width="100" />
-          <el-table-column label="数据类型" prop="type" :min-width="80" />
-          <el-table-column label="参数值" :min-width="120">
-            <template #default="{ row }">
-              <el-input type="text" v-model="row.value" />
-            </template>
-          </el-table-column>
-          <el-table-column label="是否必传" prop="required" :min-width="60" />
-          <el-table-column label="备注" prop="remark" :min-width="180" />
-        </el-table>
       </div>
     </div>
     <hr class="s-line" v-if="result">
@@ -228,8 +226,6 @@ $border: 1px solid #FFFFFF19;
   position: relative;
   padding: 0 80px 40px;
   background-color: #F6F8FC;
-  height: calc(100vh - 70px);
-  overflow-y: auto;
 
   .header {
     @include position(absolute, $left: 0, $top: 20px);
@@ -320,7 +316,46 @@ $border: 1px solid #FFFFFF19;
 
   .cme-repl2 {
     @extend .cme-repl;
+    display: flex;
     height: 450px;
+  }
+
+  .table-box {
+    width: 50%;
+    flex: 1;
+    padding: 8px;
+    border-right: 1px solid #ececec;
+    background: #FFFFFF;
+
+    .api-url {
+      position: relative;
+      @include setBox(100%, 40px);
+      line-height: 32px;
+
+      .btn-run {
+        @include position(absolute, $right: 0);
+        @include setBox(60px, 32px);
+        @include setFont(16px, 20px);
+        border-radius: 20px;
+        color: #ffffff;
+        outline: none;
+        border: 1px solid #0071E3;
+        background-color: #0071E3;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #1183f6;
+        }
+      }
+    }
+
+    .args-table {
+      width: 1020px;
+    }
+  }
+
+  iframe {
+    flex: 1;
   }
 
   .info-block {
@@ -334,42 +369,6 @@ $border: 1px solid #FFFFFF19;
 .s-line {
   margin-top: 60px;
   border-top: 1px solid #DCDDDF;
-}
-
-.args-box {
-  margin-top: 20px;
-
-  .btn-run {
-    @include setBox(80px, 36px, $margin: 20px 0);
-    @include setFont(20px, 32px);
-    border-radius: 20px;
-    color: #ffffff;
-    outline: none;
-    border: 1px solid #0071E3;
-    background-color: #0071E3;
-
-    &:hover {
-      cursor: pointer;
-      background-color: #1183f6;
-    }
-  }
-
-  .table-box {
-    width: 1040px;
-    padding: 10px;
-    background: #FFFFFF;
-    border-radius: 8px;
-    border: 1px solid #B8C2C2;
-    backdrop-filter: blur(10px);
-
-    .api-url {
-      @include setBox(100%, 40px);
-    }
-
-    .args-table {
-      width: 1020px;
-    }
-  }
 }
 
 .result-box {
