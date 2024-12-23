@@ -1,83 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>时间轴组件</title>
-  <link rel="stylesheet" href="/demo.css" />
-  <link rel="stylesheet" href="/libs/timeline/cme-timeline.css">
-  <script type="text/javascript" src="/libs/cme2d.js"></script>
-  <script type="text/javascript" src="/libs/vue3.js"></script>
-  <script type="text/javascript" src="/libs/timeline/cme-timeline.js"></script>
+  <title>编辑标注</title>
+  <link rel="stylesheet" href="/cme/demo.css" />
+  <link rel="stylesheet" href="/cme/libs/tlogp/cme-tlogp.css">
+  <script type="text/javascript" src="/cme/libs/vue3.js"></script>
+  <script type="text/javascript" src="/cme/libs/tlogp/cme-tlogp.js"></script>
   <style type="text/css">
     #app {
-      position: absolute;
-      bottom: 0;
       width: 100%;
+      height: 100%;
+      overflow: auto !important;
     }
   </style>
 </head>
 
 <body>
-  <div id="map"></div>
   <div id="app">
-    <cme-timeline :theme="theme" />
+    <cme-tlogp station-id="54511"></cme-tlogp>
   </div>
   <script type="text/javascript">
-    const { Map: CMEMap, View, source, layer } = window.CME2D;
-    function initMap(mapEl) {
-      const map = new CMEMap({
-        target: mapEl,//挂载实例
-        layers: [
-          new layer.Tile({
-            preload: Infinity, //开启预加载模式
-            source: new source.XYZ({
-              url: 'http://10.0.54.106:8080/windy/{z}/{x}/{y}.png '   // 内网地址
-              // url: 'http://111.205.114.224:8080/windy/{z}/{x}/{y}.png'   // 外网地址
-            })
-          })
-        ],
-        view: new View({ //地图视图
-          center: [106, 35],
-          projection: "EPSG:4326",
-          zoom: 5,
-          wrapX: true,
-        }),//地图设置
-        controls: [],//取消地图操作
-      });
-      return map;
-    }
-    initMap(document.querySelector('#map'));
-
-    const { createApp, ref } = Vue;
-    const { Timeline, useTimeline } = CMETimeline;
-    const app = createApp({
-      setup() {
-        // 主题，时间轴组件支持 dark 和 light 两种主题
-        const theme = ref('light');
-        const timeline = useTimeline();
-        console.log('timeline ==>', timeline, timeline.getOptions());
-        // 添加时间轴任务，时间轴刻度变化时执行的方法，每个任务都有对应的taskId
-        timeline.addTask('testTask', function (params, flag) {
-          // 如果状态为停止，则不应该继续执行
-          if (!flag.value) return;
-          // 时间轴更新刻度时执行的代码
-          console.log('时间轴播放任务:', params);
-        });
-        // 时间轴任务id，任务函数的参数，是否立即触发
-        const params = {
-          // 时间轴调用任务时传递给任务函数的参数
-          params: { taskId: 'testTask' },
-          // 时间字段，默认为 time
-          timeField: 'myTime'
-        };
-        // 设置当前任务（可用于时间轴在多个任务之间切换）
-        timeline.setCurrentTask('testTask', params, true);
-        return { theme }
-      }
+    const { createApp } = Vue;
+    const app = createApp();
+    // 注册TlogP组件
+    app.use(TlogP.TlogP);
+    // 配置 tlogp 组件
+    TlogP.setConfig({
+      // 观测资料接口
+      dataUrl: 'http://10.40.88.119:11000/cmes-base-upar/cmeapi/v1/operate/getSingleBeiDouSond',
+      // 物理量接口
+      algorithmUrl: 'http://10.40.88.119:11000/cmes-algorithm/algorithm/tlogp',
+      // 站点列表
+      stationList: [
+        { id: '54511', name: '北京' },
+        { id: '57245', name: '安康' },
+        { id: '56651', name: '丽江' }
+      ]
     });
-    app.use(Timeline);
     app.mount('#app');
   </script>
 </body>
