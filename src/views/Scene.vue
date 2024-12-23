@@ -88,23 +88,23 @@ function download(item: Item) {
         <img src="./../assets/images/scene/scene-head.webp">
         <div class="item-box box1">
           <a class="link linkable" target="_blank" href="/cme/docs/一体化平台算法开发文档.pdf">开发文档</a>
-          <a class="link">SDK</a>
-          <a class="link">样例</a>
+          <a class="link linkable" target="_blank" href="http://10.40.88.119:11015/#/home">SDK</a>
+          <!-- <a class="link">样例</a> -->
         </div>
         <div class="item-box box2">
           <a class="link linkable" target="_blank" href="/cme/docs/一体化平台算法开发文档.pdf">开发文档</a>
-          <a class="link">SDK</a>
-          <a class="link">样例</a>
+          <a class="link linkable" target="_blank" href="http://10.40.88.119:11015/#/home">SDK</a>
+          <!-- <a class="link">样例</a> -->
         </div>
         <div class="item-box box3">
-          <a class="link">开发文档</a>
+          <!-- <a class="link">开发文档</a> -->
           <a class="link">SDK</a>
           <a class="link linkable" target="_blank" href="/cme/zips/cme-component.zip">样例</a>
         </div>
         <div class="item-box box4">
           <a class="link linkable" target="_blank" href="/cme/zips/scene-default.zip">默认风格</a>
           <a class="link linkable" target="_blank" href="/cme/zips/scene-simple.zip">简约风格</a>
-          <a class="link linkable">3D风格</a>
+          <a class="link" title="敬请期待">3D风格</a>
         </div>
       </div>
     </div>
@@ -174,19 +174,19 @@ function download(item: Item) {
         user-select: none;
 
         &.box1 {
-          left: 286px;
+          left: 136px;
         }
 
         &.box2 {
-          left: 680px;
+          left: 492px;
         }
 
         &.box3 {
-          left: 1014px;
+          left: 852px;
         }
 
         &.box4 {
-          left: 1404px;
+          left: 1220px;
         }
 
         .link {
