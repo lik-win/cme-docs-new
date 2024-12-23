@@ -3,7 +3,7 @@
     <template #page-head>
       <h3 class="page-title">
         组件服务
-        <span class="bubble">116种</span>
+        <span class="bubble">140种</span>
         <!-- <img class="new-icon" src="./../assets/images/icons/icon-new.webp"> -->
       </h3>
       <p class="page-desc">
