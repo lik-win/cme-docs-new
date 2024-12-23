@@ -1,9 +1,9 @@
 <template>
   <el-main class="page-view">
     <div class="header">
-      <span class="back">
+      <span class="back" @click="goBack">
         <img src="./../assets/images/icons/icon-back.webp">
-        <a @click="router.go(-1)">返回上一页</a>
+        <a>返回上一页</a>
       </span>
       <span class="page-title">{{ docInfo.title }}</span>
     </div>
@@ -121,6 +121,15 @@ watch(router.currentRoute, route => {
 function nodeClick(data) {
   if (data.level !== 3) return;
   router.push(`/components/${data.id}`);
+}
+
+function goBack() {
+  const { meta } = router.currentRoute.value;
+  if (meta.from) {
+    router.replace({ path: meta.from });
+    return;
+  }
+  router.go(-1);
 }
 
 const replOptions = reactive({

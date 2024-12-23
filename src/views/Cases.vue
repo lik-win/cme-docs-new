@@ -54,16 +54,16 @@ const list = ref(<Array<Item>>[
     desc: '该案例包含了多种领先的气象大模型，包括风清，伏羲，风乌，FourCast，GraphCaseNet、盘古，通过数据可视化表达形式，提供了核心要素的展示和预测，依托先进气象大模型，实现对未来天气趋势的精准把握'
   },
   {
-    title: '中国气象局短临预报业务平台(SWAN3.0)',
-    image: img_dlyb,
-    link: 'http://10.1.64.146/swan3/#/WeatherMonitoring',
-    desc: '该案例为CME平台3D示例项目，项目实现了风场、风粒子动画、台风三维体、三维云等3D效果'
-  },
-  {
     title: '三维展示系统',
     image: img_3d,
     link: 'http://cme.leonhan.com:9995/#/home',
     desc: '该案例为CME平台3D示例项目，项目实现了风场、风粒子动画、台风三维体、三维云等3D效果'
+  },
+  {
+    title: '中国气象局短临预报业务平台(SWAN3.0)',
+    image: img_dlyb,
+    link: 'http://10.1.64.146/swan3/#/WeatherMonitoring',
+    desc: '即将焕新'
   },
   {
     title: '虚位以待',

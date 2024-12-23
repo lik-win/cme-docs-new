@@ -76,6 +76,11 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  to.meta.from = from.path;
+  next();
+});
+
 router.afterEach(() => {
   const pageEl = document.querySelector('.cme-layout');
   if (!pageEl) return;

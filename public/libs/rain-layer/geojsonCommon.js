@@ -2,7 +2,7 @@ const { Vector: VectorSource } = window.CME2D.source
 const { Vector: VectorLayer } = window.CME2D.layer
 const { Fill, Stroke, Style, Text } = window.CME2D.style
 const { GeoJSON } = window.CME2D.format
-export function addGeojsonLayer(map, featuresARR, colorCollection) {
+function addGeojsonLayer(map, featuresARR, colorCollection) {
   const resdata = {
     type: 'FeatureCollection',
     features: featuresARR,
