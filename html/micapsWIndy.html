@@ -66,8 +66,8 @@
       let map = null
       let vectorLayer = null
       let buttons = [
-        { label: '开始编辑', value: 'start', disabled: false },
-        { label: '停止编辑', value: 'end', disabled: true },
+        { label: '开始编辑', value: 'start' },
+        { label: '停止编辑', value: 'end'},
       ]
 
       let Texticons = []
@@ -220,26 +220,26 @@
       }
       const setButtonDisable = (buttonsName, bool) => {
         if (bool == false) {
-          for (let i = 0; i < buttons.value.length; i++) {
-            buttons.value[i].disabled = false
+          for (let i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = false
           }
-          for (let m = 0; m < buttons.value.length; m++) {
-            // buttons.value[i].disabled=false;
+          for (let m = 0; m < buttons.length; m++) {
+            // buttons[i].disabled=false;
             for (let n = 0; n < buttonsName.length; n++) {
-              if (buttons.value[m].value == buttonsName[n]) {
-                buttons.value[m].disabled = !bool
+              if (buttons[m].value == buttonsName[n]) {
+                buttons[m].disabled = !bool
               }
             }
           }
         } else {
-          for (let i = 0; i < buttons.value.length; i++) {
-            buttons.value[i].disabled = true
+          for (let i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true
           }
-          for (let m = 0; m < buttons.value.length; m++) {
-            // buttons.value[i].disabled=false;
+          for (let m = 0; m < buttons.length; m++) {
+            // buttons[i].disabled=false;
             for (let n = 0; n < buttonsName.length; n++) {
-              if (buttons.value[m].value == buttonsName[n]) {
-                buttons.value[m].disabled = !bool
+              if (buttons[m].value == buttonsName[n]) {
+                buttons[m].disabled = !bool
               }
             }
           }

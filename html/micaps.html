@@ -158,17 +158,48 @@
       }
       const addMicapsImage = () => {
         let windyData = [
-          'SYMBOLSS_36',
-          'SYMBOLS_101',
-          'SYMBOLS_103',
-          'SYMBOLS_35',
-          'SYMBOLS_33',
-          'SYMBOLS_102',
-          'SYMBOLS_39',
-          'SYMBOLS_41',
-          'SYMBOLS_43',
-          'SYMBOLS_34',
-          'SYMBOLS_40',
+          'LINESYMBOLS_1218',
+          'LINESYMBOLS_1219',
+          'LINESYMBOLS_1102',
+          'LINESYMBOLS_0',
+          'LINESYMBOLS_1110',
+          'LINES_38',
+          'LINES_39',
+          'LINES_31',
+          'LINES_21',
+          'LINESYMBOLS_1111',
+          'LINESYMBOLS_1113',
+          'LINESYMBOLS_1112',
+          'LINESYMBOLS_1115',
+          'LINESYMBOLS_1114',
+          'LINESYMBOLS_1116',
+          'FILLAREA_1101_1_0',
+          
+          'REGION_8',
+          'REGION_32',
+          'REGION',
+          
+          'REGION_1',
+          'REGION_2',
+          'REGION_3',
+          
+          'REGION_4',
+          'REGION_16',
+          'NOTES_481',
+          
+          'NOTES_NEW',
+          'NOTES_MERGE',
+          'NOTES_STNRY',
+          
+
+          'NOTES_ABSORB',
+          'NOTES_481',
+          'NOTES_WKN',
+          'NOTES_DSIPT',
+          'NOTES_48',
+          'REGION_8',
+          'REGION_8',
+          'REGION_8',
         ]
         let fontMicapsStyle = interactionsClass.convertIconFont()
         let glyph = fontMicapsStyle.glyphs
@@ -176,11 +207,16 @@
         for (let font in fonts) {
           for (let i in glyph) {
             if (glyph[i].font == fonts[font]) {
-              Texticons.push({
+
+              if (windyData.indexOf(glyph[i].search) < 0) {
+                Texticons.push({
                 class: 'iconfont ' + i,
                 title: glyph[i].name,
                 text: i,
               })
+              
+              }
+        
             }
           }
         }

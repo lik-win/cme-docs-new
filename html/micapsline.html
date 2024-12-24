@@ -66,8 +66,8 @@
       let map = null
       let vectorLayer = null
       let buttons = [
-        { label: '开始编辑', value: 'start', disabled: false },
-        { label: '停止编辑', value: 'end', disabled: true },
+        { label: '开始编辑', value: 'start' },
+        { label: '停止编辑', value: 'end'},
       ]
 
       let Texticons = []
@@ -158,17 +158,23 @@
       }
       const addMicapsImage = () => {
         let windyData = [
-          'SYMBOLSS_36',
-          'SYMBOLS_101',
-          'SYMBOLS_103',
-          'SYMBOLS_35',
-          'SYMBOLS_33',
-          'SYMBOLS_102',
-          'SYMBOLS_39',
-          'SYMBOLS_41',
-          'SYMBOLS_43',
-          'SYMBOLS_34',
-          'SYMBOLS_40',
+          'LINESYMBOLS_1218',
+          'LINESYMBOLS_1219',
+          'LINESYMBOLS_1102',
+          'LINESYMBOLS_0',
+          'LINESYMBOLS_1110',
+          'LINES_38',
+          'LINES_39',
+          'LINES_31',
+          'LINES_21',
+          'LINESYMBOLS_1111',
+          'LINESYMBOLS_1113',
+          'LINESYMBOLS_1112',
+          'LINESYMBOLS_1115',
+          'LINESYMBOLS_1114',
+          'LINESYMBOLS_1116',
+          
+
         ]
         let fontMicapsStyle = interactionsClass.convertIconFont()
         let glyph = fontMicapsStyle.glyphs
@@ -177,11 +183,20 @@
           for (let i in glyph) {
             if (glyph[i].font == fonts[font]) {
               if ('LINES' == glyph[i].search.split('_')[0] || 'LINESYMBOLS' == glyph[i].search.split('_')[0]) {
+
+                  if (windyData.indexOf(glyph[i].search) < 0) {
+                    console.log("glyph[i].name", glyph[i].name)
               Texticons.push({
                 class: 'iconfont ' + i,
                 title: glyph[i].name,
                 text: i,
               })
+                    }
+                // LINESYMBOLS_1218
+                // LINESYMBOLS_1218
+           
+
+
             }
 
             }
@@ -208,26 +223,26 @@
       }
       const setButtonDisable = (buttonsName, bool) => {
         if (bool == false) {
-          for (let i = 0; i < buttons.value.length; i++) {
-            buttons.value[i].disabled = false
+          for (let i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = false
           }
-          for (let m = 0; m < buttons.value.length; m++) {
-            // buttons.value[i].disabled=false;
+          for (let m = 0; m < buttons.length; m++) {
+            // buttons[i].disabled=false;
             for (let n = 0; n < buttonsName.length; n++) {
-              if (buttons.value[m].value == buttonsName[n]) {
-                buttons.value[m].disabled = !bool
+              if (buttons[m].value == buttonsName[n]) {
+                buttons[m].disabled = !bool
               }
             }
           }
         } else {
-          for (let i = 0; i < buttons.value.length; i++) {
-            buttons.value[i].disabled = true
+          for (let i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true
           }
-          for (let m = 0; m < buttons.value.length; m++) {
-            // buttons.value[i].disabled=false;
+          for (let m = 0; m < buttons.length; m++) {
+            // buttons[i].disabled=false;
             for (let n = 0; n < buttonsName.length; n++) {
-              if (buttons.value[m].value == buttonsName[n]) {
-                buttons.value[m].disabled = !bool
+              if (buttons[m].value == buttonsName[n]) {
+                buttons[m].disabled = !bool
               }
             }
           }
